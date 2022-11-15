@@ -1,0 +1,147 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+}
+
+android {
+    namespace 'com.wellnest.one'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.wellnest.one"
+        minSdk 21
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        dataBinding true
+    }
+
+    lint {
+        abortOnError false
+    }
+
+    flavorDimensions 'mode'
+
+    productFlavors {
+        dev {
+            buildConfigField("String", "HOST", "\"https://dev.wellnest.tech/api/\"")
+            buildConfigField("String", "apiKey", "\"a\"")
+            buildConfigField("String", "apiPassword", "\"b\"")
+            buildConfigField("String", "azureHOST", "\"https://wellnestdev.blob.core.windows.net/\"")
+            buildConfigField("boolean", "isDev", "true")
+            buildConfigField("String", "azureHOST", "\"https://wellnestdev.blob.core.windows.net/\"")
+            dimension 'mode'
+        }
+
+        production {
+            buildConfigField("String", "HOST", "\"https://api.wellnest.tech/api/\"")
+            buildConfigField("String", "apiKey", "\"KaUVvzZB8KxZkqHG\"")
+            buildConfigField("String", "apiPassword", "\"ksT7pT9GbGEqSude7aUP97L99U7d6NWWd8BKHpnQ\"")
+            buildConfigField("String", "azureHOST", "\"https://wellnestprodstorage.blob.core.windows.net/\"")
+            buildConfigField("boolean", "isDev", "false")
+            buildConfigField("String", "azureHOST", "\"https://wellnestprodstorage.blob.core.windows.net/\"")
+            dimension 'mode'
+
+        }
+    }
+
+    hilt {
+        enableAggregatingTask = true
+    }
+}
+
+dependencies {
+
+
+    def retrofit_version = '2.9.0'
+    def lifecycle_version = "2.6.0-alpha03"
+    def toggle_switch_version = '2.0.1'
+    def android_wheel_version = '1.1.3'
+
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    // networking
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.10.0"))
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation("com.squareup.okhttp3:logging-interceptor")
+
+    implementation 'com.github.fornewid:neumorphism:0.3.0'
+
+    implementation 'com.mikhaellopez:circularimageview:4.3.1'
+
+    implementation "com.github.myinnos:AlphabetIndex-Fast-Scroll-RecyclerView:1.0.95"
+
+    implementation 'com.github.bumptech.glide:glide:4.14.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+    implementation "com.airbnb.android:lottie:3.7.0"
+
+    implementation 'com.github.DmitryMalkovich:circular-with-floating-action-button:v1.6'
+
+    // dependency injection
+    implementation 'com.google.dagger:hilt-android:2.42'
+    kapt 'com.google.dagger:hilt-compiler:2.42'
+
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version")
+    // LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata:$lifecycle_version")
+    implementation("androidx.fragment:fragment-ktx:1.5.4")
+
+
+
+    implementation 'com.github.blongho:worldCountryData:1.5.4-alpha-1'
+
+    //custom toggle switch
+    implementation "com.llollox:androidtoggleswitch:$toggle_switch_version"
+
+    //wheel spinner for android
+    implementation "cn.aigestudio.wheelpicker:WheelPicker:$android_wheel_version"
+
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+
+
+    implementation 'com.microsoft.azure:azure-mobile-android:3.4.0@aar'
+    implementation 'com.microsoft.azure.android:azure-storage-android:2.0.0@aar'
+
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.1.0'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.2'
+
+}
+
+kapt {
+    correctErrorTypes = true
+}

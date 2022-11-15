@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1069677253310",
+    "project_id": "wellnest-one-prod",
+    "storage_bucket": "wellnest-one-prod.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1069677253310:android:8bb4b1c0e9dd7d85edc4ef",
+        "android_client_info": {
+          "package_name": "com.rc.wellnestone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1069677253310-loq0g51eaq6ssein29pm9v70729fca5m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxL_jFvaZ1KLoK7VaW1y_cTigqNhoNOS0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1069677253310-loq0g51eaq6ssein29pm9v70729fca5m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1069677253310:android:6948949d61d5e6baedc4ef",
+        "android_client_info": {
+          "package_name": "com.wellnest.one"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1069677253310-loq0g51eaq6ssein29pm9v70729fca5m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxL_jFvaZ1KLoK7VaW1y_cTigqNhoNOS0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1069677253310-loq0g51eaq6ssein29pm9v70729fca5m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

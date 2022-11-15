@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "488670133817",
+    "project_id": "wellest-one-dev",
+    "storage_bucket": "wellest-one-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488670133817:android:fbf333c6ba83c215b9d7e8",
+        "android_client_info": {
+          "package_name": "com.rc.wellnestone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "488670133817-das5ck1gufq1f8srqhrq5erh6dhqt2er.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP_fL1eXYUEQFnEwe6NjdhDy_0UBfvRdg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "488670133817-das5ck1gufq1f8srqhrq5erh6dhqt2er.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "488670133817-5gdrsg2mb2k27ecvpn5i5d3udja0d1ab.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wellnest.one"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488670133817:android:fdbfb1000c190af5b9d7e8",
+        "android_client_info": {
+          "package_name": "com.wellnest.one"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "488670133817-das5ck1gufq1f8srqhrq5erh6dhqt2er.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP_fL1eXYUEQFnEwe6NjdhDy_0UBfvRdg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "488670133817-das5ck1gufq1f8srqhrq5erh6dhqt2er.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "488670133817-5gdrsg2mb2k27ecvpn5i5d3udja0d1ab.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wellnest.one"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

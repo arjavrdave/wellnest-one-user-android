@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/helvetica_bold"
+            android:text="Edit Bio"
+            android:textColor="#111111"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imgBack" />
+
+        <TextView
+            android:id="@+id/tvSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/helvetica_bold"
+            android:padding="4dp"
+            android:text="Save"
+            android:textColor="#00B97F"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView8" />
+
+        <LinearLayout
+            android:id="@+id/llHeight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@+id/tvSave"
+            app:layout_constraintStart_toStartOf="@+id/imgBack"
+            app:layout_constraintTop_toBottomOf="@+id/textView8">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/helvetica"
+                    android:text="Height"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    app:layout_constraintBottom_toBottomOf="@+id/lblHeight"
+                    app:layout_constraintEnd_toStartOf="@+id/tgHeight"
+                    app:layout_constraintStart_toEndOf="@+id/lblHeight"
+                    app:layout_constraintTop_toTopOf="@+id/lblHeight">
+
+                    <TextView
+                        android:id="@+id/tvFeet"
+                        style="@style/FormTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:text="5'"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tvInch"
+                        style="@style/FormTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:text="6&quot;"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <com.llollox.androidtoggleswitch.widgets.ToggleSwitch
+                    android:id="@+id/tgHeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/font_size_16"
+                    app:borderRadius="5dp"
+                    app:checkedBackgroundColor="@color/black"
+                    app:checkedTextColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/llHeight"
+                    app:layout_constraintEnd_toEndOf="@+id/hrDivider5"
+                    app:layout_constraintTop_toTopOf="@+id/llHeight"
+                    app:textToggleLeft="@string/feet"
+                    app:textToggleRight="@string/cms"
+                    app:toggleHeight="40dp"
+                    app:toggleWidth="50dp"
+                    app:uncheckedBackgroundColor="#EEEEEE"
+                    app:uncheckedTextColor="#333333" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/heightPicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:weightSum="2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/llHeight">
+
+                <com.aigestudio.wheelpicker.WheelPicker
+                    android:id="@+id/spnrFeet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:wheel_curtain="true"
+                    app:wheel_curved="true"
+                    app:wheel_cyclic="false"
+                    app:wheel_indicator="true"
+                    app:wheel_indicator_color="@color/black"
+                    app:wheel_selected_item_text_color="@color/black"
+                    app:wheel_visible_item_count="5" />
+
+                <com.aigestudio.wheelpicker.WheelPicker
+                    android:id="@+id/spnrInch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:wheel_curtain="true"
+                    app:wheel_curved="true"
+                    app:wheel_cyclic="false"
+                    app:wheel_indicator="true"
+                    app:wheel_indicator_color="@color/black"
+                    app:wheel_selected_item_text_color="@color/black"
+                    app:wheel_visible_item_count="5" />
+
+                <com.aigestudio.wheelpicker.WheelPicker
+                    android:id="@+id/spnrCms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:visibility="gone"
+                    app:wheel_curtain="true"
+                    app:wheel_curved="true"
+                    app:wheel_cyclic="false"
+                    app:wheel_indicator="true"
+                    app:wheel_indicator_color="@color/black"
+                    app:wheel_selected_item_text_color="@color/black"
+                    app:wheel_visible_item_count="5" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider6"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/gray_btn"
+            app:layout_constraintEnd_toEndOf="@id/llHeight"
+            app:layout_constraintStart_toStartOf="@+id/llHeight"
+            app:layout_constraintTop_toBottomOf="@+id/llHeight" />
+
+
+        <LinearLayout
+            android:id="@+id/llWeight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/divider6"
+            app:layout_constraintStart_toStartOf="@+id/divider6"
+            app:layout_constraintTop_toBottomOf="@id/divider6">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/helvetica"
+                    android:text="Weight"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    app:layout_constraintBottom_toBottomOf="@+id/lblWeight"
+                    app:layout_constraintEnd_toStartOf="@+id/tgWeight"
+                    app:layout_constraintStart_toEndOf="@+id/lblWeight"
+                    app:layout_constraintTop_toTopOf="@+id/lblWeight">
+
+                    <TextView
+                        android:id="@+id/tvKilo"
+                        style="@style/FormTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:text="55"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tvGrams"
+                        style="@style/FormTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:text=".5"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <com.llollox.androidtoggleswitch.widgets.ToggleSwitch
+                    android:id="@+id/tgWeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/font_size_16"
+                    app:borderRadius="5dp"
+                    app:checkedBackgroundColor="@color/black"
+                    app:checkedTextColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/lblWeight"
+                    app:layout_constraintTop_toTopOf="@+id/lblWeight"
+                    app:textToggleLeft="@string/kg_label"
+                    app:textToggleRight="@string/lbs_label"
+                    app:toggleHeight="40dp"
+                    app:toggleWidth="50dp"
+                    app:uncheckedBackgroundColor="#EEEEEE"
+                    app:uncheckedTextColor="#333333" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/weightPicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:weightSum="2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/llWeight">
+
+                <com.aigestudio.wheelpicker.WheelPicker
+                    android:id="@+id/spnrKilos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:wheel_curtain="true"
+                    app:wheel_curved="true"
+                    app:wheel_cyclic="false"
+                    app:wheel_indicator="true"
+                    app:wheel_indicator_color="@color/black"
+                    app:wheel_selected_item_text_color="@color/black"
+                    app:wheel_visible_item_count="5" />
+
+                <com.aigestudio.wheelpicker.WheelPicker
+                    android:id="@+id/spnrGrams"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:wheel_curtain="true"
+                    app:wheel_curved="true"
+                    app:wheel_cyclic="false"
+                    app:wheel_indicator="true"
+                    app:wheel_indicator_color="@color/black"
+                    app:wheel_selected_item_text_color="@color/black"
+                    app:wheel_visible_item_count="5" />
+
+                <com.aigestudio.wheelpicker.WheelPicker
+                    android:id="@+id/spnrPounds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:visibility="gone"
+                    app:wheel_curtain="true"
+                    app:wheel_curved="true"
+                    app:wheel_cyclic="false"
+                    app:wheel_indicator="true"
+                    app:wheel_indicator_color="@color/black"
+                    app:wheel_selected_item_text_color="@color/black"
+                    app:wheel_visible_item_count="5" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider7"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/gray_btn"
+            app:layout_constraintEnd_toEndOf="@id/llWeight"
+            app:layout_constraintStart_toStartOf="@+id/llWeight"
+            app:layout_constraintTop_toBottomOf="@+id/llWeight" />
+
+        <LinearLayout
+            android:id="@+id/llSmoking"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/llWeight"
+            app:layout_constraintStart_toStartOf="@+id/llWeight"
+            app:layout_constraintTop_toBottomOf="@+id/divider7">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/helvetica"
+                android:text="@string/degree_of_smoking"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <com.flyco.tablayout.CommonTabLayout
+                android:id="@+id/smokingTab"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.6"
+                app:tl_indicator_bounce_enable="false"
+                app:tl_indicator_color="@color/black"
+                app:tl_indicator_style="BLOCK"
+                app:tl_textSelectColor="@color/white"
+                app:tl_textUnselectColor="@color/black" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider8"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/gray_btn"
+            app:layout_constraintEnd_toEndOf="@id/llSmoking"
+            app:layout_constraintStart_toStartOf="@+id/llSmoking"
+            app:layout_constraintTop_toBottomOf="@+id/llSmoking" />
+
+        <LinearLayout
+            android:id="@+id/llTobacco"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/divider8"
+            app:layout_constraintStart_toStartOf="@+id/divider8"
+            app:layout_constraintTop_toBottomOf="@+id/divider8">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/helvetica"
+                android:text="@string/degree_of_tobacco"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <com.flyco.tablayout.CommonTabLayout
+                android:id="@+id/tobaccoTab"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.6"
+                app:tl_indicator_bounce_enable="false"
+                app:tl_indicator_color="@color/black"
+                app:tl_indicator_style="BLOCK"
+                app:tl_textSelectColor="@color/white"
+                app:tl_textUnselectColor="@color/black" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider10"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/gray_btn"
+            app:layout_constraintEnd_toEndOf="@id/llTobacco"
+            app:layout_constraintStart_toStartOf="@+id/llTobacco"
+            app:layout_constraintTop_toBottomOf="@+id/llTobacco" />
+
+        <LinearLayout
+            android:id="@+id/llExercise"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/divider10"
+            app:layout_constraintStart_toStartOf="@+id/divider10"
+            app:layout_constraintTop_toBottomOf="@+id/divider10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/helvetica"
+                android:text="@string/level_of_exercise"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <com.flyco.tablayout.CommonTabLayout
+                android:id="@+id/exerciseTab"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.6"
+                app:tl_indicator_bounce_enable="false"
+                app:tl_indicator_color="@color/black"
+                app:tl_indicator_style="BLOCK"
+                app:tl_textSelectColor="@color/white"
+                app:tl_textUnselectColor="@color/black" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

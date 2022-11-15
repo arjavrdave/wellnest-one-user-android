@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">Wellnest One</string>
+    <string name="get_in_touch"><u>Get in Touch</u></string>
+    <string name="by_continuing_you_agree_to_terms_of_services">By continuing you agree to <u>terms of services</u></string>
+    <string name="next">Next</string>
+    <string name="current_location">Current Location</string>
+    <string name="search">Search</string>
+    <string name="select_country">Select Country</string>
+    <string name="otp_sent_msg">We have sent one time verification code to your registered mobile number</string>
+    <string name="enter_first_name">Enter First Name</string>
+    <string name="lastname_ast">Last Name*</string>
+    <string name="enter_last_name">Enter Last Name</string>
+    <string name="birthdate_ast">Birthdate*</string>
+    <string name="select_bday">Select Birthdate</string>
+    <string name="email_address_ast">Email Address</string>
+    <string name="enter_email_address">Enter Email Address</string>
+    <string name="sex_ast">Sex*</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="other">Other</string>
+    <string name="feet">Ft</string>
+    <string name="cms">Cm</string>
+    <string name="kg_label">Kg</string>
+    <string name="lbs_label">Lbs</string>
+    <string name="new_recording">New Recording</string>
+    <string name="search_recording">Search Recordings</string>
+    <string name="click_here_to_record_ecg">Click here to record ECG</string>
+    <string name="degree_of_smoking">Degree Of Smoking</string>
+    <string name="degree_of_tobacco">Degree of Tobacco</string>
+    <string name="level_of_exercise">Level of Exercise</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="select_from_gallery">Select From Gallery</string>
+    <string name="cancel">Cancel</string>
+
+    <string-array name="months">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+
+</resources>
