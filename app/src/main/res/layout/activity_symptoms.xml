@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".activities.recording.SymptomsActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_back"
+                app:layout_constraintBottom_toBottomOf="@+id/tvHeader"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvHeader"
+                app:tint="@color/black" />
+
+            <TextView
+                android:id="@+id/tvHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center_vertical"
+                android:text="Symptoms"
+                android:textColor="#111111"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TableRow
+                android:id="@+id/hr"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#DDDDDD"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvHeader" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnProceed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolBar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="20dp" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="20dp" />
+
+
+                <TextView
+                    android:id="@+id/tvLets"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/helvetica_bold"
+                    android:gravity="center_vertical"
+                    android:text="@string/let_s_get_started"
+                    android:textColor="#00BF7F"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvHint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/helvetica"
+                    android:text="@string/please_tell_us_about_symptoms_that_your_are_feeling_check_all_that_apply"
+                    android:textColor="#666666"
+                    app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tvLets"
+                    app:layout_constraintWidth_default="wrap" />
+
+                <TextView
+                    android:id="@+id/tvRoutine"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/helvetica"
+                    android:text="@string/routine_check_up"
+                    android:textColor="@color/title_color"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/checkboxRoutine"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHint"
+                    app:layout_constraintWidth_default="wrap" />
+
+                <CheckBox
+                    android:id="@+id/checkboxRoutine"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvRoutine"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                    app:layout_constraintTop_toTopOf="@+id/tvRoutine" />
+
+                <TextView
+                    android:id="@+id/tvAssesment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:buttonTint="@color/black"
+                    android:fontFamily="@font/helvetica"
+                    android:text="@string/pre_opreative_assessment"
+                    android:textColor="@color/title_color"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/checkboxAssesment"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tvRoutine"
+                    app:layout_constraintWidth_default="wrap" />
+
+                <CheckBox
+                    android:id="@+id/checkboxAssesment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvAssesment"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                    app:layout_constraintTop_toTopOf="@+id/tvAssesment" />
+
+
+                <TextView
+                    android:id="@+id/tvInsureance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:buttonTint="@color/black"
+                    android:fontFamily="@font/helvetica"
+                    android:text="@string/pre_life_insurance"
+                    android:textColor="@color/title_color"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/checkboxInsureance"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tvAssesment"
+                    app:layout_constraintWidth_default="wrap" />
+
+                <CheckBox
+                    android:id="@+id/checkboxInsureance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvInsureance"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                    app:layout_constraintTop_toTopOf="@+id/tvInsureance" />
+
+                <TextView
+                    android:id="@+id/tvMediclaim"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/helvetica"
+                    android:text="@string/pre_mediclaim"
+                    android:textColor="@color/title_color"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/checkboxMediclaim"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tvInsureance"
+                    app:layout_constraintWidth_default="wrap" />
+
+                <CheckBox
+                    android:id="@+id/checkboxMediclaim"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvMediclaim"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                    app:layout_constraintTop_toTopOf="@+id/tvMediclaim" />
+
+                <TextView
+                    android:id="@+id/tvEmployment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/helvetica"
+                    android:text="@string/pre_employment"
+                    android:textColor="@color/title_color"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/checkboxEmployment"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tvMediclaim"
+                    app:layout_constraintWidth_default="wrap" />
+
+                <CheckBox
+                    android:id="@+id/checkboxEmployment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvEmployment"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                    app:layout_constraintTop_toTopOf="@+id/tvEmployment" />
+
+                <TextView
+                    android:id="@+id/tvSymptomatic"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/helvetica"
+                    android:text="@string/symptomatic"
+                    android:textColor="@color/title_color"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/checkboxSymptomatic"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tvEmployment"
+                    app:layout_constraintWidth_default="wrap" />
+
+                <CheckBox
+                    android:id="@+id/checkboxSymptomatic"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvSymptomatic"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                    app:layout_constraintTop_toTopOf="@+id/tvSymptomatic" />
+
+                <TextView
+                    android:id="@+id/tvChest"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/helvetica"
+                    android:text="@string/chest_pain"
+                    android:textColor="@color/title_color"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/checkboxChest"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tvSymptomatic"
+                    app:layout_constraintWidth_default="wrap" />
+
+                <CheckBox
+                    android:id="@+id/checkboxChest"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvChest"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                    app:layout_constraintTop_toTopOf="@+id/tvChest" />
+
+                <TextView
+                    android:id="@+id/tvUneasiness"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/helvetica"
+                    android:text="@string/uneasiness"
+                    android:textColor="@color/title_color"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/checkboxUneasiness"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tvChest"
+                    app:layout_constraintWidth_default="wrap" />
+
+                <CheckBox
+                    android:id="@+id/checkboxUneasiness"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvUneasiness"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                    app:layout_constraintTop_toTopOf="@+id/tvUneasiness" />
+
+                <TextView
+                    android:id="@+id/tvJaw"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/helvetica"
+                    android:text="@string/jaw_pain"
+                    android:textColor="@color/title_color"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/checkboxJaw"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tvUneasiness"
+                    app:layout_constraintWidth_default="wrap" />
+
+                <CheckBox
+                    android:id="@+id/checkboxJaw"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvJaw"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                    app:layout_constraintTop_toTopOf="@+id/tvJaw" />
+
+                <TextView
+                    android:id="@+id/tvUpper"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/helvetica"
+                    android:text="@string/upper_back_pain"
+                    android:textColor="@color/title_color"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/checkboxUpper"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tvJaw"
+                    app:layout_constraintWidth_default="wrap" />
+
+                <CheckBox
+                    android:id="@+id/checkboxUpper"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvUpper"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                    app:layout_constraintTop_toTopOf="@+id/tvUpper" />
+
+                <TextView
+                    android:id="@+id/tvPalpitation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/helvetica"
+                    android:text="@string/palpitation"
+                    android:textColor="@color/title_color"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/checkboxPalpitation"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tvUpper"
+                    app:layout_constraintWidth_default="wrap" />
+
+                <CheckBox
+                    android:id="@+id/checkboxPalpitation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvPalpitation"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                    app:layout_constraintTop_toTopOf="@+id/tvPalpitation" />
+
+                <TextView
+                    android:id="@+id/tvVomiting"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/helvetica"
+                    android:text="@string/vomiting"
+                    android:textColor="@color/title_color"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/checkboxVomiting"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPalpitation"
+                    app:layout_constraintWidth_default="wrap" />
+
+                <CheckBox
+                    android:id="@+id/checkboxVomiting"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvVomiting"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                    app:layout_constraintTop_toTopOf="@+id/tvVomiting" />
+
+                <TextView
+                    android:id="@+id/tvUnexplained"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/helvetica"
+                    android:text="@string/unexplained_perspiration"
+                    android:textColor="@color/title_color"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/checkboxUnexplained"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tvVomiting"
+                    app:layout_constraintWidth_default="wrap" />
+
+                <CheckBox
+                    android:id="@+id/checkboxUnexplained"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvUnexplained"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                    app:layout_constraintTop_toTopOf="@+id/tvUnexplained" />
+
+                <TextView
+                    android:id="@+id/tvBreathless"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/helvetica"
+                    android:text="@string/breathlessness"
+                    android:textColor="@color/title_color"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/checkboxBreathless"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tvUnexplained"
+                    app:layout_constraintWidth_default="wrap" />
+
+                <CheckBox
+                    android:id="@+id/checkboxBreathless"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvBreathless"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                    app:layout_constraintTop_toTopOf="@+id/tvBreathless" />
+
+                <TextView
+                    android:id="@+id/tvExertion"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/helvetica"
+                    android:text="@string/on_exertion_while_resting_both"
+                    android:textColor="@color/title_color"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/checkboxExertion"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tvBreathless"
+                    app:layout_constraintWidth_default="wrap" />
+
+                <CheckBox
+                    android:id="@+id/checkboxExertion"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvExertion"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                    app:layout_constraintTop_toTopOf="@+id/tvExertion" />
+
+                <CheckBox
+                    android:id="@+id/checkboxOther"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvOthers"
+                    app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                    app:layout_constraintTop_toTopOf="@+id/tvOthers" />
+
+                <TextView
+                    android:id="@+id/tvOthers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Others"
+                    android:textColor="#111111"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tvExertion" />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:minHeight="100dp"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:textColor="@color/black"
+                    android:background="@drawable/edt_symptoms_others"
+                    app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+                    app:layout_constraintStart_toStartOf="@id/tvOthers"
+                    app:layout_constraintTop_toBottomOf="@id/tvOthers" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/btnProceed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/green_btn"
+            android:fontFamily="@font/helvetica_bold"
+            android:text="Proceed"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

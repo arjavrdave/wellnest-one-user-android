@@ -137,9 +137,9 @@ class MedicalHistoryActivity : BaseActivity(), View.OnClickListener {
             profileViewModel.updateMedicalHistory(userId ,request)
         } else {
             val profile = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.extras?.getParcelable("profile", UserProfileRequest::class.java)
+                intent.extras?.getParcelable("profile")
             } else {
-                intent.getParcelableExtra("profile")
+                intent.getParcelableExtra<UserProfileRequest>("profile")
             }
 
 

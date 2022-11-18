@@ -707,6 +707,29 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
             poundsToGrams(pounds)
         }
 
+        val smoking = when(binding.smokingTab.currentTab) {
+            0 -> "Never"
+            1 -> "Low"
+            2 -> "Med"
+            3 -> "High"
+            else -> "Never"
+        }
+
+        val tobacco = when(binding.tobaccoTab.currentTab) {
+            0 -> "Never"
+            1 -> "Low"
+            2 -> "Med"
+            3 -> "High"
+            else -> "Never"
+        }
+
+        val exercise = when(binding.exerciseTab.currentTab) {
+            0 -> "Low"
+            1 -> "Med"
+            2 -> "High"
+            else -> "Low"
+        }
+
         val from = intent.getStringExtra("fromActivity")
 
 
@@ -735,7 +758,10 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
                 ),
                 user?.phoneNumber,
                 weight.toInt(),
-                mWeightUnit.toString()
+                mWeightUnit.toString(),
+                smoking,
+                tobacco,
+                exercise
             )
             profileViewModel.addProfile(updated)
         } else {
@@ -751,7 +777,10 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
                 null,
                 null,
                 weight.toInt(),
-                mWeightUnit.toString()
+                mWeightUnit.toString(),
+                smoking,
+                tobacco,
+                exercise
             )
             val medicalIntent = Intent(this, MedicalHistoryActivity::class.java)
             medicalIntent.putExtra("profile", user)

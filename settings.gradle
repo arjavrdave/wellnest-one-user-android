@@ -16,3 +16,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Wellnest One"
 include ':app'
+include ':wellnestmodulea'
+include ':realtimechart'

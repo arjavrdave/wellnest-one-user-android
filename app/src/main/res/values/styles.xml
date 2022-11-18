@@ -9,6 +9,17 @@
         <item name="hintTextColor">#DDDDDD</item>
     </style>
 
+    <style name="SuccessDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="windowFixedWidthMajor">90%</item>
+        <item name="windowFixedWidthMinor">90%</item>
+    </style>
+
+    <style name="AppTheme.FullScreenDialog" parent="Theme.MaterialComponents.Dialog">
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+        <item name="cornerRadius">10dp</item>
+    </style>
 
     <dimen name="font_size_18">18sp</dimen>
+
 </resources>

@@ -1,22 +1,34 @@
 package com.wellnest.one.ui
 
 import android.app.Activity
+import android.bluetooth.BluetoothGattCharacteristic
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Build
+import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.rc.wellnestmodule.interfaces.*
+import com.rc.wellnestmodule.utils.WellNestUtilFactory
 import com.wellnest.one.R
+import com.wellnest.one.data.local.user_pref.PreferenceManager
 import com.wellnest.one.utils.Util
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 /**
  * Created by Hussain on 07/11/22.
@@ -26,9 +38,29 @@ const val RC_IMAGE_GALLERY = 1806
 const val RC_PERM_EXT = 1807
 const val RC_TAKE_PHOTO = 1808
 
-open class BaseActivity : PermissionHelperActivity() {
+@AndroidEntryPoint
+open class BaseActivity : PermissionHelperActivity(), IWellnestGraph, IWellNestData, ISendMessageToEcgDevice, IWellnestUsbData {
 
     private lateinit var photoFile : File
+
+    lateinit var wellNestUtil: IWellNestUtil
+
+
+    @Inject
+    lateinit var sharedPreferenceManager: PreferenceManager
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        wellNestUtil = WellNestUtilFactory.getWellNestUtil()
+        wellNestUtil.startBleService(this,this, this, this,this)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        wellNestUtil.onResume()
+    }
 
     fun selectProfileImage() {
         val optionItems = arrayOf(
@@ -113,6 +145,56 @@ open class BaseActivity : PermissionHelperActivity() {
     }
 
     protected open fun pickedImage(bitmap : Bitmap) {
+    }
+
+    fun isConnectedToInternet(mContext: Context?): Boolean {
+        if (mContext == null) return false
+
+        val connectivityManager =
+            mContext.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+        if (connectivityManager != null) {
+            val network = connectivityManager.activeNetwork
+            if (network != null) {
+                val nc = connectivityManager.getNetworkCapabilities(network)
+                return nc!!.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || nc.hasTransport(
+                    NetworkCapabilities.TRANSPORT_WIFI
+                )
+            }
+        }
+        return false
+    }
+
+    open fun deviceDisconnected() {
+        sharedPreferenceManager.clearBluetoothDevice()
+    }
+
+    override fun sendMessage(characteristic: BluetoothGattCharacteristic, i: Int) {
+
+    }
+
+    override fun onDeviceConnected() {
+    }
+
+    override fun onDeviceDisconnected() {
+        deviceDisconnected()
+    }
+
+    override fun onRecordingCompleted(graphList: ArrayList<ArrayList<Double>>) {
+    }
+
+    override fun setGraphView(view: View) {
+    }
+
+    override fun setBatteryStatus(batteryLevel: String) {
+    }
+
+    override fun plotGraphPoint(list: ArrayList<ArrayList<Double>>) {
+    }
+
+    override fun setDidUsb(id: String) {
+    }
+
+    override fun addRawData(data: ByteArray) {
     }
 
 

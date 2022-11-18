@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/graphL1"
+            layout="@layout/item_graph_module"/>
+
+        <include
+            android:id="@+id/graphL2"
+            layout="@layout/item_graph_module"/>
+
+        <include
+            android:id="@+id/graphL3"
+            layout="@layout/item_graph_module"/>
+
+        <include
+            android:id="@+id/Avr"
+            layout="@layout/item_graph_module"/>
+
+        <include
+            android:id="@+id/Avl"
+            layout="@layout/item_graph_module"/>
+
+        <include
+            android:id="@+id/Avf"
+            layout="@layout/item_graph_module"/>
+
+        <include
+            android:id="@+id/V1"
+            layout="@layout/item_graph_module"/>
+
+        <include
+            android:id="@+id/V2"
+            layout="@layout/item_graph_module"/>
+
+        <include
+            android:id="@+id/V3"
+            layout="@layout/item_graph_module"/>
+
+        <include
+            android:id="@+id/V4"
+            layout="@layout/item_graph_module"/>
+
+        <include
+            android:id="@+id/V5"
+            layout="@layout/item_graph_module"/>
+
+        <include
+            android:id="@+id/V6"
+            layout="@layout/item_graph_module"/>
+
+
+    </LinearLayout>
+</layout>

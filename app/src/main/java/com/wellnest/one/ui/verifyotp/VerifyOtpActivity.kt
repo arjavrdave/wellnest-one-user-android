@@ -44,7 +44,7 @@ class VerifyOtpActivity : BaseActivity(), TextWatcher {
     private var fcmToken : String? = null
 
     @Inject
-    lateinit var sharedPreferenceManager : PreferenceManager
+    lateinit var preferenceManager: PreferenceManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -110,7 +110,7 @@ class VerifyOtpActivity : BaseActivity(), TextWatcher {
         viewModel.otpSuccess.observe(this) {
             ProgressHelper.dismissDialog()
             it?.let { token ->
-                sharedPreferenceManager.saveToken(token)
+                preferenceManager.saveToken(token)
                 val redirectIntent : Intent = if (token.isNewUser == true) {
                     // create new profile
                     Intent(this,CreateEditProfileActivity::class.java)

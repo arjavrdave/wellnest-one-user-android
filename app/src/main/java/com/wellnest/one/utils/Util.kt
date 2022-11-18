@@ -166,4 +166,22 @@ object Util {
         return sdf.format(date)
     }
 
+
+    fun testDataTime(createdAt: Date): String? {
+        val date = SimpleDateFormat("dd MMM, yyyy")
+        return date.format(createdAt)
+    }
+
+    fun currentTestDate(): String {
+        val dateFormat = SimpleDateFormat("MMM dd, yyyy | hh:mm:ss")
+        val strDate = dateFormat.format(Date())
+        return strDate
+    }
+
+    fun currentTestDateAmPm(): String {
+        val dateFormat = SimpleDateFormat("MMM dd, yyyy | hh:mm a")
+        val strDate = dateFormat.format(Date())
+        return strDate.replace("am", "AM").replace("pm", "PM")
+    }
+
 }

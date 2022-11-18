@@ -31,6 +31,11 @@
     <string name="take_photo">Take Photo</string>
     <string name="select_from_gallery">Select From Gallery</string>
     <string name="cancel">Cancel</string>
+    <string name="Press_hold"><![CDATA[Press & hold power button until\nyou see blinking lights on Wellnest 12L\u00AE]]></string>
+    <string name="pair_a_device">Pair a Device</string>
+    <string name="select_wellnest">Select Wellnest 12L\u00AE\nfrom the list to connect</string>
+    <string name="privatekey_error">You need to connect to internet at-least once before taking recording</string>
+    <string name="pair">Pair</string>
 
     <string-array name="months">
         <item>January</item>
@@ -46,5 +51,43 @@
         <item>November</item>
         <item>December</item>
     </string-array>
+
+    <string name="let_s_get_started">Let’s get started...</string>
+    <string name="please_tell_us_about_symptoms_that_your_are_feeling_check_all_that_apply">Please tell us about symptoms that your are feeling. Check all that apply.</string>
+
+    <string name="routine_check_up">Routine Check-up</string>
+    <string name="pre_opreative_assessment">Pre-operative Assessment</string>
+    <string name="pre_life_insurance">Pre-life Insurance</string>
+    <string name="pre_mediclaim">Pre-Mediclaim</string>
+    <string name="pre_employment">Pre-employment</string>
+    <string name="symptomatic">Symptomatic</string>
+    <string name="chest_pain">Chest Pain</string>
+    <string name="uneasiness">Uneasiness</string>
+    <string name="jaw_pain">Jaw Pain</string>
+    <string name="upper_back_pain">Upper Back Pain</string>
+    <string name="palpitation">Palpitation</string>
+    <string name="vomiting">Vomiting</string>
+    <string name="unexplained_perspiration">Unexplained Perspiration</string>
+    <string name="breathlessness">Breathlessness</string>
+    <string name="on_exertion_while_resting_both">On Exertion/while Resting/both</string>
+    <string name="record_ecg">Record ECG</string>
+    <string name="reffered_by">Referred By</string>
+    <string name="link_patient">Link Patient</string>
+    <string name="gender_age">Gender | Age</string>
+    <string name="test_date">Date</string>
+    <string name="indication">Indication</string>
+    <string name="heart_rate">Heart Rate</string>
+    <string name="no_indication">No Indication</string>
+    <string name="discard_ecg">This ECG will not be saved and you will not be able to retrieve it in the future. In order to refer to the ECG later, please link patient profile.</string>
+    <string name="re_record">RE-RECORD</string>
+    <string name="yes">YES</string>
+    <string name="no">No</string>
+    <string name="rec_record_ecg_message">Do you want to get patient’s ECG re-recorded?</string>
+    <string name="add_member">Add Member</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="enter_age">Enter Age</string>
+    <string name="share">Share</string>
+    <string name="get_ecg_analysis">Get ECG Analysis</string>
+
 
 </resources>

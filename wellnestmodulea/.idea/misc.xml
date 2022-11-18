@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.4235897435897436" />
+        <entry key="../../../.gradle/caches/transforms-3/1373ff557578ea4a017179f5f5b0edb4/transformed/appcompat-1.4.0/res/layout/support_simple_spinner_dropdown_item.xml" value="0.3380208333333333" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_add_patient.xml" value="0.67" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_choose_doctor.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_country_code.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_device_number.xml" value="0.3489583333333333" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_e_c_g_feedback.xml" value="0.3125" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_e_c_g_feedback_preview.xml" value="0.33" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_e_c_g_recording_feedback.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_edit_profile.xml" value="0.5" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_edit_technician.xml" value="0.67" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_forgot_org_identifier.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_get_in_touch.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_landing.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_medical_history.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_notification.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_org_identifier_help.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_org_login_in.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_org_registration.xml" value="0.3125" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_organisation_details.xml" value="0.3125" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_otp_verification.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_partner_doctor.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_patient_details.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_patient_feedback.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_patient_medical_history.xml" value="0.3125" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_patient_new_recording.xml" value="0.3489583333333333" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_post_registration.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_pre_usb_recording.xml" value="0.2800925925925926" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_profile.xml" value="0.2800925925925926" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_record_e_c_g_graph.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_record_e_c_g_graph_technician.xml" value="0.3125" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_record_ecg.xml" value="0.2800925925925926" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_recording.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_terms_of_service.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_tutorials.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_usb_recording.xml" value="0.37577639751552794" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/activity_wellcome.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/fragment_dialog_ecg_setup_options.xml" value="0.2800925925925926" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/fragment_dialog_select_recording_type.xml" value="0.2800925925925926" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/fragment_notification.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/fragment_recordings.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/fragment_settings.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/fragment_terms_and_privacy.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/item_ecg_live_graph.xml" value="0.67" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/item_notification.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/item_recording.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/layout_info_thermal.xml" value="0.25" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/layout_patient_otp.xml" value="0.2777777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/layout_pdf.xml" value="0.33" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/layout/layout_pdf_thermal.xml" value="0.3489583333333333" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/app/src/main/res/xml/accessory_filter.xml" value="0.2752502274795268" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/wellnestmodulea/src/main/res/drawable/ic_back.xml" value="0.1796875" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/wellnestmodulea/src/main/res/layout/item_graph_module.xml" value="0.2800925925925926" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/Wellnest%20Pro%20Android/wellnestmodulea/src/main/res/layout/layout_graph.xml" value="0.2800925925925926" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/app/src/main/res/drawable-v24/bkg_countryedttext_state.xml" value="0.3402777777777778" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/app/src/main/res/layout/activity_add_patient.xml" value="0.3263888888888889" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/app/src/main/res/layout/activity_country_code.xml" value="0.3263888888888889" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/app/src/main/res/layout/activity_forgot_org_identifier.xml" value="0.3263888888888889" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/app/src/main/res/layout/activity_print.xml" value="0.31756756756756754" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/app/src/main/res/layout/activity_print_offline.xml" value="0.31756756756756754" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/app/src/main/res/layout/activity_printer_options.xml" value="0.275390625" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/app/src/main/res/layout/activity_printer_options_offline.xml" value="0.31756756756756754" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/app/src/main/res/layout/activity_record_ecg.xml" value="0.4895833333333333" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/app/src/main/res/layout/item_graph.xml" value="0.705" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/app/src/main/res/layout/item_thermal_print.xml" value="0.6" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/app/src/main/res/layout/item_thermal_printer.xml" value="0.275390625" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/app/src/main/res/layout/layout_info_thermal.xml" value="0.5" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/app/src/main/res/layout/layout_pdf.xml" value="0.275390625" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/app/src/main/res/layout/layout_pdf2.xml" value="0.275390625" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/app/src/main/res/layout/layout_pdf_thermal.xml" value="0.5" />
+        <entry key="..\:/Users/Admin/Desktop/Wellnest12L/Wellnest Pro Android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.34074074074074073" />
+        <entry key="..\:/Users/Hussain/StudioProjects/wellnest-12l-android/app/src/main/res/layout/activity_e_c_g_recording_feedback.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Hussain/StudioProjects/wellnest-12l-android/app/src/main/res/layout/activity_patient_details.xml" value="1.0" />
+        <entry key="..\:/Users/Hussain/StudioProjects/wellnest-12l-android/app/src/main/res/layout/activity_patient_feedback.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Hussain/StudioProjects/wellnest-12l-android/app/src/main/res/layout/activity_patient_new_recording.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/desai/AndroidStudioProjects/wellnest-12l-android/app/src/main/res/layout/activity_live_recording.xml" value="0.2111111111111111" />
+        <entry key="..\:/Users/desai/AndroidStudioProjects/wellnest-12l-android/app/src/main/res/layout/activity_patient_feedback.xml" value="0.264" />
+        <entry key="..\:/Users/desai/AndroidStudioProjects/wellnest-12l-android/app/src/main/res/layout/activity_record_e_c_g_graph.xml" value="0.2111111111111111" />
+        <entry key="..\:/Users/desai/AndroidStudioProjects/wellnest-12l-android/app/src/main/res/layout/activity_record_e_c_g_graph_technician.xml" value="0.2111111111111111" />
+        <entry key="app/src/main/res/drawable-anydpi-v24/ic_notification_image.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/button_corner_bkg.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/device_connected__bkg.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/device_disconnected__bkg.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/dob_top_corner_bkg.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/edt_bkg.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/gray_corner_bkg.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/gray_side_corner_bkg.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/ic_baseline_arrow_forward_32.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/ic_baseline_notifications_32.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/ic_baseline_warning_24.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/ic_featured_play_list_black_24dp.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/ic_folder_shared_black_24dp.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/ic_help_outline_black_24dp.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/ic_lock_black_24dp.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/ic_more_horiz_black_24dp.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/ic_notification_image.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/ic_print_black_24dp.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/ic_refresh_black_24dp.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/ic_settings_black_24dp.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/ic_tabicon_recordings.xml" value="0.225" />
+        <entry key="app/src/main/res/drawable/spinner_bg.xml" value="0.3175" />
+        <entry key="app/src/main/res/drawable/wellnest_12l_appicon.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/white_profile_redstroke_bkg.xml" value="0.225" />
+        <entry key="app/src/main/res/layout-land/layout_pdf_thermal_l2.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_add_doctor.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/activity_add_invite_doctor.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/activity_add_patient.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/activity_choose_doctor.xml" value="0.256701030927835" />
+        <entry key="app/src/main/res/layout/activity_e_c_g_feedback.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_e_c_g_feedback_preview.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/activity_e_c_g_recording_feedback.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/activity_forgot_org_identifier.xml" value="0.38333333333333336" />
+        <entry key="app/src/main/res/layout/activity_get_in_touch.xml" value="0.3890625" />
+        <entry key="app/src/main/res/layout/activity_graph.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/activity_live_recording.xml" value="0.1382193802262666" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/activity_medical_history.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/activity_new_recording_patient_search.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/activity_notification.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/activity_org_registration.xml" value="0.3890625" />
+        <entry key="app/src/main/res/layout/activity_organisation_details.xml" value="0.3830769230769231" />
+        <entry key="app/src/main/res/layout/activity_otp_verification.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/activity_pair_device.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/activity_patient_details.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/activity_patient_feedback.xml" value="0.21197916666666666" />
+        <entry key="app/src/main/res/layout/activity_patient_new_recording.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/activity_post_registration.xml" value="0.3890625" />
+        <entry key="app/src/main/res/layout/activity_pre_usb_recording.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/activity_print.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/activity_record_e_c_g_graph.xml" value="0.33282051282051284" />
+        <entry key="app/src/main/res/layout/activity_record_e_c_g_graph_technician.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/activity_record_ecg.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/activity_recording.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/activity_tutorials.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_wellcome.xml" value="0.3890625" />
+        <entry key="app/src/main/res/layout/dialog_share_ecg_feedback.xml" value="0.21822916666666667" />
+        <entry key="app/src/main/res/layout/dialog_thermal_printer.xml" value="0.3458333333333333" />
+        <entry key="app/src/main/res/layout/fragment_dialog_printer_options.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_recordings.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.19947916666666668" />
+        <entry key="app/src/main/res/layout/item_ecg_live_graph.xml" value="0.21822916666666667" />
+        <entry key="app/src/main/res/layout/item_graph.xml" value="0.21822916666666667" />
+        <entry key="app/src/main/res/layout/item_thermal_print.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/layout_add_patient.xml" value="0.3380208333333333" />
+        <entry key="app/src/main/res/layout/layout_info_thermal.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/layout_pdf.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/layout_pdf_thermal.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/layout_pdf_thermal_l2.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/layout_sheet_dob.xml" value="0.21770833333333334" />
+        <entry key="app/src/main/res/layout/line_graphs.xml" value="0.21822916666666667" />
+        <entry key="app/src/main/res/menu/menu_list.xml" value="0.21822916666666667" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.225" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2245" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_wellnest.xml" value="0.2375" />
+        <entry key="wellnestmodulea/src/main/res/layout/activity_device_connection.xml" value="0.14" />
+        <entry key="wellnestmodulea/src/main/res/layout/item_graph_module.xml" value="0.25" />
+        <entry key="wellnestmodulea/src/main/res/layout/layout_graph.xml" value="0.3380208333333333" />
+      </map>
+    </option>
+  </component>
+  <component name="EntryPointsManager">
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="retrofit2.http.GET" />
+    </list>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

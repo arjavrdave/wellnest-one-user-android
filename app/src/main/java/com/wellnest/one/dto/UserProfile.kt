@@ -40,4 +40,16 @@ data class UserProfile(
             ""
         }
     }
+
+    fun getFullName(): String {
+        return if (firstName != null && lastName != null) {
+            "$firstName $lastName"
+        } else if (firstName != null) {
+            "$firstName"
+        } else if (lastName != null) {
+            "$lastName"
+        } else {
+            ""
+        }
+    }
 }

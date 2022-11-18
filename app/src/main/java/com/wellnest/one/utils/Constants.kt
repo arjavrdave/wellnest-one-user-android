@@ -5,6 +5,7 @@ package com.wellnest.one.utils
  */
 object Constants {
 
+    const val isLinked = "isLinked"
     const val SPLASH_ANIMATION_DURATION: Long = 1800
     const val fromXValue: Float = -1500f
     const val toXValue: Float = 800f
@@ -25,6 +26,10 @@ object Constants {
 
     // feet to meters
     const val METER_FACTOR = 3.28
+
+    val recording_dur_10sec = "10sec"
+    val recording_dur_cont = "continuos"
+    val recording_option = "recording_option"
 
 
 }

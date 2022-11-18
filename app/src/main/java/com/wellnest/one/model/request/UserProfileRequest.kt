@@ -30,5 +30,11 @@ data class UserProfileRequest(
     @SerializedName("weight")
     val weight: Int?,
     @SerializedName("weightUnit")
-    val weightUnit: String?
+    val weightUnit: String?,
+    @SerializedName("smoking")
+    val smoking: String,
+    @SerializedName("tobaccoUse")
+    val tobaccoUse: String,
+    @SerializedName("exerciseLevel")
+    val exerciseLevel: String
 ) : Parcelable

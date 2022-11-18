@@ -23,5 +23,12 @@
     <color name="gray_btn">#DDDDDD</color>
     <color name="green_btn">#00BF7F</color>
     <color name="button_shadow">#CCCCCC</color>
+    <color name="normal_text">#666666</color>
+    <color name="activity_bkg">#EEEEEE</color>
+    <color name="red">#E15757</color>
+    <color name="condition_color">#EBA03B</color>
+    <color name="half">#CDDC39</color>
+    <color name="green">#00BD7F</color>
+    <color name="subtitle_color">#999999</color>
 
 </resources>

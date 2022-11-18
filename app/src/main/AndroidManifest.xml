@@ -5,6 +5,15 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"
+        tools:remove="android:maxSdkVersion"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"
+        tools:remove="android:maxSdkVersion"/>
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_SCAN"
+        tools:targetApi="s" />
 
     <application
         android:name=".WellnestOneApplication"
@@ -46,6 +55,19 @@
         <activity android:name=".ui.profile.MedicalHistoryActivity"/>
         <activity android:name=".ui.profile.UserProfileActivity"/>
         <activity android:name=".ui.profile.EditBioActivity"/>
+        <activity android:name=".ui.recording.pair.PairDeviceActivity"/>
+
+        <activity android:name=".ui.recording.pair.SymptomsActivity"/>
+
+        <activity android:name=".ui.recording.capture.RecordingEcgActivity"/>
+
+        <activity android:name=".ui.recording.calibration.EcgCalibrationActivity"/>
+
+        <activity android:name=".ui.recording.capture.BluetoothLiveEcgActivity"/>
+
+        <activity android:name=".ui.recording.link.LinkRecordingActivity"/>
+
+        <activity android:name=".ui.profile.ChooseMemberActivity"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

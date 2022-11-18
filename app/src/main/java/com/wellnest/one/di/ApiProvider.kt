@@ -1,10 +1,8 @@
 package com.wellnest.one.di
 
-import com.wellnest.one.data.remote.AccountRepository
-import com.wellnest.one.data.remote.AccountRepositoryImpl
-import com.wellnest.one.data.remote.ProfileRepository
-import com.wellnest.one.data.remote.ProfileRepositoryImpl
+import com.wellnest.one.data.remote.*
 import com.wellnest.one.network.api.IAccountApi
+import com.wellnest.one.network.api.IDeviceApi
 import com.wellnest.one.network.api.IProfileApi
 import dagger.Module
 import dagger.Provides
@@ -42,5 +40,17 @@ object ApiProvider {
     @Singleton
     fun provideProfileApi(iProfileApi: IProfileApi) : ProfileRepository {
         return ProfileRepositoryImpl(iProfileApi)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeviceInterface(retrofit: Retrofit) : IDeviceApi {
+        return retrofit.create(IDeviceApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeviceApi(iDeviceApi: IDeviceApi) : DeviceRepository {
+        return DeviceRepositoryImpl(iDeviceApi)
     }
 }
