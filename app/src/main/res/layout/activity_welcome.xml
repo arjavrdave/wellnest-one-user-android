@@ -21,17 +21,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="32dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
-            android:fontFamily="@font/helvetica_bold"
-            android:text="Wellnest"
+            android:src="@drawable/one_logo"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#9F9F9F" />
 
         <TextView
             android:id="@+id/tvGetInTouch"
@@ -41,8 +41,9 @@
             android:fontFamily="@font/helvetica_bold"
             android:text="@string/get_in_touch"
             android:textSize="14sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/textView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView2" />
 
         <soup.neumorphism.NeumorphButton
             android:id="@+id/btnLogin"

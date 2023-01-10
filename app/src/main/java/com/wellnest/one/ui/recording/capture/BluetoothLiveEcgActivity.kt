@@ -19,10 +19,7 @@ import com.wellnest.one.databinding.ActivityLiveRecordingBinding
 import com.wellnest.realtimechart.chart.chart.*
 import com.wellnest.one.ui.BaseActivity
 import com.wellnest.one.ui.recording.link.LinkRecordingActivity
-import com.wellnest.one.utils.Constants
-import com.wellnest.one.utils.DialogHelper
-import com.wellnest.one.utils.ProgressHelper
-import com.wellnest.one.utils.Util
+import com.wellnest.one.utils.*
 import com.wellnest.realtimechart.chart.data.Spec
 import com.wellnest.realtimechart.chart.util.EcgBackgroundDrawable
 import dagger.hilt.android.AndroidEntryPoint
@@ -246,7 +243,6 @@ class BluetoothLiveEcgActivity : BaseActivity(), ISendMessageToEcgDevice, IWelln
             }
             R.id.imgStop -> {
                 stopDownTimer()
-                stopUpTimer()
                 dataHandler.running = false
                 stopAllGraphs()
                 thread.join()
@@ -309,11 +305,11 @@ class BluetoothLiveEcgActivity : BaseActivity(), ISendMessageToEcgDevice, IWelln
         if (!endSession) {
 
             stopDownTimer()
-            stopUpTimer()
             dataHandler.running = false
             thread.join()
             thread.interrupt()
             stopAllGraphs()
+            RecordingGraphHelper.getInstance().chartData = graphList
 
 
             if (isRecording) {
@@ -347,6 +343,7 @@ class BluetoothLiveEcgActivity : BaseActivity(), ISendMessageToEcgDevice, IWelln
             }
 
             override fun onFinish() {
+                binding.tvTimer.text = "00:00"
                 wellNestUtil.stopBluetoothLiveRecording(true)
             }
         }
@@ -356,16 +353,6 @@ class BluetoothLiveEcgActivity : BaseActivity(), ISendMessageToEcgDevice, IWelln
     fun stopDownTimer() {
         if (cTimer != null)
             cTimer!!.cancel()
-    }
-
-    //start Up timer function
-    fun startUpTimer() {
-        startTime = SystemClock.uptimeMillis()
-        handler.postDelayed(updateTimerThread, 0)
-    }
-
-    fun stopUpTimer() {
-        handler.removeCallbacks(updateTimerThread)
     }
 
     private val updateTimerThread: Runnable = object : Runnable {
@@ -406,7 +393,6 @@ class BluetoothLiveEcgActivity : BaseActivity(), ISendMessageToEcgDevice, IWelln
                 this
             ) { _, _ ->
                 stopDownTimer()
-                stopUpTimer()
                 endSession = true
                 wellNestUtil.stopBluetoothLiveRecording(false)
                 dataHandler.running = false

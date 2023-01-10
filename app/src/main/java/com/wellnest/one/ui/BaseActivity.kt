@@ -8,18 +8,24 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.text.TextUtils
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.messaging.FirebaseMessaging
 import com.rc.wellnestmodule.interfaces.*
+import com.rc.wellnestmodule.utils.RecordBytesFactory
 import com.rc.wellnestmodule.utils.WellNestUtilFactory
+import com.wellnest.one.BuildConfig
 import com.wellnest.one.R
 import com.wellnest.one.data.local.user_pref.PreferenceManager
 import com.wellnest.one.utils.Util
@@ -35,7 +41,6 @@ import kotlin.collections.ArrayList
  */
 
 const val RC_IMAGE_GALLERY = 1806
-const val RC_PERM_EXT = 1807
 const val RC_TAKE_PHOTO = 1808
 
 @AndroidEntryPoint
@@ -45,6 +50,9 @@ open class BaseActivity : PermissionHelperActivity(), IWellnestGraph, IWellNestD
 
     lateinit var wellNestUtil: IWellNestUtil
 
+    val recordsByteHandler by lazy {
+        RecordBytesFactory().getRecordBytes()
+    }
 
     @Inject
     lateinit var sharedPreferenceManager: PreferenceManager
@@ -55,6 +63,20 @@ open class BaseActivity : PermissionHelperActivity(), IWellnestGraph, IWellNestD
         wellNestUtil = WellNestUtilFactory.getWellNestUtil()
         wellNestUtil.startBleService(this,this, this, this,this)
 
+
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    if (task.result != null && !TextUtils.isEmpty(task.result)) {
+                        val token: String = task.result!!
+
+
+                        //Here you will surely get the token so store it in
+                        //sharedpreference for future use
+                        sharedPreferenceManager.saveFcmToken(token)
+                    }
+                }
+            }
     }
 
     override fun onResume() {
@@ -75,7 +97,7 @@ open class BaseActivity : PermissionHelperActivity(), IWellnestGraph, IWellNestD
                 when (which) {
                     0 -> {
                         // take photo from camera
-                        takePhoto()
+                        checkCameraPermission()
                         dialog.dismiss()
                     }
                     1 -> {
@@ -113,7 +135,11 @@ open class BaseActivity : PermissionHelperActivity(), IWellnestGraph, IWellNestD
 
         photoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
 
-        startActivityForResult(photoIntent, RC_TAKE_PHOTO)
+        if (photoIntent.resolveActivity(packageManager) != null) {
+            startActivityForResult(photoIntent, RC_TAKE_PHOTO)
+        } else {
+            Toast.makeText(this,"No Apps Found",Toast.LENGTH_SHORT).show()
+        }
 
     }
 
@@ -147,6 +173,11 @@ open class BaseActivity : PermissionHelperActivity(), IWellnestGraph, IWellNestD
     protected open fun pickedImage(bitmap : Bitmap) {
     }
 
+    override fun cameraPermissionGranted(granted: Boolean) {
+        if (granted) {
+            takePhoto()
+        }
+    }
     fun isConnectedToInternet(mContext: Context?): Boolean {
         if (mContext == null) return false
 
@@ -197,5 +228,20 @@ open class BaseActivity : PermissionHelperActivity(), IWellnestGraph, IWellNestD
     override fun addRawData(data: ByteArray) {
     }
 
+    fun sharePdf(file : Uri) {
+        val sharingIntent = Intent(Intent.ACTION_SEND)
+        sharingIntent.type = "application/pdf"
+        sharingIntent.putExtra(
+            Intent.EXTRA_STREAM,
+            file
+        )
+
+        if (sharingIntent.resolveActivity(packageManager) != null) {
+            val chooser = Intent.createChooser(sharingIntent,"Share Pdf")
+            startActivity(chooser)
+        } else {
+            Toast.makeText(this,"Unable to share pdf",Toast.LENGTH_SHORT).show()
+        }
+    }
 
 }

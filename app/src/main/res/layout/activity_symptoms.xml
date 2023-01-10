@@ -96,7 +96,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/let_s_get_started"
                     android:textColor="#00BF7F"
-                    android:textSize="20sp"
+                    android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
                     app:layout_constraintStart_toStartOf="@+id/guidelineStart"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -107,6 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="20dp"
+                    android:lineSpacingExtra="4sp"
                     android:fontFamily="@font/helvetica"
                     android:text="@string/please_tell_us_about_symptoms_that_your_are_feeling_check_all_that_apply"
                     android:textColor="#666666"
@@ -500,11 +501,15 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvExertion" />
 
                 <EditText
+                    android:id="@+id/edOther"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:minHeight="100dp"
                     android:visibility="gone"
+                    android:gravity="top"
+                    tools:text="hello"
+                    android:padding="6dp"
                     tools:visibility="visible"
                     android:textColor="@color/black"
                     android:background="@drawable/edt_symptoms_others"

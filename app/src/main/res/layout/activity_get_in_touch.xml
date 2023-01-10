@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/activity_gray_bkg">
+
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="20dp" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintGuide_end="20dp" />
+
+                <ImageView
+                    android:id="@+id/tvWellNest"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    app:tint="#9F9F9F"
+                    android:layout_marginTop="24dp"
+                    android:src="@drawable/one_logo"
+                    app:layout_constraintBottom_toTopOf="@+id/tvWelCome"
+                    app:layout_constraintStart_toStartOf="@id/guideline"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imgClose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/actionBarItemBackground"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvWellNest"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                    app:layout_constraintTop_toTopOf="@+id/tvWellNest"
+                    app:srcCompat="@drawable/ic_close" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvWelCome"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="40dp"
+                    android:fontFamily="@font/helvetica_bold"
+                    android:text="@string/get_in_touch"
+                    android:textColor="@color/title_color"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/tvWellNest" />
+
+
+                <LinearLayout
+                    android:id="@+id/llName"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/white_profile_corner_bkg"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@id/guideline2"
+                    app:layout_constraintStart_toStartOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/tvWelCome">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_weight="0.5"
+                        android:fontFamily="@font/helvetica"
+                        android:text="Full Name*"
+                        android:textColor="@color/title_color"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/edtName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:fontFamily="@font/helvetica"
+                        android:hint="Your Name"
+                        android:singleLine="true"
+                        android:inputType="textPersonName|textCapSentences|textCapWords"
+                        android:textColor="@color/title_color"
+                        android:textColorHint="@color/text_color"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llEmail"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/white_profile_corner_bkg"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/guideline2"
+                    app:layout_constraintStart_toStartOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/llName">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_weight="0.5"
+                        android:fontFamily="@font/helvetica"
+                        android:text="Email Address"
+                        android:textColor="@color/title_color"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/edtEmailName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:fontFamily="@font/helvetica"
+                        android:hint="Your Email"
+                        android:inputType="textEmailAddress"
+                        android:singleLine="true"
+                        android:textColor="@color/title_color"
+                        android:textColorHint="@color/text_color"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llPhone"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/white_profile_corner_bkg"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:textSize="12sp"
+                    android:weightSum="1"
+                    app:layout_constraintEnd_toEndOf="@id/guideline2"
+                    app:layout_constraintStart_toStartOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/llEmail">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/helvetica"
+                        android:text="Phone Number*"
+                        android:layout_weight="0.2"
+                        android:textColor="@color/title_color"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tvCountryCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/helvetica"
+                        android:text="+91"
+                        android:gravity="center"
+                        android:drawableStart="@drawable/ic_arrow_drop_down"
+                        android:layout_weight="0.0"
+                        android:textColor="@color/title_color"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/edtPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@null"
+                        android:fontFamily="@font/helvetica"
+                        android:hint="Your Number"
+                        android:inputType="phone"
+                        android:maxLength="13"
+                        android:singleLine="true"
+                        android:layout_weight="0.7"
+                        android:textColor="@color/title_color"
+                        android:textColorHint="@color/text_color"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llSubject"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/white_profile_corner_bkg"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@id/guideline2"
+                    app:layout_constraintStart_toStartOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/llPhone">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_weight="0.5"
+                        android:fontFamily="@font/helvetica"
+                        android:text="Subject*"
+                        android:textColor="@color/title_color"
+                        android:textSize="12sp" />
+
+                    <Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/black" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llNote"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/edt_corner_bkg"
+                    android:gravity="top"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@id/guideline2"
+                    app:layout_constraintStart_toStartOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/llSubject">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="0.5"
+                        android:fontFamily="@font/helvetica"
+                        android:text="Notes"
+                        android:textColor="@color/title_color"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/edtNote"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:fontFamily="@font/helvetica"
+                        android:inputType="textMultiLine"
+                        android:singleLine="false"
+                        android:textColor="@color/title_color"
+                        android:textColorHint="@color/text_color"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+
+                <soup.neumorphism.NeumorphButton
+                    android:id="@+id/btnSubmit"
+                    style="@style/Widget.Neumorph.Button"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="80dp"
+                    android:layout_marginEnd="9dp"
+                    android:layout_marginBottom="40dp"
+                    android:fontFamily="@font/helvetica_bold"
+                    android:text="Submit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/normal_text"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/llNote"
+                    app:layout_constraintVertical_bias="1" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

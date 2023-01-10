@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 import android.os.Parcelable
 import com.wellnest.one.dto.UserProfile
-import com.wellnest.one.model.request.MedicalHstory
 
 @Parcelize
 data class ProfileResponse(
@@ -42,16 +41,18 @@ data class ProfileResponse(
     @SerializedName("tobaccoUse")
     val tobaccoUse: String?,
     @SerializedName("weight")
-    val weight: Int?,
+    val weight: Double?,
     @SerializedName("weightUnit")
     val weightUnit: String?,
     @SerializedName("bmi")
     val bmi : Double,
     @SerializedName("dateOfBirth")
-    val dateOfBirth : String
+    val dateOfBirth : String?,
+    @SerializedName("profileId")
+    val profileId : String?
 ) : Parcelable
 
 fun ProfileResponse.toDto() : UserProfile {
-    return UserProfile(countryCode,email, exerciseLevel, firstName, gender, height, heightUnit, id, lastName, phoneNumber, smoking, tobaccoUse, weight, weightUnit, bmi, dateOfBirth)
+    return UserProfile(countryCode,email, exerciseLevel, firstName, gender, height, heightUnit, id, lastName, phoneNumber, smoking, tobaccoUse, weight, weightUnit, bmi, dateOfBirth,profileId ?: "")
 }
 

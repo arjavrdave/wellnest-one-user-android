@@ -3,6 +3,7 @@ package com.wellnest.one.ui.recording.pair
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ScrollView
 import androidx.databinding.DataBindingUtil
 import com.wellnest.one.R
 import com.wellnest.one.databinding.ActivitySymptomsBinding
@@ -13,7 +14,7 @@ import com.wellnest.one.ui.recording.capture.RecordingEcgActivity
 class SymptomsActivity : BaseActivity(), View.OnClickListener {
 
 
-    private lateinit var binding : ActivitySymptomsBinding
+    private lateinit var binding: ActivitySymptomsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +23,13 @@ class SymptomsActivity : BaseActivity(), View.OnClickListener {
 
         binding.btnProceed.setOnClickListener(this)
         binding.imgBack.setOnClickListener(this)
+        binding.checkboxOther.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                binding.edOther.visibility = View.VISIBLE
+            } else {
+                binding.edOther.visibility = View.GONE
+            }
+        }
     }
 
 
@@ -57,7 +65,7 @@ class SymptomsActivity : BaseActivity(), View.OnClickListener {
         )
 
         val recordingIntent = Intent(this, RecordingEcgActivity::class.java)
-        recordingIntent.putExtra("symptoms",symptoms)
+        recordingIntent.putExtra("symptoms", symptoms)
         startActivity(recordingIntent)
         finish()
 //        Amplitude.getInstance().logEvent("ECGDevice Connected (New Recording)")

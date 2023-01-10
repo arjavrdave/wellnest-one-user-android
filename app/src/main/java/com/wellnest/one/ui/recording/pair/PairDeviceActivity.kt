@@ -186,9 +186,8 @@ class PairDeviceActivity : BaseActivity(), View.OnClickListener {
     fun secondPage() {
         binding.viewPager.setCurrentItem(1)
         binding.imgBack.visibility = View.VISIBLE
-        binding.btnNext.visibility = View.GONE
+        binding.btnNext.visibility = View.INVISIBLE
         binding.tvHint.setText(getString(R.string.select_wellnest))
-        binding.btnNext.visibility = View.GONE
 
         binding.viewPager.adapter?.let {
             try {

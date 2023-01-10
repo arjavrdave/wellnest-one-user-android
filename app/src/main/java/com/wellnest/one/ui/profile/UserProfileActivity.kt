@@ -4,31 +4,28 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import com.airbnb.lottie.utils.Utils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.wellnest.one.BuildConfig
 import com.wellnest.one.R
 import com.wellnest.one.data.local.user_pref.PreferenceManager
 import com.wellnest.one.databinding.ActivityUserProfileBinding
 import com.wellnest.one.dto.UserProfile
 import com.wellnest.one.model.request.LogoutRequest
-import com.wellnest.one.model.response.ProfileResponse
 import com.wellnest.one.ui.BaseActivity
 import com.wellnest.one.ui.onboarding.WelcomeActivity
-import com.wellnest.one.utils.CalculatorUtil
-import com.wellnest.one.utils.Constants
+import com.wellnest.one.utils.*
 import com.wellnest.one.utils.Constants.GRAM_FACTOR
 import com.wellnest.one.utils.Constants.METER_FACTOR
-import com.wellnest.one.utils.ProgressHelper
-import com.wellnest.one.utils.Util
-import com.wellnest.one.utils.Util.isoToDobString
 import com.wellnest.one.utils.units.HeightUnit
 import com.wellnest.one.utils.units.WeightUnit
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -51,7 +48,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_user_profile)
 
-        binding.imgEditProfile.setOnClickListener(this)
+        binding.llEditProfile.setOnClickListener(this)
         binding.imgBack.setOnClickListener(this)
         binding.llMedicalHistory.setOnClickListener(this)
         binding.llRecommend.setOnClickListener(this)
@@ -96,33 +93,46 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
         }
 
         viewModel.readImageToken.observe(this) {
-            val id = preferenceManager.getUser()?.id ?: return@observe
+            val id = preferenceManager.getUser()?.profileId ?: return@observe
             viewModel.getProfileImage(id, Constants.PROFILE_IMAGES, it)
         }
 
         viewModel.userProfileImage.observe(this) {
-            binding.imgProfile.setImageBitmap(it)
+            it?.let { bmp ->
+                binding.imgProfile.setImageBitmap(bmp)
+            }
         }
     }
 
     private fun setupUI(profile: UserProfile) {
         binding.tvName.text = "${profile.firstName} ${profile.lastName}"
 
-        binding.tvPhone.text = "+${profile.countryCode} ${profile.phoneNumber}"
+        binding.tvPhone.text =
+            "+${profile.countryCode}.${profile.phoneNumber?.substring(IntRange(0, 4))}.${
+                profile.phoneNumber?.substring(
+                    IntRange(
+                        5,
+                        profile.phoneNumber?.length!! - 1
+                    )
+                )
+            }"
 
         binding.apply {
             if (profile.weightUnit == WeightUnit.KILO.toString() || profile.weightUnit == WeightUnit.Kg.toString())
                 weightLayout.tvValue.text = "${profile.weight!! / 1000.0} Kg"
             else
                 weightLayout.tvValue.text =
-                    "${CalculatorUtil.formattedGrams(gramsToPounds(profile.weight?.toDouble() ?: 0.0))} Pnd"
+                    "${CalculatorUtil.formattedPounds(gramsToPounds(profile.weight?.toDouble() ?: 0.0))} Lbs"
 
 
-            if (profile.heightUnit == HeightUnit.CMS.toString() || profile.heightUnit == HeightUnit.Cm.toString())
+            if (profile.heightUnit == HeightUnit.CMS.toString() || profile.heightUnit == HeightUnit.Cm.toString()) {
                 heightLayout.tvValue.text = "${profile.height} Cms"
-            else
-                heightLayout.tvValue.text =
-                    "${CalculatorUtil.formattedHeight(cmsToFeet(profile.height ?: 0.0))} Inches"
+            } else {
+                val inches = profile.height?.convertCmsToInch() ?: 0.0
+                val feet = (inches / 12).toInt()
+                val inch = (inches - (12 * feet)).roundValue().toInt()
+                heightLayout.tvValue.text = "$feet ft $inch in"
+            }
 
             binding.smokingLayout.tvValue.text = profile.smoking
             binding.tobaccoLayout.tvValue.text = profile.tobaccoUse
@@ -130,7 +140,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
             binding.bmiLayout.tvValue.text = profile.bmi.toString()
 
-            binding.tvAgeGender.text = "${profile.getAge()} Years | ${profile.gender}"
+            binding.tvAgeGender.text = "${profile.getAge()} Years | ${profile.gender?.capitalize(Locale.getDefault())}"
 
         }
     }
@@ -158,17 +168,38 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun setupLayout() {
+        binding.heightLayout.tvHeader.gravity = View.TEXT_ALIGNMENT_TEXT_START
+        binding.heightLayout.tvValue.gravity = View.TEXT_ALIGNMENT_TEXT_START
+
+        binding.smokingLayout.tvHeader.gravity = View.TEXT_ALIGNMENT_TEXT_START
+        binding.smokingLayout.tvValue.gravity = View.TEXT_ALIGNMENT_TEXT_START
+
+        binding.weightLayout.tvHeader.gravity = ViewGroup.TEXT_ALIGNMENT_CENTER
+        binding.weightLayout.tvValue.gravity = View.TEXT_ALIGNMENT_CENTER
+
+        binding.tobaccoLayout.tvHeader.gravity = ViewGroup.TEXT_ALIGNMENT_CENTER
+        binding.tobaccoLayout.tvValue.gravity = View.TEXT_ALIGNMENT_CENTER
+
+        binding.bmiLayout.tvHeader.gravity = ViewGroup.TEXT_ALIGNMENT_TEXT_END
+        binding.bmiLayout.tvValue.gravity = View.TEXT_ALIGNMENT_TEXT_END
+
+        binding.exerciseLayout.tvHeader.gravity = ViewGroup.TEXT_ALIGNMENT_TEXT_END
+        binding.exerciseLayout.tvValue.gravity = View.TEXT_ALIGNMENT_TEXT_END
+
         binding.weightLayout.tvHeader.text = "Weight"
         binding.bmiLayout.tvHeader.text = "BMI"
         binding.exerciseLayout.tvHeader.text = "Exercise"
         binding.tobaccoLayout.tvHeader.text = "Tobacco"
         binding.smokingLayout.tvHeader.text = "Smoking"
+
+        binding.tvVersion.text =
+            "Wellnest One v${packageManager.getPackageInfo(packageName, 0).versionName}"
     }
 
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.imgBack -> finish()
-            R.id.imgEditProfile -> {
+            R.id.llEditProfile -> {
                 val profileIntent = Intent(this, CreateEditProfileActivity::class.java)
                 profileIntent.putExtra("fromActivity", UserProfileActivity::class.java.simpleName)
                 startActivity(profileIntent)
@@ -178,7 +209,22 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
                 medicalIntent.putExtra("fromActivity", UserProfileActivity::class.java.simpleName)
                 startActivity(medicalIntent)
             }
-            R.id.llRecommend -> {}
+            R.id.llRecommend -> {
+
+                val recommendText =
+                    "Hello, I recommend Wellnest 12L machine for quick, easy and accurate heart check-up.  Get the device here https://www.wellnest.tech/shop and download the app here https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}"
+
+                val recommendIntent = Intent(Intent.ACTION_SEND)
+                recommendIntent.type = "text/plain"
+                recommendIntent.putExtra(Intent.EXTRA_TEXT, recommendText)
+
+                if (recommendIntent.resolveActivity(packageManager) != null) {
+                    val chooser = Intent.createChooser(recommendIntent, "Recommend a Friend")
+                    startActivity(chooser)
+                } else {
+                    Toast.makeText(this, "No Apps Founds", Toast.LENGTH_SHORT).show()
+                }
+            }
             R.id.llLogout -> {
                 MaterialAlertDialogBuilder(this).setTitle("Logout")
                     .setMessage("Are you sure you want to logout?")

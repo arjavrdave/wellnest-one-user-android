@@ -9,17 +9,18 @@
         android:layout_gravity="center"
         android:textAlignment="center">
 
-        <TextView
+        <ImageView
             android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/helvetica_bold"
-            android:text="Wellnest"
+            android:src="@drawable/one_logo"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#9F9F9F" />
 
         <ImageView
             android:id="@+id/imgClose"
@@ -47,12 +48,13 @@
             android:id="@+id/textView6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/helvetica"
-            android:text="Hello, together we are futurifying healthcare. Let’s get you started."
+            android:lineSpacingExtra="6sp"
+            android:text="Hello, together we are futurifying healthcare.\nLet’s get you started."
             android:textAlignment="viewStart"
             android:textColor="#999999"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/imgClose"
             app:layout_constraintStart_toStartOf="@+id/textView5"
             app:layout_constraintTop_toBottomOf="@+id/textView5"
@@ -62,10 +64,9 @@
             android:id="@+id/tvCountryCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
             android:layout_marginTop="120dp"
             android:drawableStart="@drawable/ic_arrow_drop_down"
-            android:drawablePadding="0dp"
+            android:drawablePadding="-2dp"
             android:fontFamily="@font/helvetica_bold"
             android:text="+91"
             android:textColor="#111111"
@@ -97,6 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/helvetica"
+            android:padding="4dp"
             android:text="@string/by_continuing_you_agree_to_terms_of_services"
             android:textColor="#999999"
             android:textSize="16sp"

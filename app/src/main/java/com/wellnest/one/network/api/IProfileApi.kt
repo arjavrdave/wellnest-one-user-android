@@ -34,10 +34,10 @@ interface IProfileApi {
     @GET("Patient/Medicalhistory")
     suspend fun getMedicalHistory() : Response<MedicalHistoryResponse>
 
-    @GET("Storage/GetUploadTokenForUser")
+    @GET("Storage/GetUploadTokenForOneUser")
     suspend fun getUploadTokenForUser() : Response<SasToken>
 
-    @GET("Storage/GetReadTokenForUser")
+    @GET("Storage/GetReadTokenForOneUser")
     suspend fun getReadTokenForUser() : Response<SasToken>
 
     @POST("Account/LogoutForUser")

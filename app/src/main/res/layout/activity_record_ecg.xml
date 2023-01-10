@@ -76,15 +76,110 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/imgRecord"
+<!--        <ImageView-->
+<!--            android:id="@+id/imgRecord"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/image_electrode_guide"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/toolBar"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/btnRecording"/>-->
+
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="40dp"
+            android:overScrollMode="never"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/tvDesc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolBar" />
+
+
+        <TextView
+            android:id="@+id/tvDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/image_electrode_guide"
+            android:fontFamily="@font/helvetica"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="#111111"
+            android:lineSpacingExtra="4sp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@id/relativeLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolBar"
-            app:layout_constraintBottom_toTopOf="@+id/btnRecording"/>
+            android:text="@string/swipe_1_txt"
+            />
+
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnRecording"
+            app:layout_constraintEnd_toEndOf="@+id/viewPager"
+            app:layout_constraintStart_toStartOf="@+id/viewPager">
+
+            <LinearLayout
+                android:id="@+id/skipNextLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal">
+
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    android:layout_weight="1" />
+
+
+                <ImageView
+                    android:id="@+id/img1"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/selected_dot" />
+
+                <ImageView
+                    android:id="@+id/img2"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/default_dot" />
+
+                <ImageView
+                    android:id="@+id/img3"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/default_dot" />
+
+                <ImageView
+                    android:id="@+id/img4"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/default_dot" />
+
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
 
 
@@ -99,22 +194,23 @@
             app:layout_constraintStart_toStartOf="@+id/btnRecording"
             app:layout_constraintTop_toTopOf="@+id/btnRecording" />
 
+
         <soup.neumorphism.NeumorphButton
             android:id="@+id/btnRecording"
             style="@style/Widget.Neumorph.Button"
             android:layout_width="200dp"
             android:layout_height="70dp"
+            android:paddingVertical="8dp"
             android:fontFamily="@font/helvetica_bold"
             android:text="Record ECG"
             android:textAllCaps="false"
+            android:shadowColor="#00000033"
             android:textColor="@color/normal_text"
             android:textSize="16sp"
             android:layout_marginBottom="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintTop_toBottomOf="@+id/imgRecord" />
+            app:layout_constraintEnd_toEndOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

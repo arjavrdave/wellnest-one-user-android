@@ -34,7 +34,7 @@ class EcgView(context: Context?) : ParentEcgView(context) {
 
     override fun initialize(context: Context?) {
         val inflator = LayoutInflater.from(context)
-        binding = DataBindingUtil.inflate<LayoutGraphBinding>(
+        binding = DataBindingUtil.inflate(
             inflator,
             R.layout.layout_graph,
             this,
@@ -128,10 +128,10 @@ class EcgView(context: Context?) : ParentEcgView(context) {
         // create a data object with the data sets
         val data = LineData(set)
 //            holder.rowRecordingGraphBinding.lineChart.setVisibleXRange(-20F, 20F)
-        binding.lineChart.axisLeft.setAxisMaxValue(20f);
-        binding.lineChart.axisLeft.setAxisMinValue(-20f);
-        binding.lineChart.axisRight.setAxisMaxValue(20f);
-        binding.lineChart.axisRight.setAxisMinValue(-20f);
+        binding.lineChart.axisLeft.axisMaximum = arrayList.maxOrNull()!!.plus(4.5f).toFloat()
+        binding.lineChart.axisLeft.axisMinimum = arrayList.minOrNull()!!.minus(4.5f).toFloat()
+        binding.lineChart.axisRight.axisMaximum = arrayList.maxOrNull()!!.plus(4.5f).toFloat()
+        binding.lineChart.axisRight.axisMinimum = arrayList.minOrNull()!!.minus(4.5f).toFloat()
 
         binding.lineChart.legend.isEnabled = false
 

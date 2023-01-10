@@ -74,10 +74,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        android:fontFamily="@font/helvetica_bold"
+                        android:fontFamily="@font/helvetica"
                         android:text="First Name*"
-                        android:textColor="#999999"
-                        android:textSize="16sp" />
+                        android:textColor="#111111"
+                        android:textSize="12sp" />
 
                     <EditText
                         android:id="@+id/edtFirstName"
@@ -92,6 +92,7 @@
                         android:padding="4dp"
                         android:textColor="#333333"
                         android:textSize="16sp"
+                        android:textColorHint="#DDDDDD"
                         tools:ignore="TouchTargetSizeCheck" />
 
 
@@ -124,10 +125,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        android:fontFamily="@font/helvetica_bold"
+                        android:fontFamily="@font/helvetica"
                         android:text="Last Name*"
-                        android:textColor="#999999"
-                        android:textSize="16sp" />
+                        android:textColor="#111111"
+                        android:textSize="12sp" />
 
                     <EditText
                         android:id="@+id/edtLastName"
@@ -141,6 +142,7 @@
                         android:inputType="text"
                         android:padding="4dp"
                         android:textColor="#333333"
+                        android:textColorHint="#DDDDDD"
                         android:textSize="16sp"
                         tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
                 </LinearLayout>
@@ -176,56 +178,58 @@
                             android:id="@+id/textView13"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/helvetica_bold"
+                            android:layout_weight="0.2"
+                            android:fontFamily="@font/helvetica"
                             android:text="Birthdate*"
-                            android:textColor="#999999"
-                            android:layout_weight="0.25"
-                            android:textSize="16sp" />
+                            android:textColor="#111111"
+                            android:textSize="12sp"
+                            tools:visibility="visible" />
 
                         <LinearLayout
                             android:id="@+id/llBdayEdtText"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            tools:visibility="visible">
 
 
                             <TextView
                                 android:id="@+id/tvBdHint"
+                                style="@style/FormTextView"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                tools:visibility="gone"
                                 android:hint="@string/select_bday"
-                                style="@style/FormTextView"
-                                />
+                                tools:visibility="gone" />
 
                             <TextView
                                 android:id="@+id/tvDay"
+                                style="@style/FormTextView"
                                 android:layout_width="20dp"
                                 android:layout_height="wrap_content"
-                                style="@style/FormTextView"
-                                tools:text="8"
                                 android:textAlignment="textStart"
-                                android:textSize="16sp" />
+                                android:textSize="16sp"
+                                tools:text="8" />
 
                             <TextView
                                 android:id="@+id/tvMonth"
                                 style="@style/FormTextView"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                tools:text="March"
-                                android:textAlignment="center"
-                                android:layout_weight="1"
-                                android:textSize="16sp" />
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:textAlignment="textStart"
+                                android:textSize="16sp"
+                                tools:text="March" />
 
                             <TextView
                                 android:id="@+id/tvYear"
                                 style="@style/FormTextView"
-                                tools:text="1999"
-                                android:layout_weight="1"
+                                android:layout_marginStart="4dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textSize="16sp" />
+                                android:layout_weight="1"
+                                android:textSize="16sp"
+                                tools:text="1999" />
 
                         </LinearLayout>
 
@@ -245,7 +249,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/llBdayEdtText"
-                        tools:visibility="visible">
+                        tools:visibility="gone">
 
                         <com.aigestudio.wheelpicker.WheelPicker
                             android:id="@+id/spnrDay"
@@ -291,6 +295,8 @@
                 </LinearLayout>
 
 
+
+
                 <View
                     android:id="@+id/divider3"
                     android:layout_width="0dp"
@@ -301,8 +307,9 @@
                     app:layout_constraintStart_toStartOf="@+id/imgProfile"
                     app:layout_constraintTop_toBottomOf="@+id/llBirthDate" />
 
+
                 <LinearLayout
-                    android:id="@+id/llEmail"
+                    android:id="@+id/llPhone"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
@@ -312,16 +319,61 @@
                     app:layout_constraintStart_toStartOf="@+id/imgProfile"
                     app:layout_constraintTop_toBottomOf="@id/divider3">
 
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.4"
+                        android:fontFamily="@font/helvetica"
+                        android:text="Phone No."
+                        android:textColor="#111111"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tvPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_weight="1"
+                        android:textColorHint="#DDDDDD"
+                        android:fontFamily="@font/helvetica_bold"
+                        android:textColor="#999999"
+                        android:textSize="16sp"
+                        tools:text="+91 9328683920" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/divider11"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/gray_btn"
+                    app:layout_constraintEnd_toEndOf="@id/llPhone"
+                    app:layout_constraintStart_toStartOf="@+id/imgProfile"
+                    app:layout_constraintTop_toBottomOf="@+id/llPhone" />
+
+                <LinearLayout
+                    android:id="@+id/llEmail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:orientation="horizontal"
+                    android:padding="4dp"
+                    app:layout_constraintEnd_toEndOf="@id/divider11"
+                    app:layout_constraintStart_toStartOf="@+id/imgProfile"
+                    app:layout_constraintTop_toBottomOf="@id/divider11">
+
 
                     <TextView
                         android:id="@+id/textView14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:fontFamily="@font/helvetica_bold"
+                        android:layout_weight="0.3"
+                        android:fontFamily="@font/helvetica"
                         android:text="Email Address"
-                        android:textColor="#999999"
-                        android:textSize="16sp" />
+                        android:textColor="#111111"
+                        android:textSize="12sp" />
 
                     <EditText
                         android:id="@+id/edtEmail"
@@ -335,6 +387,7 @@
                         android:inputType="text"
                         android:padding="4dp"
                         android:textColor="#333333"
+                        android:textColorHint="#DDDDDD"
                         android:textSize="16sp"
                         tools:ignore="TouchTargetSizeCheck" />
                 </LinearLayout>
@@ -366,11 +419,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_weight="0.5"
-                        android:fontFamily="@font/helvetica_bold"
+                        android:layout_weight="0.3"
+                        android:fontFamily="@font/helvetica"
                         android:text="Sex*"
-                        android:textColor="#999999"
-                        android:textSize="16sp" />
+                        android:textColor="#111111"
+                        android:textSize="12sp" />
 
                     <com.llollox.androidtoggleswitch.widgets.ToggleSwitch
                         android:id="@+id/tgSex"
@@ -378,11 +431,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="@dimen/font_size_16"
-                        app:borderRadius="5dp"
+                        app:borderRadius="6dp"
                         app:checkedBackgroundColor="@color/black"
                         app:checkedTextColor="@color/white"
                         app:elevation="0dp"
                         app:textToggleCenter="@string/female"
+                        app:borderWidth="3dp"
+                        app:checkedBorderColor="#EEEEEE"
+                        app:uncheckedBorderColor="#EEEEEE"
                         app:textToggleLeft="@string/male"
                         app:textToggleRight="@string/other"
                         app:toggleHeight="40dp"
@@ -425,11 +481,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_weight="0.5"
-                            android:fontFamily="@font/helvetica_bold"
-                            android:text="Height"
-                            android:textColor="#999999"
-                            android:textSize="16sp" />
+                            android:layout_weight="0.6"
+                            android:fontFamily="@font/helvetica"
+                            android:text="Height*"
+                            android:textColor="#111111"
+                            android:textSize="12sp" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -450,10 +506,9 @@
                                 style="@style/FormTextView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1"
                                 android:background="?attr/selectableItemBackground"
                                 android:text="5'"
-                                android:textAlignment="textEnd"
+                                android:textAlignment="textStart"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -461,7 +516,6 @@
                                 style="@style/FormTextView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1"
                                 android:background="?attr/selectableItemBackground"
                                 android:text="6&quot;"
                                 android:textSize="16sp" />
@@ -472,7 +526,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/font_size_16"
-                            app:borderRadius="5dp"
+                            app:borderRadius="6dp"
                             app:checkedBackgroundColor="@color/black"
                             app:checkedTextColor="@color/white"
                             app:layout_constraintBottom_toBottomOf="@+id/llHeight"
@@ -481,6 +535,9 @@
                             app:textToggleLeft="@string/feet"
                             app:textToggleRight="@string/cms"
                             app:toggleHeight="40dp"
+                            app:borderWidth="3dp"
+                            app:checkedBorderColor="#EEEEEE"
+                            app:uncheckedBorderColor="#EEEEEE"
                             app:toggleWidth="50dp"
                             app:uncheckedBackgroundColor="#EEEEEE"
                             app:uncheckedTextColor="#333333" />
@@ -581,16 +638,15 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="0.5"
-                            android:fontFamily="@font/helvetica_bold"
+                            android:fontFamily="@font/helvetica"
                             android:text="Weight*"
-                            android:textColor="#999999"
-                            android:textSize="16sp" />
+                            android:textColor="#111111"
+                            android:textSize="12sp" />
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="25dp"
                             android:layout_gravity="center"
-                            android:layout_marginStart="16dp"
                             android:layout_marginEnd="16dp"
                             android:layout_weight="1"
                             android:orientation="horizontal"
@@ -605,7 +661,6 @@
                                 style="@style/FormTextView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1"
                                 android:background="?attr/selectableItemBackground"
                                 android:text="55"
                                 android:textAlignment="textEnd"
@@ -617,7 +672,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginEnd="10dp"
-                                android:layout_weight="1"
                                 android:background="?attr/selectableItemBackground"
                                 android:text=".5"
                                 android:textSize="16sp" />
@@ -628,9 +682,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/font_size_16"
-                            app:borderRadius="5dp"
+                            app:borderRadius="6dp"
                             app:checkedBackgroundColor="@color/black"
                             app:checkedTextColor="@color/white"
+                            app:borderWidth="3dp"
+                            app:checkedBorderColor="#EEEEEE"
+                            app:uncheckedBorderColor="#EEEEEE"
                             app:layout_constraintBottom_toBottomOf="@+id/lblWeight"
                             app:layout_constraintTop_toTopOf="@+id/lblWeight"
                             app:textToggleLeft="@string/kg_label"
@@ -653,7 +710,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/llWeight"
-                        tools:visibility="visible">
+                        tools:visibility="gone">
 
                         <com.aigestudio.wheelpicker.WheelPicker
                             android:id="@+id/spnrKilos"
@@ -701,11 +758,15 @@
 
                 <ImageView
                     android:id="@+id/imgEditPic"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:padding="6dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/image_profile_bg"
                     app:layout_constraintBottom_toBottomOf="@+id/imgProfile"
                     app:layout_constraintEnd_toEndOf="@+id/imgProfile"
-                    app:srcCompat="@drawable/ic_add_profilepic" />
+                    app:srcCompat="@drawable/ic_add_profilepic"
+                    app:tint="@color/black" />
 
                 <View
                     android:id="@+id/divider7"
@@ -728,26 +789,36 @@
                     app:layout_constraintTop_toBottomOf="@+id/divider7">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginEnd="16dp"
+                        android:layout_weight="0.17"
                         android:fontFamily="@font/helvetica"
                         android:text="@string/degree_of_smoking"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:textColor="#111111"
+                        android:textSize="12sp" />
 
-                    <com.flyco.tablayout.CommonTabLayout
+                    <com.llollox.androidtoggleswitch.widgets.ToggleSwitch
                         android:id="@+id/smokingTab"
                         android:layout_width="0dp"
                         android:layout_height="42dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="0.6"
-                        app:tl_indicator_bounce_enable="false"
-                        app:tl_indicator_color="@color/black"
-                        app:tl_indicator_style="BLOCK"
-                        app:tl_textSelectColor="@color/white"
-                        app:tl_textUnselectColor="@color/black" />
+                        android:layout_weight="1.5"
+                        android:textSize="@dimen/font_size_16"
+                        app:borderRadius="6dp"
+                        app:borderWidth="3dp"
+                        app:checkedBorderColor="#EEEEEE"
+                        app:uncheckedBorderColor="#EEEEEE"
+                        app:checkedBackgroundColor="@color/black"
+                        app:checkedTextColor="@color/white"
+                        app:elevation="0dp"
+                        android:padding="2dp"
+                        android:clipToPadding="true"
+                        app:toggleHeight="40dp"
+                        app:toggleWidth="110dp"
+                        app:uncheckedBackgroundColor="#EEEEEE"
+                        app:uncheckedTextColor="#333333" />
 
                 </LinearLayout>
 
@@ -772,26 +843,34 @@
                     app:layout_constraintTop_toBottomOf="@+id/divider8">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginEnd="16dp"
+                        android:layout_weight="0.19"
                         android:fontFamily="@font/helvetica"
                         android:text="@string/degree_of_tobacco"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:textColor="#111111"
+                        android:textSize="12sp" />
 
-                    <com.flyco.tablayout.CommonTabLayout
+                    <com.llollox.androidtoggleswitch.widgets.ToggleSwitch
                         android:id="@+id/tobaccoTab"
                         android:layout_width="0dp"
                         android:layout_height="42dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="0.6"
-                        app:tl_indicator_bounce_enable="false"
-                        app:tl_indicator_color="@color/black"
-                        app:tl_indicator_style="BLOCK"
-                        app:tl_textSelectColor="@color/white"
-                        app:tl_textUnselectColor="@color/black" />
+                        android:layout_weight="1.6"
+                        android:textSize="@dimen/font_size_16"
+                        app:borderWidth="3dp"
+                        app:checkedBorderColor="#EEEEEE"
+                        app:uncheckedBorderColor="#EEEEEE"
+                        app:borderRadius="6dp"
+                        app:checkedBackgroundColor="@color/black"
+                        app:checkedTextColor="@color/white"
+                        app:elevation="0dp"
+                        app:toggleHeight="40dp"
+                        app:toggleWidth="110dp"
+                        app:uncheckedBackgroundColor="#EEEEEE"
+                        app:uncheckedTextColor="#333333" />
 
                 </LinearLayout>
 
@@ -818,26 +897,34 @@
                     app:layout_constraintTop_toBottomOf="@+id/divider10">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginEnd="16dp"
+                        android:layout_weight="0.18"
                         android:fontFamily="@font/helvetica"
                         android:text="@string/level_of_exercise"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:textColor="#111111"
+                        android:textSize="12sp" />
 
-                    <com.flyco.tablayout.CommonTabLayout
+                    <com.llollox.androidtoggleswitch.widgets.ToggleSwitch
                         android:id="@+id/exerciseTab"
                         android:layout_width="0dp"
                         android:layout_height="42dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="0.6"
-                        app:tl_indicator_bounce_enable="false"
-                        app:tl_indicator_color="@color/black"
-                        app:tl_indicator_style="BLOCK"
-                        app:tl_textSelectColor="@color/white"
-                        app:tl_textUnselectColor="@color/black" />
+                        android:layout_weight="1.5"
+                        android:textSize="@dimen/font_size_16"
+                        app:borderRadius="6dp"
+                        app:checkedBackgroundColor="@color/black"
+                        app:checkedTextColor="@color/white"
+                        app:borderWidth="3dp"
+                        app:checkedBorderColor="#EEEEEE"
+                        app:uncheckedBorderColor="#EEEEEE"
+                        app:elevation="0dp"
+                        app:toggleHeight="40dp"
+                        app:toggleWidth="110dp"
+                        app:uncheckedBackgroundColor="#EEEEEE"
+                        app:uncheckedTextColor="#333333" />
 
                 </LinearLayout>
 
@@ -849,9 +936,9 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnNext"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="83dp"
             android:background="@drawable/profile_next_button"
-            android:enabled="true"
+            android:enabled="false"
             android:fontFamily="@font/helvetica_bold"
             android:text="Next"
             android:textColor="@color/white"

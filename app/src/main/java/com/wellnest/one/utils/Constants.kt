@@ -5,6 +5,8 @@ package com.wellnest.one.utils
  */
 object Constants {
 
+    const val SIGNATURES = "signatures"
+    const val ECG_RECORDINGS = "ecg-recordings"
     const val isLinked = "isLinked"
     const val SPLASH_ANIMATION_DURATION: Long = 1800
     const val fromXValue: Float = -1500f
@@ -13,7 +15,7 @@ object Constants {
     const val LANDSCAPE = 1
     const val PORTRAIT = 0
 
-    val PROFILE_IMAGES = "profile-images"
+    val PROFILE_IMAGES = "wellnest-one-profile-images"
 
     const val COUNTRY_CODE_RESULT = 101
     const val FEET_FACTOR = 30.48

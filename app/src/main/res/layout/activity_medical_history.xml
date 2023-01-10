@@ -61,6 +61,7 @@
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="24dp"
                     android:fontFamily="@font/helvetica"
+                    android:lineSpacingExtra="4sp"
                     android:text="Have you EVER HAD, or do you have any of the following? Check each item."
                     android:textColor="#666666"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -165,6 +166,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/helvetica"
+                    android:padding="4dp"
                     android:text="Kidney Attack"
                     android:textColor="@color/black"
                     android:textSize="16sp"
@@ -234,17 +236,17 @@
                     android:text="Have your parents or siblings have faced heart problem before the age of 60?"
                     android:textColor="#666666"
                     android:textSize="16sp"
+                    android:lineSpacingExtra="6sp"
                     app:layout_constraintEnd_toEndOf="@+id/materialDivider"
                     app:layout_constraintStart_toStartOf="@+id/materialDivider"
                     app:layout_constraintTop_toBottomOf="@+id/materialDivider" />
 
                 <RadioGroup
                     android:id="@+id/rgGroup"
-                    android:layout_width="0dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="@+id/textView27"
                     app:layout_constraintStart_toStartOf="@+id/textView27"
                     app:layout_constraintTop_toBottomOf="@+id/textView27">
 
@@ -262,6 +264,7 @@
                         android:id="@+id/rgNo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
                         android:layout_weight="1"
                         android:buttonTint="@color/black"
                         android:checked="true"
@@ -276,7 +279,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@color/black"
-                    app:layout_constraintEnd_toEndOf="@id/rgGroup"
+                    app:layout_constraintEnd_toEndOf="@+id/textView27"
                     app:layout_constraintStart_toStartOf="@id/rgGroup"
                     app:layout_constraintTop_toBottomOf="@id/rgGroup" />
 
@@ -285,11 +288,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:lineSpacingExtra="6sp"
                     android:fontFamily="@font/helvetica"
                     android:text="If you would like to add any comments about your health that might be relevant, please add here"
                     android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="@+id/materialDivider2"
-                    app:layout_constraintStart_toStartOf="@+id/materialDivider2"
+                    app:layout_constraintEnd_toEndOf="@+id/textView27"
+                    app:layout_constraintStart_toStartOf="@+id/textView27"
                     app:layout_constraintTop_toBottomOf="@+id/materialDivider2" />
 
                 <EditText
@@ -330,7 +334,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="83dp"
             android:background="@color/green_btn"
             android:fontFamily="@font/helvetica_bold"
             android:text="SAVE"

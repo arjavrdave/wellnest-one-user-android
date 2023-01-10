@@ -13,7 +13,6 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.aigestudio.wheelpicker.WheelPicker
-import com.flyco.tablayout.listener.CustomTabEntity
 import com.llollox.androidtoggleswitch.widgets.ToggleSwitch
 import com.wellnest.one.R
 import com.wellnest.one.data.local.user_pref.PreferenceManager
@@ -21,7 +20,6 @@ import com.wellnest.one.databinding.ActivityCreateProfileBinding
 import com.wellnest.one.dto.UserProfile
 import com.wellnest.one.model.request.MedicalHstory
 import com.wellnest.one.model.request.UserProfileRequest
-import com.wellnest.one.model.response.ProfileResponse
 import com.wellnest.one.ui.BaseActivity
 import com.wellnest.one.utils.*
 import com.wellnest.one.utils.Constants.FEET_FACTOR
@@ -36,6 +34,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
+import kotlin.math.roundToInt
 
 /**
  * Created by Hussain on 08/11/22.
@@ -47,7 +46,7 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
 
     private lateinit var binding: ActivityCreateProfileBinding
     private val mHandler = Handler(Looper.getMainLooper())
-    private var mGender = "FEMALE"
+    private var mGender = "Male"
     private var mHeightUnit = HeightUnit.FEET
     private var mWeightUnit = WeightUnit.KILO
     private lateinit var profileBitmap: Bitmap
@@ -59,7 +58,9 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
 
     private val smoking = listOf("Never", "Low", "Med", "High")
     private val tobacco = listOf("Never", "Low", "Med", "High")
-    private val exercise = listOf("Low", "Med", "High")
+    private val exercise = listOf("Never","Low", "Med", "High")
+
+    private var profileImage = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +80,10 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
         binding.imgProfile.setOnClickListener(this)
         binding.imgEditPic.setOnClickListener(this)
 
+        binding.edtFirstName.addTextChangedListener(this)
+        binding.edtLastName.addTextChangedListener(this)
+
+
         setupObservers()
         setDefaults()
         setToggleListeners()
@@ -92,8 +97,14 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
             binding.btnNext.text = "Save"
             profileViewModel.getReadImageSasToken()
             profileViewModel.getMedicalHistory()
+            profileImage = if (user?.profileId?.isBlank() == false) {
+                user.profileId
+            } else {
+                UUID.randomUUID().toString()
+            }
             setData(user)
         } else {
+            profileImage = UUID.randomUUID().toString()
             binding.tvHeader.text = "Create Profile"
         }
 
@@ -110,11 +121,11 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
         profileViewModel.profileData.observe(this) { profile ->
             preferenceManager.saveUser(profile)
             setData(profile)
+            checkValidation()
         }
 
         profileViewModel.uploadImageToken.observe(this) { sasToken ->
-            val id = preferenceManager.getUser()?.id ?: return@observe
-            profileViewModel.uploadImage(profileBitmap, sasToken, id)
+            profileViewModel.uploadImage(profileBitmap, sasToken, profileImage)
         }
 
         profileViewModel.profileImgUploadSuccess.observe(this) {
@@ -127,17 +138,20 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
         }
 
         profileViewModel.readImageToken.observe(this) {
-            val id = preferenceManager.getUser()?.id ?: return@observe
+            val id = preferenceManager.getUser()?.profileId ?: return@observe
             profileViewModel.getProfileImage(id, Constants.PROFILE_IMAGES, it)
         }
 
         profileViewModel.userProfileImage.observe(this) {
-            binding.imgProfile.setImageBitmap(it)
+//            binding.imgEditPic.visibility = if (it == null) View.VISIBLE else View.INVISIBLE
+            it?.let { bmp ->
+                binding.imgProfile.setImageBitmap(bmp)
+            }
         }
 
         profileViewModel.profileSuccess.observe(this) {
             if (it) {
-                Toast.makeText(this,"Profile Successfully Updated",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Profile Successfully Updated", Toast.LENGTH_SHORT).show()
                 finish()
             }
         }
@@ -145,29 +159,33 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
 
     private fun setData(profile: UserProfile?) {
         profile?.let { user ->
+
+            binding.tvPhone.text = "+${user.countryCode} ${user.phoneNumber}"
+
             binding.edtFirstName.setText(user.firstName)
             binding.edtLastName.setText(user.lastName)
 
             binding.edtEmail.setText(user.email)
+            mGender = user.gender ?: "FEMALE"
             when (user.gender) {
-                "MALE" -> binding.tgSex.setCheckedPosition(0)
-                "FEMALE" -> binding.tgSex.setCheckedPosition(1)
-                "OTHER" -> binding.tgSex.setCheckedPosition(2)
+                "Male" -> binding.tgSex.setCheckedPosition(0)
+                "Female" -> binding.tgSex.setCheckedPosition(1)
+                "Other" -> binding.tgSex.setCheckedPosition(2)
             }
 
             for (i in tobacco.indices) {
                 if (user.tobaccoUse == tobacco[i])
-                    binding.tobaccoTab.currentTab = i
+                    binding.tobaccoTab.setCheckedPosition(i)
             }
 
             for (i in smoking.indices) {
                 if (user.smoking == smoking[i])
-                    binding.smokingTab.currentTab = i
+                    binding.smokingTab.setCheckedPosition(i)
             }
 
             for (i in exercise.indices) {
                 if (user.exerciseLevel == exercise[i])
-                    binding.exerciseTab.currentTab = i
+                    binding.exerciseTab.setCheckedPosition(i)
             }
 
             if (profile.heightUnit == "FEET") {
@@ -181,8 +199,8 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
                 }
             } else {
                 mHeightUnit = HeightUnit.CMS
-                val heightData = profile.height.toString().split(".")
-                binding.tvFeet.text = heightData[0]
+                val heightData = profile.height?.toString()?.split(".")
+                binding.tvFeet.text = heightData?.get(0) ?: "0"
                 binding.tvInch.visibility = View.GONE
 
 
@@ -212,7 +230,7 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
 
                 profile.weight?.let {
                     val pounds =
-                        CalculatorUtil.gramsToPounds(profile.weight.toDouble()).toInt().toString()
+                        CalculatorUtil.gramsToPounds(profile.weight.toDouble()).roundToInt().toString()
                     binding.tvKilo.text = pounds
                 }
 
@@ -225,26 +243,55 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
                 }, 500)
             }
 
-            val date = Util.isoToDobString(profile.dob).split(" ")
+            val date = profile.dob?.let { Util.isoToDobString(it).split(" ") }
             binding.tvYear.hint = ""
-            binding.tvBdHint.visibility = View.GONE
 
-            binding.tvDay.text = date[0]
-            binding.tvMonth.text = date[1]
-            binding.tvYear.text = date[2]
+            if (date?.get(0).isNullOrBlank() || date?.get(1).isNullOrBlank() || date?.get(2).isNullOrBlank()) {
+                binding.tvBdHint.visibility = View.VISIBLE
+            } else {
+                binding.tvBdHint.visibility = View.GONE
+            }
+
+            binding.tvDay.text = date?.get(0) ?: ""
+            binding.tvMonth.text = date?.get(1) ?: ""
+            binding.tvYear.text = date?.get(2) ?: ""
         }
     }
 
     private fun setToggleListeners() {
+
+        binding.tobaccoTab.onChangeListener = object : ToggleSwitch.OnChangeListener {
+            override fun onToggleSwitchChanged(position: Int) {
+
+            }
+
+        }
+
+        binding.smokingTab.onChangeListener = object : ToggleSwitch.OnChangeListener {
+            override fun onToggleSwitchChanged(position: Int) {
+
+            }
+
+        }
+
+        binding.exerciseTab.onChangeListener = object : ToggleSwitch.OnChangeListener {
+            override fun onToggleSwitchChanged(position: Int) {
+
+            }
+
+        }
+
+
         binding.tgSex.onChangeListener = object : ToggleSwitch.OnChangeListener {
             override fun onToggleSwitchChanged(position: Int) {
                 mGender = if (position == 0) {
-                    "MALE"
+                    "Male"
                 } else if (position == 1) {
-                    "FEMALE"
+                    "Female"
                 } else {
-                    "OTHER"
+                    "Other"
                 }
+                checkValidation()
             }
         }
 
@@ -358,6 +405,7 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
                             true
                         )
                     }, 300)
+                    checkValidation()
                 }
             }
         }
@@ -365,30 +413,15 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
 
     private fun setDefaults() {
 
-        val smokingArray = ArrayList<CustomTabEntity>()
 
-        for (elem in smoking) {
-            smokingArray.add(TabEntity(elem, 0, 0))
-        }
+        binding.smokingTab.setEntries(smoking)
+        binding.smokingTab.setCheckedPosition(0)
 
-        binding.smokingTab.setTabData(smokingArray)
+        binding.tobaccoTab.setEntries(tobacco)
+        binding.tobaccoTab.setCheckedPosition(0)
 
-
-        val tobaccoArray = ArrayList<CustomTabEntity>()
-
-        for (elem in tobacco) {
-            tobaccoArray.add(TabEntity(elem, 0, 0))
-        }
-
-        binding.tobaccoTab.setTabData(tobaccoArray)
-
-        val exerciseArray = ArrayList<CustomTabEntity>()
-
-        for (elem in exercise) {
-            exerciseArray.add(TabEntity(elem, 0, 0))
-        }
-
-        binding.exerciseTab.setTabData(exerciseArray)
+        binding.exerciseTab.setEntries(exercise)
+        binding.exerciseTab.setCheckedPosition(0)
 
         //check female by default
         binding.tgSex.setCheckedPosition(0)
@@ -667,12 +700,22 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
 
         val firstName = binding.edtFirstName.text.toString().trim()
 
+        if (!firstName.isAlphaNumeric(true)) {
+            Toast.makeText(this,"special characters not allowed.",Toast.LENGTH_SHORT).show()
+            return
+        }
+
         if (binding.edtLastName.text.isNullOrBlank()) {
             Toast.makeText(this, "Last Name Required", Toast.LENGTH_SHORT).show()
             return
         }
 
         val lastName = binding.edtLastName.text.toString().trim()
+
+        if (!lastName.isAlphaNumeric(true)) {
+            Toast.makeText(this,"special characters not allowed.",Toast.LENGTH_SHORT).show()
+            return
+        }
 
         val day = binding.tvDay.text.toString()
         val month = binding.tvMonth.text.toString()
@@ -687,6 +730,11 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
 
         val email = binding.edtEmail.text.toString().trim()
 
+        if (email.isNotBlank() && !email.isValidEmail()) {
+            Toast.makeText(this, "Invalid Email Address", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val height = if (mHeightUnit == HeightUnit.FEET) {
             val feet = binding.tvFeet.text.trim().toString().replace("'", "")
             val inch = binding.tvInch.text.trim().toString().replace("\"", "")
@@ -694,6 +742,11 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
         } else {
             val centimeters = binding.tvFeet.text.trim().toString()
             centimeters.toDouble()
+        }
+
+        if (height == 0.0) {
+            Toast.makeText(this,"Height Required",Toast.LENGTH_SHORT).show()
+            return
         }
 
         val weight = if (mWeightUnit == WeightUnit.KILO) {
@@ -707,7 +760,12 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
             poundsToGrams(pounds)
         }
 
-        val smoking = when(binding.smokingTab.currentTab) {
+        if (weight == 0.0) {
+            Toast.makeText(this,"Weight Required",Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val smoking = when (binding.smokingTab.checkedPosition) {
             0 -> "Never"
             1 -> "Low"
             2 -> "Med"
@@ -715,7 +773,7 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
             else -> "Never"
         }
 
-        val tobacco = when(binding.tobaccoTab.currentTab) {
+        val tobacco = when (binding.tobaccoTab.checkedPosition) {
             0 -> "Never"
             1 -> "Low"
             2 -> "Med"
@@ -723,21 +781,22 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
             else -> "Never"
         }
 
-        val exercise = when(binding.exerciseTab.currentTab) {
-            0 -> "Low"
-            1 -> "Med"
-            2 -> "High"
-            else -> "Low"
+        val exercise = when (binding.exerciseTab.checkedPosition) {
+            0 -> "Never"
+            1 -> "Low"
+            2 -> "Med"
+            3 -> "High"
+            else -> "Never"
         }
 
         val from = intent.getStringExtra("fromActivity")
 
+        val userProfile = preferenceManager.getUser()
 
         if (from == UserProfileActivity::class.java.simpleName) {
-            val user = preferenceManager.getUser()
             val medicalHistory = preferenceManager.getMedicalHistory() ?: null
             val updated = UserProfileRequest(
-                user?.countryCode,
+                userProfile?.countryCode,
                 dob,
                 email,
                 firstName,
@@ -756,17 +815,18 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
                     medicalHistory?.siblingHeartProblem,
                     medicalHistory?.stroke
                 ),
-                user?.phoneNumber,
+                userProfile?.phoneNumber,
                 weight.toInt(),
                 mWeightUnit.toString(),
                 smoking,
                 tobacco,
-                exercise
+                exercise,
+                profileImage
             )
             profileViewModel.addProfile(updated)
         } else {
             val user = UserProfileRequest(
-                null,
+                userProfile?.countryCode,
                 dob,
                 email,
                 firstName,
@@ -775,12 +835,13 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
                 mHeightUnit.toString(),
                 lastName,
                 null,
-                null,
+                userProfile?.phoneNumber,
                 weight.toInt(),
                 mWeightUnit.toString(),
                 smoking,
                 tobacco,
-                exercise
+                exercise,
+                profileImage
             )
             val medicalIntent = Intent(this, MedicalHistoryActivity::class.java)
             medicalIntent.putExtra("profile", user)
@@ -878,6 +939,7 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
     }
 
     override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        checkValidation()
     }
 
     override fun afterTextChanged(p0: Editable?) {
@@ -887,5 +949,12 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
         profileBitmap = bitmap
         binding.imgProfile.setImageBitmap(profileBitmap)
         profileViewModel.getUploadImageSasToken()
+    }
+
+    private fun checkValidation() {
+        binding.apply {
+            binding.btnNext.isEnabled = (edtFirstName.text.isNotBlank() && edtLastName.text.isNotBlank() && binding.tvDay.text.isNotBlank() && binding.tvMonth.text.isNotBlank() && binding.tvYear.text.isNotBlank()
+                    && binding.tgSex.checkedPosition != null && (binding.tvKilo.text.isNotBlank() || binding.tvGrams.text.isNotBlank()))
+        }
     }
 }

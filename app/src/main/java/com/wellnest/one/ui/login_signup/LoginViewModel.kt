@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wellnest.one.data.remote.AccountRepository
+import com.wellnest.one.data.remote.definition.AccountRepository
 import com.wellnest.one.model.ApiResult
+import com.wellnest.one.model.request.GetInTouchRequest
 import com.wellnest.one.model.request.LoginRequest
 import com.wellnest.one.model.request.ResendOtpRequest
 import com.wellnest.one.model.request.VerifyOtpRequest
@@ -34,6 +35,9 @@ class LoginViewModel @Inject constructor(private val accountRepository: AccountR
 
     private val _resendOtpSuccess = MutableLiveData<Boolean>()
     val resendOtpSuccess : LiveData<Boolean> get() = _resendOtpSuccess
+
+    private val _getInTouchSuccess = MutableLiveData<Boolean>()
+    val getInTouchSuccess : LiveData<Boolean> get() = _getInTouchSuccess
 
     fun login(countryCode : Int, phoneNumber : String) {
         val loginRequest = LoginRequest(countryCode,phoneNumber)
@@ -75,6 +79,20 @@ class LoginViewModel @Inject constructor(private val accountRepository: AccountR
                 }
                 is ApiResult.Error -> {
                     _errorMsg.postValue("${result.errorMsg}")
+                }
+            }
+        }
+    }
+
+    fun getInTouch(getInTouchRequest: GetInTouchRequest) {
+        viewModelScope.launch {
+            val result =  accountRepository.getInTouch(getInTouchRequest)
+            when(result) {
+                is ApiResult.Success -> {
+                    _getInTouchSuccess.postValue(true)
+                }
+                is ApiResult.Error -> {
+                    _errorMsg.postValue(result.errorMsg)
                 }
             }
         }

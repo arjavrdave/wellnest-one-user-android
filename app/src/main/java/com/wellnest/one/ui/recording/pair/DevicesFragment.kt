@@ -295,8 +295,6 @@ open class DevicesFragment : Fragment(), IBluetooth, ISendMessageToEcgDevice {
             if (BluetoothLeService.ACTION_GATT_CONNECTED == action) {
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED == action) {
                 //WellNestLoader.dismissLoader()
-                Toast.makeText(requireContext(), "Bluetooth disconnected", Toast.LENGTH_SHORT)
-                    .show()
                 response = ""
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED == action) {
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
