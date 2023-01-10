@@ -7,6 +7,7 @@ import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -25,11 +26,9 @@ import com.wellnest.one.model.SetupMessageInfo
 import com.wellnest.one.ui.BaseActivity
 import com.wellnest.one.ui.recording.capture.BluetoothLiveEcgActivity
 import com.wellnest.one.utils.DialogHelper
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import org.json.JSONObject
+import java.lang.Runnable
 import java.util.concurrent.ConcurrentLinkedQueue
 
 /**
@@ -61,6 +60,10 @@ class EcgCalibrationActivity : BaseActivity(), ISendMessageToEcgDevice, IWellnes
     private val TAG = "EcgCalibrationActivity"
     private val remoteConfig = FirebaseRemoteConfig.getInstance()
     private var threshold = -0.8
+
+    private val handler = Handler(Looper.getMainLooper())
+    private var setupMessageInfo: SetupMessageInfo? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,9 +112,7 @@ class EcgCalibrationActivity : BaseActivity(), ISendMessageToEcgDevice, IWellnes
             mServiceConnection,
             Context.BIND_AUTO_CREATE
         )
-        Handler().postDelayed({
-            wellNestUtil.startBluetoothLiveRecording()
-        }, 50)
+
 
         binding.imgBack.setOnClickListener {
             finish()
@@ -144,7 +145,7 @@ class EcgCalibrationActivity : BaseActivity(), ISendMessageToEcgDevice, IWellnes
             msg.add("Encrypting data")
             msg.add("Getting your device ready")
         }
-        val setupMessageInfo = SetupMessageInfo(
+        setupMessageInfo = SetupMessageInfo(
             msg,
             msgTime,
             successTime,
@@ -152,20 +153,22 @@ class EcgCalibrationActivity : BaseActivity(), ISendMessageToEcgDevice, IWellnes
             errorMsg,
             threshold
         )
-        adapter.setupMessage(setupMessageInfo)
+        adapter.setupMessage(setupMessageInfo!!)
         binding.rvMessages.adapter = adapter
-        Handler().postDelayed({
-            wellNestUtil.stopBluetoothLiveRecording(false)
-            // show error
-            DialogHelper.showDialog("Error", setupMessageInfo.errorMsg, this) { dialog, _ ->
-                dialog.dismiss()
-                finish()
-            }
-        }, setupMessageInfo.totalTime.toLong())
+        handler.postDelayed(cancelRunnable, setupMessageInfo!!.totalTime.toLong())
 
-        adapter.setupMessage(setupMessageInfo)
+        adapter.setupMessage(setupMessageInfo!!)
         binding.rvMessages.adapter = adapter
-        this.threshold = setupMessageInfo.threshold
+        this.threshold = setupMessageInfo!!.threshold
+    }
+
+    private val cancelRunnable = Runnable {
+        wellNestUtil.stopBluetoothLiveRecording(false)
+        // show error
+        DialogHelper.showDialog("Error", setupMessageInfo?.errorMsg, this) { dialog, _ ->
+            dialog.dismiss()
+            finish()
+        }
     }
 
     private val mServiceConnection = object : ServiceConnection {
@@ -189,6 +192,14 @@ class EcgCalibrationActivity : BaseActivity(), ISendMessageToEcgDevice, IWellnes
     override fun onResume() {
         super.onResume()
         startParsingData()
+        handler.postDelayed({
+            wellNestUtil.startBluetoothLiveRecording()
+        }, 50)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(cancelRunnable)
     }
 
     private fun startParsingData() {

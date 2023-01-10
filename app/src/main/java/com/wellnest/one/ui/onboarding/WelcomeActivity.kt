@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import com.wellnest.one.R
 import com.wellnest.one.databinding.ActivityWelcomeBinding
 import com.wellnest.one.ui.BaseActivity
+import com.wellnest.one.ui.getintouch.GetInTouchActivity
 import com.wellnest.one.ui.login_signup.LoginActivity
 
 /**
@@ -28,7 +29,8 @@ class WelcomeActivity : BaseActivity() {
         }
 
         binding.tvGetInTouch.setOnClickListener {
-
+            val getInTouchIntent = Intent(this, GetInTouchActivity::class.java)
+            startActivity(getInTouchIntent)
         }
 
     }

@@ -50,6 +50,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:fontFamily="@font/helvetica"
+            android:lineSpacingExtra="6sp"
             android:text="@string/otp_sent_msg"
             android:textColor="#999999"
             android:textSize="16sp"

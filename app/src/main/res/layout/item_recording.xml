@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="8dp">
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/imgUser"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/ic_user"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/helvetica_bold"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/tvDay"
+            app:layout_constraintStart_toEndOf="@+id/imgUser"
+            app:layout_constraintTop_toTopOf="@+id/imgUser"
+            tools:text="Hussain P" />
+
+        <TextView
+            android:id="@+id/tvReason"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/helvetica"
+            android:maxLines="2"
+            android:textColor="#666666"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/tvDay"
+            app:layout_constraintStart_toStartOf="@+id/tvName"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            tools:text="Reason: Routine Check-up, Chest Pain" />
+
+        <TextView
+            android:id="@+id/tvBpm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/helvetica"
+            android:lineSpacingExtra="14sp"
+            android:textColor="#666666"
+            app:layout_constraintStart_toStartOf="@+id/tvReason"
+            app:layout_constraintTop_toBottomOf="@+id/tvReason"
+            tools:text="72 BPM" />
+
+        <TextView
+            android:id="@+id/tvDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/helvetica"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvName"
+            tools:text="Today" />
+
+        <TextView
+            android:id="@+id/tvAnalysis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tvDay"
+            tools:text="Sent for Analysis" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

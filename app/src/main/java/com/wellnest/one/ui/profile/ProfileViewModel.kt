@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wellnest.one.data.remote.ProfileRepository
+import com.wellnest.one.data.remote.definition.ProfileRepository
 import com.wellnest.one.dto.UserProfile
 import com.wellnest.one.model.ApiResult
 import com.wellnest.one.model.request.EditBioRequest
@@ -13,7 +13,6 @@ import com.wellnest.one.model.request.LogoutRequest
 import com.wellnest.one.model.request.UpdateMedHistoryRequest
 import com.wellnest.one.model.request.UserProfileRequest
 import com.wellnest.one.model.response.MedicalHistoryResponse
-import com.wellnest.one.model.response.ProfileResponse
 import com.wellnest.one.model.response.SasToken
 import com.wellnest.one.model.response.toDto
 import com.wellnest.one.utils.Constants
@@ -62,8 +61,8 @@ class ProfileViewModel @Inject constructor(private val profileRepository: Profil
     private val _profileImgUploadSuccess = MutableLiveData<Boolean>()
     val profileImgUploadSuccess: LiveData<Boolean> get() = _profileImgUploadSuccess
 
-    private val _userProfileImage = MutableLiveData<Bitmap>()
-    val userProfileImage : LiveData<Bitmap> get() = _userProfileImage
+    private val _userProfileImage = MutableLiveData<Bitmap?>()
+    val userProfileImage: LiveData<Bitmap?> get() = _userProfileImage
 
     fun addProfile(profile: UserProfileRequest) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -185,7 +184,7 @@ class ProfileViewModel @Inject constructor(private val profileRepository: Profil
         }
     }
 
-    fun uploadImage(profileBitmap: Bitmap, sasToken: SasToken?, id: Int) {
+    fun uploadImage(profileBitmap: Bitmap, sasToken: SasToken?, id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val outputStream = ByteArrayOutputStream()
             val compressed = profileBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
@@ -194,7 +193,7 @@ class ProfileViewModel @Inject constructor(private val profileRepository: Profil
                     ByteArrayInputStream(outputStream.toByteArray()),
                     profileBitmap.byteCount,
                     Constants.PROFILE_IMAGES,
-                    id.toString(),
+                    id,
                     sasToken?.sasToken
                 )
                 _profileImgUploadSuccess.postValue(true)
@@ -204,12 +203,10 @@ class ProfileViewModel @Inject constructor(private val profileRepository: Profil
         }
     }
 
-    fun getProfileImage(userId : Int, containerName : String, sasToken: SasToken) {
+    fun getProfileImage(userId: String, containerName: String, sasToken: SasToken) {
         viewModelScope.launch(Dispatchers.IO) {
-            val image = Util.GetImage(userId.toString(),containerName,sasToken.sasToken)
-            image?.let {
-                _userProfileImage.postValue(it)
-            }
+            val image = Util.GetImage(userId, containerName, sasToken.sasToken)
+            _userProfileImage.postValue(image)
         }
     }
 

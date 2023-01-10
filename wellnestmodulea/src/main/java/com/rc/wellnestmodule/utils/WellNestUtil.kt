@@ -746,7 +746,7 @@ class WellNestUtil : IWellNestUtil {
             RecordingDataHelper.instance.clearChartData()
             val parsedData = recordBytes.setRecordingData(recordingData)
             val graphList = recordBytes.getGraphList(parsedData, allData = true)
-            iWellNestData.onRecordingCompleted(graphList)
+            iWellNestData.onRecordingCompleted(parsedData)
 
             RecordingDataHandler.instance.recordingData = graphList
         }

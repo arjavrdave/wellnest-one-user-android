@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Wellnest One</string>
-    <string name="get_in_touch"><u>Get in Touch</u></string>
+    <string name="get_in_touch">Get in Touch</string>
     <string name="by_continuing_you_agree_to_terms_of_services">By continuing you agree to <u>terms of services</u></string>
     <string name="next">Next</string>
     <string name="current_location">Current Location</string>
@@ -72,7 +72,7 @@
     <string name="on_exertion_while_resting_both">On Exertion/while Resting/both</string>
     <string name="record_ecg">Record ECG</string>
     <string name="reffered_by">Referred By</string>
-    <string name="link_patient">Link Patient</string>
+    <string name="link_patient">LINK REPORT</string>
     <string name="gender_age">Gender | Age</string>
     <string name="test_date">Date</string>
     <string name="indication">Indication</string>
@@ -82,12 +82,49 @@
     <string name="re_record">RE-RECORD</string>
     <string name="yes">YES</string>
     <string name="no">No</string>
-    <string name="rec_record_ecg_message">Do you want to get patient’s ECG re-recorded?</string>
+    <string name="rec_record_ecg_message">Do you want to Re-record ECG?</string>
     <string name="add_member">Add Member</string>
     <string name="enter_name">Enter Name</string>
     <string name="enter_age">Enter Age</string>
     <string name="share">Share</string>
     <string name="get_ecg_analysis">Get ECG Analysis</string>
+    <string name="reupload_msg">There was an issue uploading your recording.</string>
+    <string name="reupload">Re-upload</string>
+    <string name="discard">Discard</string>
+    <string name="recommendations">Recommendations</string>
+    <string name="findings_interpretation">Findings Interpretation</string>
+    <string name="ecg_findings">ECG Findings</string>
+    <string name="condition">Condition</string>
+    <string name="_12_lead_simultaneous_ecg_report">12 lead simultaneous ECG Report</string>
+    <string name="name">Name</string>
 
+    <string name="L1">L1</string>
+    <string name="L2">L2</string>
+    <string name="L3">L3</string>
+    <string name="avR">AVR</string>
+    <string name="avL">AVL</string>
+    <string name="avF">AVF</string>
+    <string name="v1">V1</string>
+    <string name="v2">V2</string>
+    <string name="v3">V3</string>
+    <string name="v4">V4</string>
+    <string name="v5">V5</string>
+    <string name="v6">V6</string>
+
+
+    <string name="urgent_action_required">Urgent Action Required</string>
+    <string name="action_required_not_urgent">Action Required (Not Urgent)</string>
+    <string name="no_action_required">No Action Required</string>
+    <string name="one">ONE</string>
+    <string name="thanks_for_getting_in_touch">Thanks for getting in touch!</string>
+    <string name="our_team_will_get_back_to_you_shortly_have_a_nice_day">Our team will get back to you shortly. Have a nice day.</string>
+    <string name="for_more_details_visit_www_wellnest_tech">For more details visit <u>www.wellnest.tech</u></string>
+    <string name="channel_name">Wellnest One Notification</string>
+
+    <string name="ecg_analysis_msg">The ECG will be shared with Wellnest’s board of trained physicians and cardiologists for review. You will receive a report within 20 minutes.</string>
+    <string name="swipe_1_txt">Swipe to see how to wear belt</string>
+    <string name="swipe_2_txt">Raise arms and place belt with V1 and V2\nsymmetrically on the sternal line</string>
+    <string name="swipe_3_txt">Lower arms and adjust the flaps</string>
+    <string name="swipe_4_txt">Close the buckle flaps over V1 and V2</string>
 
 </resources>

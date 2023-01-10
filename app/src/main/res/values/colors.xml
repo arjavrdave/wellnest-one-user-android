@@ -30,5 +30,9 @@
     <color name="half">#CDDC39</color>
     <color name="green">#00BD7F</color>
     <color name="subtitle_color">#999999</color>
-
+    <color name="recording_complete">#919395</color>
+    <color name="sent_analysis">#FDB63F</color>
+    <color name="no_action">#8AC43F</color>
+    <color name="urgent_action">#E15757</color>
+    <color name="gray_edt">#E0E0E0</color>
 </resources>

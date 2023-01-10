@@ -36,5 +36,7 @@ data class UserProfileRequest(
     @SerializedName("tobaccoUse")
     val tobaccoUse: String,
     @SerializedName("exerciseLevel")
-    val exerciseLevel: String
+    val exerciseLevel: String,
+    @SerializedName("profileId")
+    val profileId : String
 ) : Parcelable

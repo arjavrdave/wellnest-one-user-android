@@ -52,7 +52,7 @@ open class PermissionHelperActivity : AppCompatActivity() {
     var bluetoothConnectScanRequest =
         registerForActivityResult<Array<String>, Map<String, Boolean>>(
             ActivityResultContracts.RequestMultiplePermissions(),
-            ActivityResultCallback<Map<String, Boolean>> { result: Map<String, Boolean> ->
+            ActivityResultCallback { result: Map<String, Boolean> ->
                 val bleConnect = result.getOrDefault(
                     Manifest.permission.BLUETOOTH_CONNECT, false
                 )
@@ -74,9 +74,25 @@ open class PermissionHelperActivity : AppCompatActivity() {
             }
         )
 
+    private var cameraPermRequest = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            cameraPermissionGranted(true)
+        } else {
+            cameraPermissionGranted(true)
+        }
+    }
+
+    open fun cameraPermissionGranted(granted: Boolean) {
+
+    }
+
     open fun startBluetoothService(granted: Boolean) {
 
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -142,6 +158,14 @@ open class PermissionHelperActivity : AppCompatActivity() {
         )
     }
 
+    protected open fun checkCameraPermission() {
+        if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            cameraPermissionGranted(true)
+        } else {
+            cameraPermRequest.launch(Manifest.permission.CAMERA)
+        }
+    }
+
     open fun startLocationServices(granted: Boolean) {
 
     }
@@ -155,6 +179,7 @@ open class PermissionHelperActivity : AppCompatActivity() {
             // TODO: Inform user that that your app will not show notifications.
         }
     }
+
 
     fun askNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

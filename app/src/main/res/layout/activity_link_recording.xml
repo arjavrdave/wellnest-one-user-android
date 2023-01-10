@@ -35,8 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:background="?attr/actionBarItemBackground"
-                    android:src="@drawable/ic_resend"
-                    android:visibility="gone"
+                    android:src="@drawable/rerecord"
                     app:layout_constraintBottom_toBottomOf="@+id/tvHeader"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tvHeader"
@@ -241,6 +240,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
+                            android:layout_marginTop="24dp"
                             android:paddingStart="-10dp"
                             android:paddingEnd="-12dp" />
 
@@ -452,12 +452,13 @@
                 <Button
                     android:id="@+id/btnLinkPatient"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="53dp"
                     android:background="@color/gray_btn"
                     android:fontFamily="@font/helvetica_bold"
                     android:text="@string/link_patient"
                     android:textColor="@color/white"
                     android:visibility="visible"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />

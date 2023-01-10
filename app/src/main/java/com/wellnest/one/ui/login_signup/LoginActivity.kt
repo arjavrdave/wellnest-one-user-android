@@ -16,6 +16,7 @@ import com.wellnest.one.databinding.ActivityLoginBinding
 import com.wellnest.one.model.CountryCode
 import com.wellnest.one.ui.BaseActivity
 import com.wellnest.one.ui.CountryCodeActivity
+import com.wellnest.one.ui.termofservice.TermsOfServiceActivity
 import com.wellnest.one.ui.verifyotp.VerifyOtpActivity
 import com.wellnest.one.utils.Constants
 import com.wellnest.one.utils.ProgressHelper
@@ -49,6 +50,16 @@ class LoginActivity : BaseActivity() {
             finish()
         }
 
+        binding.imgFlag.setOnClickListener {
+            startActivityForResult(
+                Intent(this, CountryCodeActivity::class.java).apply {
+                    putExtra("name", mCountryName)
+                    putExtra("country_code", mCountryInit)
+                },
+                Constants.COUNTRY_CODE_RESULT
+            )
+        }
+
         binding.tvCountryCode.setOnClickListener {
             startActivityForResult(
                 Intent(this, CountryCodeActivity::class.java).apply {
@@ -57,6 +68,10 @@ class LoginActivity : BaseActivity() {
                 },
                 Constants.COUNTRY_CODE_RESULT
             )
+        }
+
+        binding.tvAgreement.setOnClickListener {
+            startActivity(Intent(this, TermsOfServiceActivity::class.java))
         }
 
         binding.edPhoneNumber.addTextChangedListener(object : TextWatcher {

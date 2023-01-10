@@ -93,6 +93,11 @@ class MedicalHistoryActivity : BaseActivity(), View.OnClickListener {
 
         profileViewModel.profileSuccess.observe(this) {
             if (it) {
+                val token = preferenceManager.getToken()
+                if (token != null) {
+                    token.isNewUser = false
+                    preferenceManager.saveToken(token)
+                }
                 Toast.makeText(this, "Profile Created Successfully", Toast.LENGTH_SHORT).show()
                 val homeIntent = Intent(this, HomeActivity::class.java)
                 homeIntent.flags =

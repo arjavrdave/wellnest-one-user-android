@@ -69,4 +69,10 @@ object CalculatorUtil {
         return df.format(pounds.toDouble() * GRAM_FACTOR).toDouble()
     }
 
+    fun formattedPounds(pounds : Double) : Double {
+        val df = DecimalFormat("#.#")
+        df.roundingMode = RoundingMode.CEILING
+        return df.format(pounds).toDouble()
+    }
+
 }

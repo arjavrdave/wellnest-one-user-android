@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView30"
+            android:id="@+id/tvCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -66,6 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider2">
@@ -77,6 +78,7 @@
                 android:src="@drawable/ic_user" />
 
             <TextView
+                android:id="@+id/tvAddMember"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -87,17 +89,8 @@
                 android:textSize="@dimen/font_size_16" />
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/llAddMember"
-            tools:itemCount="2"
-            tools:listitem="@layout/item_member" />
-
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnLinkReport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/green_btn"

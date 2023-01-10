@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:fontFamily="@font/helvetica_bold"
+                android:fontFamily="@font/helvetica"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@+id/imgProfile"
@@ -154,15 +154,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imgEditProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="-8dp"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-                app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-                app:srcCompat="@drawable/ic_edit_profile" />
-
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -173,12 +164,37 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
                 <LinearLayout
+                    android:id="@+id/llEditProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="4dp">
+
+                    <TextView
+                        android:id="@+id/textView39"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/helvetica"
+                        android:padding="4dp"
+                        android:text="Edit Profile"
+                        android:textColor="#333333"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/imageView11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/ic_more" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/llMedicalHistory"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="?attr/selectableItemBackground"
-
-                    android:orientation="horizontal">
+                    android:layout_marginTop="24dp"
+                    android:orientation="horizontal"
+                    android:padding="4dp">
 
                     <TextView
                         android:id="@+id/textView34"
@@ -203,9 +219,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="24dp"
-                    android:background="?attr/selectableItemBackground"
-
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="4dp">
 
                     <TextView
                         android:id="@+id/textView35"
@@ -230,8 +245,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="24dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="4dp">
 
                     <TextView
                         android:id="@+id/textView37"
@@ -252,11 +267,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/helvetica_bold"
+                android:fontFamily="@font/roboto"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/tvPhone"
                 app:layout_constraintTop_toBottomOf="@+id/tvPhone"
                 tools:text="23 Years | Male" />
+
+            <TextView
+                android:id="@+id/tvVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/helvetica"
+                android:textColor="#999999"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

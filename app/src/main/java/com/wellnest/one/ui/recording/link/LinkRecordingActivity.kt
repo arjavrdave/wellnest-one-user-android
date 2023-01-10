@@ -1,33 +1,51 @@
 package com.wellnest.one.ui.recording.link
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import com.rc.wellnestmodule.interfaces.IECGRecordingUpload
 import com.rc.wellnestmodule.interfaces.IWellnestGraph
+import com.rc.wellnestmodule.utils.RecordingBytesHandler
+import com.rc.wellnestmodule.utils.RecordingDataHandler
+import com.wellnest.one.BuildConfig
 import com.wellnest.one.R
 import com.wellnest.one.data.local.user_pref.PreferenceManager
 import com.wellnest.one.databinding.ActivityLinkRecordingBinding
+import com.wellnest.one.dto.EcgRecording
 import com.wellnest.one.model.Symptoms
+import com.wellnest.one.model.request.AddRecordingRequest
+import com.wellnest.one.model.response.AddRecordingResponse
+import com.wellnest.one.model.response.toDto
 import com.wellnest.one.ui.BaseActivity
+import com.wellnest.one.ui.feedback.ECGFeedbackActivity
+import com.wellnest.one.ui.profile.AddMemberDialog
 import com.wellnest.one.ui.profile.ChooseMemberActivity
+import com.wellnest.one.ui.recording.RecordingViewModel
 import com.wellnest.one.ui.recording.capture.RecordingEcgActivity
-import com.wellnest.one.utils.Constants
-import com.wellnest.one.utils.DialogHelper
-import com.wellnest.one.utils.Util
-import com.wellnest.one.utils.WellNestProUtil
+import com.wellnest.one.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONObject
+import java.io.File
+import java.util.UUID
 import javax.inject.Inject
 
 /**
  * Created by Hussain on 17/11/22.
  */
 @AndroidEntryPoint
-class LinkRecordingActivity : BaseActivity(), IWellnestGraph, View.OnClickListener {
+class LinkRecordingActivity : BaseActivity(), IWellnestGraph, View.OnClickListener,
+    IECGRecordingUpload {
 
+    private var isRecording = false
+    private var pdfBitmap: Bitmap? = null
+    private var graphList: ArrayList<ArrayList<Double>> = ArrayList()
     private lateinit var binding: ActivityLinkRecordingBinding
 
     private var mEcgSetup = "standard"
@@ -37,6 +55,17 @@ class LinkRecordingActivity : BaseActivity(), IWellnestGraph, View.OnClickListen
 
     private var reason: String = ""
     private var isLinked: Boolean = false
+
+    private var ecgFilename = UUID.randomUUID().toString()
+
+    private var ecgRecordingId: Int? = null
+
+    private val recordingViewModel: RecordingViewModel by viewModels()
+
+    private var ecgRecording: EcgRecording? = null
+
+    private val pdfGenerator = PrintBitmapGenerator()
+    private var pdfFile: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,12 +85,15 @@ class LinkRecordingActivity : BaseActivity(), IWellnestGraph, View.OnClickListen
 
     private fun initialize() {
 
-        isLinked = intent.getBooleanExtra(Constants.isLinked, false)
+        isRecording = intent.getBooleanExtra("rerecord", false)
 
         setupClickListeners()
+        setupObservers()
 
-        if (isLinked) {
-            // patient is linked
+        if (isRecording) {
+            ecgRecordingId = intent.getIntExtra("id",-1)
+            ecgFilename = intent.getStringExtra("filename") ?: UUID.randomUUID().toString()
+            recordingViewModel.getEcgRecordingForId(ecgRecordingId!!)
         } else {
             binding.tvTestDate.text = Util.currentTestDateAmPm()
         }
@@ -71,6 +103,106 @@ class LinkRecordingActivity : BaseActivity(), IWellnestGraph, View.OnClickListen
         }
 
         displaySymptoms()
+
+
+        recordingViewModel.getUploadTokenForEcg(ecgFilename)
+
+        this.graphList = RecordingGraphHelper.getInstance().chartData
+
+        ProgressHelper.showDialog(this)
+
+    }
+
+    private fun setupObservers() {
+
+        recordingViewModel.ecgRecording.observe(this) {
+            ecgRecording = it.toDto()
+            it.createdAt?.let { testDate ->
+                binding.tvTestDate.text = Util.testDateAmPm(testDate)
+
+            }
+        }
+
+        recordingViewModel.ecgUploadToken.observe(this) {
+            wellNestUtil.uploadFile(
+                BuildConfig.azureHOST,
+                ecgFilename,
+                it.sasToken,
+                Constants.ECG_RECORDINGS,
+                this
+            )
+        }
+
+        recordingViewModel.addRecordingSuccess.observe(this) {
+            ProgressHelper.dismissDialog()
+            ecgRecording = it.toDto()
+            ecgRecordingId = it.id
+
+            it?.let { recording ->
+                with(recording) {
+
+                    bpm.let {
+                        binding.tvHeart.text = "$bpm bpm"
+                    }
+
+                    qrs?.let {
+                        binding.tvQRSaxis.text = "$qrs ms"
+                    }
+
+                    st?.let {
+                        binding.tvSTaxis.text = "$st ms"
+                    }
+
+                    qt?.let {
+                        binding.tvQTaxis.text = "$qt ms"
+                    }
+
+                    pr?.let {
+                        binding.tvPRaxis.text = "$pr ms"
+                    }
+
+                    qtc?.let {
+                        binding.tvQTc.text = "$qtc ms"
+                    }
+                }
+            }
+
+            pdfBitmap = pdfGenerator.createPdf(
+                it.toDto(),
+                graphList,
+                this,
+                Util.isoToDate(it.createdAt.toString()),
+                "plain",
+                null,
+                null,
+                false,
+                graphSetup = "L2"
+            )
+            pdfFile =
+                Util.createPdf(
+                    pdfBitmap!!,
+                    ecgRecording?.patient, ecgRecording?.createdAt.toString(), this
+                )
+
+        }
+
+        recordingViewModel.errorMsg.observe(this) {
+            ProgressHelper.dismissDialog()
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        }
+
+        recordingViewModel.linkSuccess.observe(this) {
+            if (it) {
+                // go to feedback page
+                ProgressHelper.dismissDialog()
+                Toast.makeText(this, "Patient Linked Successfully", Toast.LENGTH_SHORT).show()
+                val feedbackIntent = Intent(this, ECGFeedbackActivity::class.java)
+                feedbackIntent.putExtra("id", ecgRecordingId)
+                feedbackIntent.putExtra("from", "link")
+                startActivity(feedbackIntent)
+                finish()
+            }
+        }
 
     }
 
@@ -220,16 +352,26 @@ class LinkRecordingActivity : BaseActivity(), IWellnestGraph, View.OnClickListen
             }
 
             R.id.imgRetake -> {
-
+                retakeRecording()
             }
 
             R.id.imgPrint -> {
-
+                pdfFile?.let { sharePdf(it) }
             }
 
             R.id.btnLinkPatient -> {
-                val chooseMemberIntent = Intent(this, ChooseMemberActivity::class.java)
-                startActivity(chooseMemberIntent)
+                val linkIntent = Intent(this, ChooseMemberActivity::class.java)
+                linkIntent.putExtra("id",ecgRecordingId)
+                startActivity(linkIntent)
+//                val addMemberDialog = AddMemberDialog {
+//                    if (ecgRecordingId != null) {
+//                        ProgressHelper.showDialog(this)
+//                        recordingViewModel.linkRecording(ecgRecordingId!!, it)
+//                    } else {
+//                        DialogHelper.showDialog("Error", "Invalid Recording Id", this)
+//                    }
+//                }
+//                addMemberDialog.show(supportFragmentManager, null)
             }
         }
     }
@@ -242,36 +384,18 @@ class LinkRecordingActivity : BaseActivity(), IWellnestGraph, View.OnClickListen
             getString(R.string.discard_ecg),
             this,
             { _, _ ->
-
-//                if (isConnectedToInternet(this)) {
-//                    startActivity(
-//                        Intent(
-//                            this,
-//                            NewRecordingPatientSearchActivity::class.java
-//                        ).apply {
-//                            putExtras(intent.extras!!)
-//                            if (mEcgRecordingId != null)
-//                                putExtra("recording_id", mEcgRecordingId)
-//                            putExtra("quality", quality)
-//                            putExtra("reRecord", false) //reseting for retaking
-//                        }
-//                    )
-//                } else {
-//
-//                    startActivity(
-//                        Intent(
-//                            this,
-//                            AddPatientActivity::class.java
-//                        ).apply {
-//                            putExtras(intent.extras!!)
-//                            if (mOfflineId != null)
-//                                putExtra("recording_id", mOfflineId!!.toInt())
-//                            putExtra("quality", quality)
-//                            putExtra("reRecord", false)
-//                            putExtra("ecg_dto", mEcgRecordingDto)
-//                            putExtra("internet_status", mIsConnected)
-//                        })
+                val linkIntent = Intent(this, ChooseMemberActivity::class.java)
+                linkIntent.putExtra("id",ecgRecordingId)
+                startActivity(linkIntent)
+//                val addMemberDialog = AddMemberDialog {
+//                    if (ecgRecordingId != null) {
+//                        ProgressHelper.showDialog(this)
+//                        recordingViewModel.linkRecording(ecgRecordingId!!, it)
+//                    } else {
+//                        DialogHelper.showDialog("Error", "Invalid Recording Id", this)
+//                    }
 //                }
+//                addMemberDialog.show(supportFragmentManager, null)
             },
             { _, _ ->
                 wellNestUtil.clearData()
@@ -298,14 +422,75 @@ class LinkRecordingActivity : BaseActivity(), IWellnestGraph, View.OnClickListen
                 RecordingEcgActivity::class.java
             ).apply {
                 intent.extras?.let { putExtras(it) }
-                putExtra("reRecord", true)
-
+                putExtra("rerecord",true)
+                putExtra("id",ecgRecordingId)
+                putExtra("filename",ecgRecording?.fileName)
             }
 
             startActivity(rerecordIntent)
             finish()
         }
 
+    }
+
+    override fun onSuccess() {
+        runOnUiThread {
+            val bluetoothDevice =
+                preferenceManager.getBluetoothDevice()
+
+            var ecgDeviceID = bluetoothDevice?.deviceId ?: 188
+
+            val symptoms = intent.getParcelableExtra<Symptoms>("symptoms")
+            symptoms?.let { syms ->
+                val ecgRecordingDto = AddRecordingRequest(
+                    null,
+                    syms.breathlessnessOnExertion,
+                    syms.breathlessnessWhileResting,
+                    syms.chestPain,
+                    ecgDeviceID,
+                    null,
+                    ecgFilename,
+                    null,
+                    syms.jawPain,
+                    null,
+                    syms.palpitation,
+                    null,
+                    syms.preEmployment,
+                    syms.preLifeInsurance,
+                    syms.preMediClaim,
+                    syms.preOperativeAssessment,
+                    reason,
+                    syms.routineCheckUp,
+                    mEcgSetup,
+                    syms.symptomatic,
+                    symptoms.uneasiness,
+                    syms.unexplainedPerspiration,
+                    syms.upperBackPain,
+                    syms.vomiting
+                )
+
+                recordingViewModel.addRecording(ecgRecordingDto)
+            }
+        }
+    }
+
+    override fun onFailure(message: String?) {
+        runOnUiThread {
+            ProgressHelper.dismissDialog()
+
+            DialogHelper.showDialog(
+                "Error",
+                getString(R.string.reupload),
+                getString(R.string.discard),
+                getString(R.string.reupload_msg),
+                this
+            ) { p0, p1 ->
+                ProgressHelper.showDialog(this)
+                if (ecgFilename.isNotBlank()) {
+                    recordingViewModel.getUploadTokenForEcg(ecgFilename)
+                }
+            }
+        }
     }
 }
 

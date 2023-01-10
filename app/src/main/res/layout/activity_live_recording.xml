@@ -36,22 +36,22 @@
 
             <TextView
                 android:id="@+id/tvTimer"
-                android:background="@drawable/grey_timer_bkg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/grey_timer_bkg"
                 android:fontFamily="@font/helvetica_bold"
                 android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="5dp"
+                android:text="00:00"
                 android:textColor="@color/white"
                 android:textSize="23sp"
-                android:text="00:00"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/toolBar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/toolBar"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <TextView
@@ -62,10 +62,10 @@
                 android:gravity="center_vertical"
                 android:textColor="@color/black"
                 android:textSize="17sp"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:visibility="invisible"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <ImageView
@@ -73,9 +73,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
+                android:background="?attr/actionBarItemBackground"
                 android:gravity="center_vertical"
                 android:src="@drawable/ic_close"
-                android:background="?attr/actionBarItemBackground"
                 app:layout_constraintBottom_toBottomOf="@+id/tvHeader"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvHeader" />
@@ -85,11 +85,11 @@
                 android:id="@+id/hr"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:elevation="5dp"
                 android:background="@color/gray_btn"
+                android:elevation="5dp"
+                app:layout_constraintBottom_toBottomOf="@id/tvHeader"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/tvHeader" />
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -112,439 +112,454 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/white_corner_bkg"
-                android:orientation="vertical"
-                tools:layout_editor_absoluteX="20dp"
-                tools:layout_editor_absoluteY="76dp">
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="16dp"
+                    android:textColor="#111111"
+                    android:fontFamily="@font/helvetica_bold"
+                    android:text="Do not minimize this screen/ Do not receive calls/ Switch off the screen while recording in progress." />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:background="@drawable/white_corner_bkg"
+                    android:orientation="vertical"
+                    tools:layout_editor_absoluteX="20dp"
+                    tools:layout_editor_absoluteY="76dp">
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
-                        android:fontFamily="@font/helvetica"
-                        android:text="Test Date"
-                        android:textColor="#666666"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:id="@+id/tvTestDate"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.4"
-                        android:fontFamily="@font/helvetica"
-                        android:textColor="@color/black"
-                        android:textSize="13sp" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:visibility="gone"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:fontFamily="@font/helvetica"
-                        android:text="@string/reffered_by"
-                        android:textColor="#666666"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:id="@+id/tvReferredBy"
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:layout_weight="1.5"
-                        android:fontFamily="@font/helvetica"
-                        android:textColor="@color/black"
-                        android:textSize="13sp" />
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.6"
+                            android:fontFamily="@font/helvetica"
+                            android:text="Test Date"
+                            android:textColor="#666666"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tvTestDate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.4"
+                            android:fontFamily="@font/helvetica"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:fontFamily="@font/helvetica"
+                            android:text="@string/reffered_by"
+                            android:textColor="#666666"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tvReferredBy"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_weight="1.5"
+                            android:fontFamily="@font/helvetica"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
+
+                    </LinearLayout>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
+                            android:id="@+id/graphL1"
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvL1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="I"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp">
+
+                        <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
+                            android:id="@+id/graphL2"
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvL2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="II"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp">
+
+                        <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
+                            android:id="@+id/graphL3"
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvL3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="III"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp">
+
+                        <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
+                            android:id="@+id/graphAvr"
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvAvr"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="aVR"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp">
+
+                        <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
+                            android:id="@+id/graphAvl"
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvAvl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="aVL"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp">
+
+                        <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
+                            android:id="@+id/graphAvf"
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvAvf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="aVF"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp">
+
+                        <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
+                            android:id="@+id/graphV1"
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvV1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="V1"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp">
+
+                        <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
+                            android:id="@+id/graphV2"
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvV2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="V2"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp">
+
+
+                        <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
+                            android:id="@+id/graphV3"
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvV3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="V3"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp">
+
+                        <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
+                            android:id="@+id/graphV4"
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvV4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="V4"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp">
+
+
+                        <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
+                            android:id="@+id/graphV5"
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvV5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="V5"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="32dp">
+
+                        <ImageView
+                            android:id="@+id/imgGraph12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/feedback_graph_bg"
+                            app:layout_constraintBottom_toBottomOf="@id/graphV6"
+                            app:layout_constraintEnd_toEndOf="@id/graphV6"
+                            app:layout_constraintStart_toStartOf="@id/graphV6"
+                            app:layout_constraintTop_toTopOf="@id/graphV6" />
+
+                        <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
+                            android:id="@+id/graphV6"
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvV6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="V6"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 </LinearLayout>
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
-
-                    <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
-                        android:id="@+id/graphL1"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvL1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="I"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp">
-
-                    <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
-                        android:id="@+id/graphL2"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvL2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="II"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp">
-
-                    <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
-                        android:id="@+id/graphL3"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvL3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="III"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp">
-
-                    <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
-                        android:id="@+id/graphAvr"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvAvr"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="aVR"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp">
-
-                    <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
-                        android:id="@+id/graphAvl"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvAvl"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="aVL"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp">
-
-                    <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
-                        android:id="@+id/graphAvf"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvAvf"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="aVF"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp">
-
-                    <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
-                        android:id="@+id/graphV1"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvV1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="V1"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp">
-
-                    <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
-                        android:id="@+id/graphV2"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvV2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="V2"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp">
-
-
-                    <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
-                        android:id="@+id/graphV3"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvV3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="V3"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp">
-
-                    <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
-                        android:id="@+id/graphV4"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvV4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="V4"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp">
-
-
-                    <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
-                        android:id="@+id/graphV5"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvV5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="V5"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="32dp"
-                    android:layout_marginTop="2dp">
-
-                    <ImageView
-                        android:id="@+id/imgGraph12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/feedback_graph_bg"
-                        app:layout_constraintBottom_toBottomOf="@id/graphV6"
-                        app:layout_constraintEnd_toEndOf="@id/graphV6"
-                        app:layout_constraintStart_toStartOf="@id/graphV6"
-                        app:layout_constraintTop_toTopOf="@id/graphV6" />
-
-                    <com.wellnest.realtimechart.chart.chart.RealTimeVitalChart
-                        android:id="@+id/graphV6"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvV6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="V6"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
             </LinearLayout>
+
 
         </ScrollView>
 

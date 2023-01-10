@@ -96,8 +96,9 @@ object DialogHelper {
         val builder = AlertDialog.Builder(context)
 
         // 2. Chain together various setter methods to set the dialog characteristics
-        builder.setMessage(message)
+        builder
             .setTitle(title)
+            .setMessage(message)
 
         // 3. Get the AlertDialog from create()
         builder.setPositiveButton(okTitle, listener)

@@ -1,7 +1,6 @@
 package com.wellnest.one.dto
 
 import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 import java.text.SimpleDateFormat
 import java.util.*
@@ -23,10 +22,11 @@ data class UserProfile(
     val phoneNumber: String?,
     val smoking: String?,
     val tobaccoUse: String?,
-    val weight: Int?,
+    val weight: Double?,
     val weightUnit: String?,
-    val bmi : Double,
-    val dob : String
+    val bmi: Double?,
+    val dob: String?,
+    val profileId : String
 ) : Parcelable {
 
 

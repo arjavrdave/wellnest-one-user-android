@@ -1,0 +1,908 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/mainLayoutPdf"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imgHeaderLogo"
+                    android:layout_width="150dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/logo_report"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvHeader1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="@string/_12_lead_simultaneous_ecg_report"
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvlblName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="@string/name"
+                    android:textColor="@color/black"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imgHeaderLogo" />
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="80dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textColor="@color/black"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvlblName"
+                    app:layout_constraintStart_toEndOf="@+id/tvlblName"
+                    app:layout_constraintTop_toTopOf="@+id/tvlblName"
+                    tools:text="Chinmay Dighe" />
+
+                <ImageView
+                    android:id="@+id/orgLogo"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="8dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tvlblHr"
+                    app:layout_constraintStart_toEndOf="@+id/tvDateTime"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <TextView
+                    android:id="@+id/tvlblGenderAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Gender | Age"
+                    android:textColor="@color/black"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toStartOf="@+id/tvlblName"
+                    app:layout_constraintTop_toBottomOf="@id/tvlblName" />
+
+                <TextView
+                    android:id="@+id/tvGenderAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textColor="@color/black"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvlblGenderAge"
+                    app:layout_constraintStart_toStartOf="@+id/tvName"
+                    app:layout_constraintTop_toTopOf="@+id/tvlblGenderAge"
+                    tools:text="Male | 24 Yrs" />
+
+                <TextView
+                    android:id="@+id/tvlblTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Date &amp; Time"
+                    android:textColor="@color/black"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toStartOf="@+id/tvlblGenderAge"
+                    app:layout_constraintTop_toBottomOf="@id/tvlblGenderAge" />
+
+                <TextView
+                    android:id="@+id/tvDateTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+
+                    android:textColor="@color/black"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvlblTime"
+                    app:layout_constraintStart_toStartOf="@+id/tvGenderAge"
+                    app:layout_constraintTop_toTopOf="@+id/tvlblTime"
+                    tools:text="21st April| 3:30 PM" />
+
+                <TextView
+                    android:id="@+id/tvlblHr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="48dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/heart_rate"
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvHr"
+                    app:layout_constraintEnd_toStartOf="@+id/tvHr"
+                    app:layout_constraintTop_toTopOf="@+id/tvHr" />
+
+                <TextView
+                    android:id="@+id/tvHr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="48dp"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvlblQt"
+                    app:layout_constraintEnd_toStartOf="@+id/tvlblQt"
+                    app:layout_constraintTop_toTopOf="@+id/tvlblQt"
+                    tools:text="0 bpm" />
+
+                <TextView
+                    android:id="@+id/tvlbl_qrs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="QRS"
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_qrs"
+                    app:layout_constraintStart_toStartOf="@+id/tvlblHr"
+                    app:layout_constraintTop_toTopOf="@+id/tv_qrs" />
+
+                <TextView
+                    android:id="@+id/tv_qrs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvHr"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHr"
+                    tools:text="0.0 ms" />
+
+                <TextView
+                    android:id="@+id/tvlbl_st"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="ST"
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_st"
+                    app:layout_constraintStart_toStartOf="@+id/tvlbl_qrs"
+                    app:layout_constraintTop_toTopOf="@+id/tv_st" />
+
+                <TextView
+                    android:id="@+id/tv_st"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_qrs"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_qrs"
+                    tools:text="0.0 ms" />
+
+
+                <TextView
+                    android:id="@+id/tvlblQt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="48dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="QT"
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvQt"
+                    app:layout_constraintEnd_toStartOf="@+id/tvQt"
+                    app:layout_constraintTop_toTopOf="@+id/tvQt" />
+
+                <TextView
+                    android:id="@+id/tvQt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="68dp"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvHeader1"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHeader1"
+                    tools:text="0.0 ms" />
+
+                <TextView
+                    android:id="@+id/tvlblPr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="PR"
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvPr"
+                    app:layout_constraintStart_toStartOf="@+id/tvlblQt"
+                    app:layout_constraintTop_toTopOf="@+id/tvPr" />
+
+                <TextView
+                    android:id="@+id/tvPr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvQt"
+                    app:layout_constraintTop_toBottomOf="@+id/tvQt"
+                    tools:text="0.0 ms" />
+
+                <TextView
+                    android:id="@+id/tvlblQtc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="QTc"
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvQtc"
+                    app:layout_constraintStart_toStartOf="@+id/tvlblPr"
+                    app:layout_constraintTop_toTopOf="@+id/tvQtc" />
+
+                <TextView
+                    android:id="@+id/tvQtc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toEndOf="@+id/tvPr"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPr"
+                    tools:text="0.0 ms" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <!--#11111-->
+
+
+        <LinearLayout
+            android:id="@+id/graphLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header"
+            tools:layout_height="400dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imgGraph"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/image_graph1"
+                    android:visibility="visible" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/firstLineLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <FrameLayout
+                            android:id="@+id/layout1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/labelL1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:fontFamily="@font/roboto"
+                                android:text="L1"
+                                android:textColor="@color/black" />
+
+                            <com.github.mikephil.charting.charts.LineChart
+                                android:id="@+id/lineChartL1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="15dp" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/layout2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            tools:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/labelAvr"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:text="aVR"
+                                android:textColor="@color/black" />
+
+                            <com.github.mikephil.charting.charts.LineChart
+                                android:id="@+id/lineChartAVR"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="15dp" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/layoutV1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            tools:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/labelV1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:text="V1"
+                                android:textColor="@color/black" />
+
+                            <com.github.mikephil.charting.charts.LineChart
+                                android:id="@+id/lineChartV1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="15dp" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/layoutV4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            tools:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/labelV4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:text="V4"
+                                android:textColor="@color/black" />
+
+                            <com.github.mikephil.charting.charts.LineChart
+                                android:id="@+id/lineChartV4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="15dp" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/secondLineLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <FrameLayout
+                            android:id="@+id/layoutL2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/labelL2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:fontFamily="@font/roboto"
+                                android:text="L2"
+                                android:textColor="@color/black" />
+
+                            <com.github.mikephil.charting.charts.LineChart
+                                android:id="@+id/lineChartL2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="15dp"
+                                tools:layout_width="370dp" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/layoutAvl"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            tools:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/labelAvl"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:text="aVL"
+                                android:textColor="@color/black" />
+
+                            <com.github.mikephil.charting.charts.LineChart
+                                android:id="@+id/lineChartAVL"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="15dp" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/layoutV2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            tools:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/labelV2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:text="V2"
+                                android:textColor="@color/black" />
+
+                            <com.github.mikephil.charting.charts.LineChart
+                                android:id="@+id/lineChartV2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="15dp" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/layoutV5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            tools:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/labelV5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:text="V5"
+                                android:textColor="@color/black" />
+
+                            <com.github.mikephil.charting.charts.LineChart
+                                android:id="@+id/lineChartV5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="15dp" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/thirdLineLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:visibility="visible">
+
+
+                        <FrameLayout
+                            android:id="@+id/layoutL3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/labelL3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:fontFamily="@font/roboto"
+                                android:text="L3"
+                                android:textColor="@color/black" />
+
+                            <com.github.mikephil.charting.charts.LineChart
+                                android:id="@+id/lineChartL3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="15dp"
+                                tools:layout_width="370dp" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/layoutAvf"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            tools:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/labelAvf"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:text="aVF"
+                                android:textColor="@color/black" />
+
+                            <com.github.mikephil.charting.charts.LineChart
+                                android:id="@+id/lineChartAVF"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="15dp" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/layoutV3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            tools:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/labelV3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:text="V3"
+                                android:textColor="@color/black" />
+
+                            <com.github.mikephil.charting.charts.LineChart
+                                android:id="@+id/lineChartV3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="15dp" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/layoutV6"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            tools:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/labelV6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:text="V6"
+                                android:textColor="@color/black" />
+
+                            <com.github.mikephil.charting.charts.LineChart
+                                android:id="@+id/lineChartV6"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="15dp" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+
+                    <FrameLayout
+                        android:id="@+id/layoutL2Big"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/labelII"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/roboto"
+                            android:text="L2"
+                            android:textColor="@color/black" />
+
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/lineChartII"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="15dp"
+                            tools:layout_width="370dp" />
+                    </FrameLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/tvPaperSpeed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/black"
+                        android:textSize="10sp"
+                        tools:text="12.5 mm/s" />
+
+                    <TextView
+                        android:id="@+id/tvAmplitude"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/black"
+                        android:textSize="10sp"
+                        tools:text="10 mm/mV" />
+
+                    <TextView
+                        android:id="@+id/tvSetup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/black"
+                        android:textSize="10sp"
+                        tools:text="Standard" />
+                </LinearLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/llFeedbackResponse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/graphLayout">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvlblFindings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="@string/ecg_findings"
+                    android:textColor="@color/black"
+                    android:textSize="11sp"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tvFindings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp"
+                    android:visibility="visible"
+                    tools:text="ECG Findings will appear here" />
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvlblInterpretation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="@string/findings_interpretation"
+                    android:textColor="@color/black"
+                    android:textSize="11sp"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toStartOf="@id/tvlblRecommendations"
+                    app:layout_constraintStart_toEndOf="@+id/tvlblFindings"
+                    app:layout_constraintTop_toBottomOf="@id/graphLayout" />
+
+                <TextView
+                    android:id="@+id/tvInterpretation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toTopOf="@+id/hr"
+                    app:layout_constraintEnd_toStartOf="@+id/tvlblRecommendations"
+                    app:layout_constraintStart_toStartOf="@id/tvlblInterpretation"
+                    app:layout_constraintTop_toBottomOf="@id/tvlblInterpretation"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:text="Findings Interpretation will appear here" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvlblRecommendations"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="@string/recommendations"
+                    android:textColor="@color/black"
+                    android:textSize="11sp"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toStartOf="@id/tvlblReportedBy"
+                    app:layout_constraintStart_toEndOf="@+id/tvlblInterpretation"
+                    app:layout_constraintTop_toBottomOf="@id/graphLayout" />
+
+                <TextView
+                    android:id="@+id/tvRecommendations"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toTopOf="@+id/hr"
+                    app:layout_constraintEnd_toStartOf="@+id/tvlblReportedBy"
+                    app:layout_constraintStart_toStartOf="@+id/tvlblRecommendations"
+                    app:layout_constraintTop_toBottomOf="@id/tvlblRecommendations"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:text="Recommendations will appear here" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvlblReportedBy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="100dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Reported By:"
+                    android:textColor="@color/black"
+                    android:textSize="11sp"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/llFeedbackResponse" />
+
+
+                <ImageView
+                    android:id="@+id/imgSignature"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="4dp"
+                    android:scaleType="fitXY"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <TextView
+                    android:id="@+id/tvReportedBy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/title_color"
+                    android:textSize="11sp"
+                    android:visibility="visible"
+                    tools:text="Reported By, Some Doctor Info" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/hr"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/tvlblReferredBy"
+            app:layout_constraintEnd_toEndOf="@id/graphLayout"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/graphLayout" />
+
+        <LinearLayout
+            android:id="@+id/llReferredBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvlblReferredBy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Referred By:"
+                android:textColor="@color/black"
+                android:textSize="11sp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvReferredBy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/title_color"
+                android:textSize="11sp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/tvlblReferredBy"
+                app:layout_constraintStart_toEndOf="@id/tvlblReferredBy"
+                app:layout_constraintTop_toTopOf="@+id/tvlblReferredBy"
+                tools:text="You will nedd to read this string" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>
