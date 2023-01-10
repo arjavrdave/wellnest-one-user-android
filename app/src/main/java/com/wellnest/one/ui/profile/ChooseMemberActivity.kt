@@ -87,7 +87,7 @@ class ChooseMemberActivity : BaseActivity(), View.OnClickListener {
         }
 
         recordingViewModel.readTokenUser.observe(this) {
-            Util.loadIm age(this,user?.profileId ?: "",it.sasToken,binding.self.imgUser)
+            Util.loadImage(this,user?.profileId ?: "",it.sasToken,binding.self.imgUser)
         }
     }
 

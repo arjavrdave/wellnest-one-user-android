@@ -37,7 +37,7 @@ data class UserProfile(
             (currentDate.year - date.year).toString()
         } catch (e : java.lang.Exception) {
             e.printStackTrace()
-            ""
+            "0"
         }
     }
 
