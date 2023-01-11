@@ -1,8 +1,11 @@
 package com.wellnest.one.dto
 
+import android.os.Build
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.Period
 import java.util.*
 
 /**
@@ -26,16 +29,31 @@ data class UserProfile(
     val weightUnit: String?,
     val bmi: Double?,
     val dob: String?,
-    val profileId : String
+    val profileId: String
 ) : Parcelable {
 
 
-    fun getAge() : String {
+    fun getAge(): String {
         return try {
-            val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(dob)
-            val currentDate = Date()
-            (currentDate.year - date.year).toString()
-        } catch (e : java.lang.Exception) {
+            val getFormat: Date =
+                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH).parse(dob!!)!!
+            val yearFormat = SimpleDateFormat("yyyy", Locale.ENGLISH)
+            val monthFormat = SimpleDateFormat("MM", Locale.ENGLISH)
+            val dayFormat = SimpleDateFormat("dd", Locale.ENGLISH)
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Period.between(
+                    LocalDate.of(
+                        yearFormat.format(getFormat).toInt(),
+                        monthFormat.format(getFormat).toInt(),
+                        dayFormat.format(getFormat).toInt()
+                    ), LocalDate.now()
+                ).years.toString()
+            } else {
+                val currentDate = Date()
+                (currentDate.year - getFormat.year).toString()
+            }
+
+        } catch (e: Exception) {
             e.printStackTrace()
             "0"
         }

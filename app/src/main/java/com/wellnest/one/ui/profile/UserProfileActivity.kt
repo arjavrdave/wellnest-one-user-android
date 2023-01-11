@@ -2,11 +2,13 @@ package com.wellnest.one.ui.profile
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.wellnest.one.BuildConfig
@@ -25,6 +27,9 @@ import com.wellnest.one.utils.units.WeightUnit
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.Period
 import java.util.*
 import javax.inject.Inject
 
@@ -140,10 +145,12 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
             binding.bmiLayout.tvValue.text = profile.bmi.toString()
 
-            binding.tvAgeGender.text = "${profile.getAge()} Years | ${profile.gender?.capitalize(Locale.getDefault())}"
 
+            binding.tvAgeGender.text =
+                "${profile.getAge()} Years | ${profile.gender?.capitalize(Locale.getDefault())}"
         }
     }
+
 
     fun gramsToPounds(weight: Double): Double {
         return weight / GRAM_FACTOR
