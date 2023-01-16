@@ -669,7 +669,7 @@ class WellNestUtil : IWellNestUtil {
                         //
                         //                        //minimum 20 second recording essential for display best graphs.
                         //                        RecordingDataHandler.instance.recordingData = null
-
+//for usb
                         iWellnestUsbData.addRawData(data)
                     }
 
