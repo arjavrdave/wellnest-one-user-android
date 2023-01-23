@@ -19,4 +19,4 @@ rootProject.name = "Wellnest One"
 include ':app'
 include ':wellnestmodulea'
 include ':realtimechart'
-include ':android-pdf-viewer'
+//include ':android-pdf-viewer'
