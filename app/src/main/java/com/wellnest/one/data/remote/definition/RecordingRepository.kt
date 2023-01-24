@@ -8,10 +8,6 @@ import com.wellnest.one.model.response.AddRecordingResponse
 import com.wellnest.one.model.response.EcgRecordingResponse
 import com.wellnest.one.model.response.GetRecordingResponse
 import com.wellnest.one.model.response.SasToken
-import kotlinx.coroutines.Deferred
-import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Query
 
 /**
  * Created by Hussain on 23/11/22.

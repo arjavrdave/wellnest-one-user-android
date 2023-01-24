@@ -129,10 +129,6 @@ class RecordingViewModel @Inject constructor(private val recordingRepository: Re
     fun getRecordings(patientName: String? = null, take: Int? = 30, skip: Int? = 0) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = recordingRepository.getRecording(patientName, take, skip)
-            Log.e(
-                "PASSDATA::::",
-                "patientName:::" + patientName + "\n" + "take:::" + take + "\n" + "skip:::" + skip
-            )
             when (result) {
                 is ApiResult.Success -> {
                     result.data?.let {

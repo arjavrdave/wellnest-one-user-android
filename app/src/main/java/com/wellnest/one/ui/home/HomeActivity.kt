@@ -137,7 +137,6 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
                     mTotalRecordings += 30
                     mSkip += 30
                 } else {
-                    binding.rvRecordings.stopScroll()
                     recordingAdapter.setSearchedRecordings(it.toMutableList())
                 }
             }
@@ -157,7 +156,6 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
     private fun searchRecordings() {
         mSearchMode = true
         binding.swRecordings.isEnabled = false
-
         binding.edtSearch.addTextChangedListener(this)
         binding.llNewRecordingMsg.visibility = View.GONE
 
@@ -202,6 +200,8 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
     private fun goBackToListMode() {
         mSearchMode = false
         KeyboardHelper.hideKeyboard(this)
+        recordingAdapter.clearRecordings()
+        recordingViewModel.getRecordings()
         binding.swRecordings.isEnabled = true
         binding.edtSearch.text.clear()
         binding.edtSearch.removeTextChangedListener(this)
@@ -333,7 +333,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
     }
 
     override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        if (p0?.length!! >= 3) {
+        if (p0?.length!! >= 1) {
             recordingViewModel.getRecordings(patientName = p0.toString())
         } else {
             recordingViewModel.getRecordings()

@@ -15,6 +15,9 @@ class TermsOfServiceActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_terms_of_service)
 
         binding.pdfView.fromAsset("wellnest_tos.pdf").load()
+        binding.imgBack.setOnClickListener {
+            finish()
+        }
 
     }
 }
