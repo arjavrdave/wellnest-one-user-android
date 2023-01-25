@@ -103,7 +103,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
         }
 
         val token = preferenceManager.getFcmToken()
-        Log.i(TAG,"$token")
+        Log.i(TAG, "$token")
 
     }
 
@@ -156,7 +156,6 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
     private fun searchRecordings() {
         mSearchMode = true
         binding.swRecordings.isEnabled = false
-
         binding.edtSearch.addTextChangedListener(this)
         binding.llNewRecordingMsg.visibility = View.GONE
 
@@ -173,7 +172,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
 
 
         binding.edtSearch.requestFocus()
-        KeyboardHelper.showKeyboard(this)
+        KeyboardHelper.showKeyboard(this@HomeActivity, binding.edtSearch)
     }
 
     private fun toggleNoResultView(type: String) {
@@ -201,6 +200,8 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
     private fun goBackToListMode() {
         mSearchMode = false
         KeyboardHelper.hideKeyboard(this)
+        recordingAdapter.clearRecordings()
+        recordingViewModel.getRecordings()
         binding.swRecordings.isEnabled = true
         binding.edtSearch.text.clear()
         binding.edtSearch.removeTextChangedListener(this)
@@ -249,7 +250,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
 
                     if (loading) {
                         if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-                            loading = false;
+                            loading = false
                             recordingViewModel.getRecordings(null, mTotalRecordings, mSkip)
                         }
                     }
@@ -291,7 +292,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
 
         override fun onServiceDisconnected(componentName: ComponentName) {
             bluetoothLeService = null
-            //WellNestLoader.dismissLoader()
+//            WellNestLoader.dismissLoader()
         }
     }
 
@@ -332,8 +333,11 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
     }
 
     override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        if (p0?.length!! > 3)
+        if (p0?.length!! >= 1) {
             recordingViewModel.getRecordings(patientName = p0.toString())
+        } else {
+            recordingViewModel.getRecordings()
+        }
     }
 
     override fun afterTextChanged(p0: Editable?) {

@@ -1,5 +1,6 @@
 package com.wellnest.one.ui.recording
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,42 +23,43 @@ import javax.inject.Inject
  * Created by Hussain on 23/11/22.
  */
 @HiltViewModel
-class RecordingViewModel @Inject constructor(private val recordingRepository: RecordingRepository) : ViewModel() {
+class RecordingViewModel @Inject constructor(private val recordingRepository: RecordingRepository) :
+    ViewModel() {
 
     private val _errorMsg = MutableLiveData<String>()
-    val errorMsg : LiveData<String> get() = _errorMsg
+    val errorMsg: LiveData<String> get() = _errorMsg
 
     private val _addRecordingSuccess = MutableLiveData<AddRecordingResponse>()
-    val addRecordingSuccess : LiveData<AddRecordingResponse> get() = _addRecordingSuccess
+    val addRecordingSuccess: LiveData<AddRecordingResponse> get() = _addRecordingSuccess
 
     private val _ecgUploadToken = MutableLiveData<SasToken>()
-    val ecgUploadToken : LiveData<SasToken> get() = _ecgUploadToken
+    val ecgUploadToken: LiveData<SasToken> get() = _ecgUploadToken
 
     private val _ecgReadToken = MutableLiveData<SasToken>()
-    val ecgReadToken : LiveData<SasToken> get() = _ecgReadToken
+    val ecgReadToken: LiveData<SasToken> get() = _ecgReadToken
 
     private val _ecgRecording = MutableLiveData<EcgRecordingResponse>()
-    val ecgRecording : LiveData<EcgRecordingResponse> get() = _ecgRecording
+    val ecgRecording: LiveData<EcgRecordingResponse> get() = _ecgRecording
 
     private val _linkSuccess = MutableLiveData<Boolean>()
-    val linkSuccess : LiveData<Boolean> get() = _linkSuccess
+    val linkSuccess: LiveData<Boolean> get() = _linkSuccess
 
     private val _recordings = MutableLiveData<List<GetRecordingResponse>>()
-    val recordings : LiveData<List<GetRecordingResponse>> get() = _recordings
+    val recordings: LiveData<List<GetRecordingResponse>> get() = _recordings
 
     private val _readTokenUser = MutableLiveData<AzureToken>()
-    val readTokenUser : LiveData<AzureToken> get() = _readTokenUser
+    val readTokenUser: LiveData<AzureToken> get() = _readTokenUser
 
     private val _sendForFeedbackSuccess = MutableLiveData<Boolean>()
-    val sendForFeedbackSuccess : LiveData<Boolean> get() = _sendForFeedbackSuccess
+    val sendForFeedbackSuccess: LiveData<Boolean> get() = _sendForFeedbackSuccess
 
     private val _readSignatureToken = MutableLiveData<SasToken>()
-    val readSignatureToken : LiveData<SasToken> get() = _readSignatureToken
+    val readSignatureToken: LiveData<SasToken> get() = _readSignatureToken
 
     fun addRecording(addRecordingRequest: AddRecordingRequest) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = recordingRepository.addRecording(addRecordingRequest)
-            when(result) {
+            when (result) {
                 is ApiResult.Success -> {
                     _addRecordingSuccess.postValue(result.data!!)
                 }
@@ -68,7 +70,7 @@ class RecordingViewModel @Inject constructor(private val recordingRepository: Re
         }
     }
 
-    fun getUploadTokenForEcg(filename : String) {
+    fun getUploadTokenForEcg(filename: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = recordingRepository.getUploadTokenForEcg(filename)
             when (result) {
@@ -96,10 +98,10 @@ class RecordingViewModel @Inject constructor(private val recordingRepository: Re
         }
     }
 
-    fun getEcgRecordingForId(id : Int) {
+    fun getEcgRecordingForId(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = recordingRepository.getEcgRecordingForId(id)
-            when(result) {
+            when (result) {
                 is ApiResult.Success -> {
                     _ecgRecording.postValue(result.data!!)
                 }
@@ -112,7 +114,7 @@ class RecordingViewModel @Inject constructor(private val recordingRepository: Re
 
     fun linkRecording(ecgRecordingId: Int, member: LinkMemberRequest) {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = recordingRepository.linkFamilyMember(ecgRecordingId,member)
+            val result = recordingRepository.linkFamilyMember(ecgRecordingId, member)
             when (result) {
                 is ApiResult.Success -> {
                     _linkSuccess.postValue(true)
@@ -124,10 +126,10 @@ class RecordingViewModel @Inject constructor(private val recordingRepository: Re
         }
     }
 
-    fun getRecordings(patientName : String? = null, take : Int? = 30, skip :Int? = 0) {
+    fun getRecordings(patientName: String? = null, take: Int? = 30, skip: Int? = 0) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = recordingRepository.getRecording(patientName, take, skip)
-            when(result) {
+            when (result) {
                 is ApiResult.Success -> {
                     result.data?.let {
                         _recordings.postValue(it)
@@ -143,7 +145,7 @@ class RecordingViewModel @Inject constructor(private val recordingRepository: Re
     fun getReadTokenForUser() {
         viewModelScope.launch(Dispatchers.IO) {
             val result = recordingRepository.getReadTokenForUser()
-            when(result) {
+            when (result) {
                 is ApiResult.Success -> {
                     _readTokenUser.postValue(result.data!!)
                 }
@@ -154,10 +156,10 @@ class RecordingViewModel @Inject constructor(private val recordingRepository: Re
         }
     }
 
-    fun sendForFeedback(id : Int) {
+    fun sendForFeedback(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = recordingRepository.sendForFeedback(id)
-            when(result) {
+            when (result) {
                 is ApiResult.Success -> {
                     _sendForFeedbackSuccess.postValue(true)
                 }
@@ -168,10 +170,10 @@ class RecordingViewModel @Inject constructor(private val recordingRepository: Re
         }
     }
 
-    fun getReadTokenForSignature(id :Int) {
+    fun getReadTokenForSignature(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = recordingRepository.getReadTokenForSignature(id)
-            when(result) {
+            when (result) {
                 is ApiResult.Success -> {
                     result.data?.let {
                         _readSignatureToken.postValue(it)

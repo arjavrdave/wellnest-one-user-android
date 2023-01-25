@@ -112,4 +112,8 @@ class RecordingAdapter(private val context : Context) : RecyclerView.Adapter<Rec
         recordings.addAll(list)
         notifyDataSetChanged()
     }
+    fun clearRecordings(){
+        recordings.clear()
+        notifyDataSetChanged()
+    }
 }
