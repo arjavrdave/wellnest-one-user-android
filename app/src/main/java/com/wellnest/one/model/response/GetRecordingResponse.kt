@@ -1,32 +1,32 @@
 package com.wellnest.one.model.response
 
 
-import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 import android.os.Parcelable
 import android.util.Log
+import com.google.gson.annotations.SerializedName
 import com.wellnest.one.utils.Util
+import kotlinx.parcelize.Parcelize
 import java.text.SimpleDateFormat
 import java.util.*
 
 @Parcelize
 data class GetRecordingResponse(
-    @SerializedName("bpm")
-    val bpm: Double?,
-    @SerializedName("createdAt")
-    val createdAt: String?,
-    @SerializedName("forwardCount")
-    val forwardCount: Int?,
-    @SerializedName("forwarded")
-    val forwarded: Boolean?,
     @SerializedName("id")
     val id: Int?,
-    @SerializedName("patient")
-    val patient: PatientX?,
+    @SerializedName("createdAt")
+    val createdAt: String?,
     @SerializedName("reason")
     val reason: String?,
+    @SerializedName("bpm")
+    val bpm: Double?,
     @SerializedName("reviewStatus")
-    val reviewStatus: String?
+    val reviewStatus: String?,
+    @SerializedName("forwardCount")
+    val forwardCount: Int?,
+    @SerializedName("patient")
+    val patient: PatientX?,
+    @SerializedName("forwarded")
+    val forwarded: Boolean?
 ) : Parcelable {
     fun notificationTime(): String {
         if (createdAt == null) return ""
@@ -69,24 +69,20 @@ data class GetRecordingResponse(
                 return notificationDate
             } else if (Integer.valueOf(week) > 0) {
                 week + " week"
-            }
-            else if (Integer.valueOf(days) == 1) {
+            } else if (Integer.valueOf(days) == 1) {
                 "Yesterday"
-            }
-            else if (Integer.valueOf(days) > 0) {
+            } else if (Integer.valueOf(days) > 0) {
                 return SimpleDateFormat("EEEE", Locale.ENGLISH).format(timeStamp);
-            }else if (Integer.valueOf(hours) > 0) {
-                return hours+" hour ago";
-            }
-            else if (Integer.valueOf(minutes) > 0) {
-                if (Integer.valueOf(minutes)==1){
-                    return minutes+" minute ago";
-                }else{
-                    return minutes+" minutes ago";
+            } else if (Integer.valueOf(hours) > 0) {
+                return hours + " hour ago";
+            } else if (Integer.valueOf(minutes) > 0) {
+                if (Integer.valueOf(minutes) == 1) {
+                    return minutes + " minute ago";
+                } else {
+                    return minutes + " minutes ago";
                 }
 
-            }
-            else {
+            } else {
                 return "a moment ago";
             }
         } catch (e: Exception) {
