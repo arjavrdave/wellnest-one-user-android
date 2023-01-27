@@ -17,8 +17,8 @@
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
 
@@ -26,23 +26,24 @@
                 android:id="@+id/imgBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_back"
-                app:tint="@color/black"
                 android:layout_marginStart="20dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/black" />
 
             <TextView
                 android:id="@+id/tvHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 android:fontFamily="@font/helvetica_bold"
                 android:gravity="center_vertical"
                 android:text="@string/record_ecg"
                 android:textColor="@color/black"
                 android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -52,6 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
+                android:contentDescription="@string/app_name"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -63,11 +65,11 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="4dp"
-                android:layout_marginEnd="6dp"
                 android:layout_marginTop="2dp"
+                android:layout_marginEnd="6dp"
                 android:layout_marginBottom="1dp"
-                android:scaleY="2.15"
                 android:progressTint="@android:color/transparent"
+                android:scaleY="2.15"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView3"
                 app:layout_constraintEnd_toEndOf="@+id/imageView3"
                 app:layout_constraintStart_toStartOf="@+id/imageView3"
@@ -75,17 +77,6 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-<!--        <ImageView-->
-<!--            android:id="@+id/imgRecord"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:src="@drawable/image_electrode_guide"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/toolBar"-->
-<!--            app:layout_constraintBottom_toTopOf="@+id/btnRecording"/>-->
-
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
@@ -95,38 +86,38 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="40dp"
-            android:overScrollMode="never"
             android:layout_marginBottom="8dp"
+            android:overScrollMode="never"
             app:layout_constraintBottom_toTopOf="@+id/tvDesc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolBar" />
+            app:layout_constraintTop_toBottomOf="@+id/toolBar"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
 
         <TextView
             android:id="@+id/tvDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/helvetica"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:textColor="#111111"
-            android:lineSpacingExtra="4sp"
             android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@id/relativeLayout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:fontFamily="@font/helvetica"
+            android:gravity="center"
+            android:lineSpacingExtra="4sp"
             android:text="@string/swipe_1_txt"
-            />
+            android:textColor="#111111"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/relativeLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
         <RelativeLayout
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
             android:animateLayoutChanges="true"
             android:orientation="vertical"
-            android:layout_marginBottom="32dp"
             app:layout_constraintBottom_toTopOf="@+id/btnRecording"
             app:layout_constraintEnd_toEndOf="@+id/viewPager"
             app:layout_constraintStart_toStartOf="@+id/viewPager">
@@ -138,7 +129,8 @@
                 android:layout_centerInParent="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="UselessParent">
 
 
                 <View
@@ -151,25 +143,31 @@
                     android:id="@+id/img1"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:background="@drawable/selected_dot" />
+                    android:background="@drawable/selected_dot"
+                    android:contentDescription="@string/app_name" />
 
                 <ImageView
                     android:id="@+id/img2"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:background="@drawable/default_dot" />
+                    android:background="@drawable/default_dot"
+                    android:contentDescription="@string/app_name" />
 
                 <ImageView
                     android:id="@+id/img3"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:background="@drawable/default_dot" />
+                    android:background="@drawable/default_dot"
+                    android:contentDescription="@string/app_name"
+                    tools:ignore="ImageContrastCheck" />
 
                 <ImageView
                     android:id="@+id/img4"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:background="@drawable/default_dot" />
+                    android:background="@drawable/default_dot"
+                    android:contentDescription="@string/app_name"
+                    tools:ignore="ImageContrastCheck" />
 
 
                 <View
@@ -182,14 +180,14 @@
         </RelativeLayout>
 
 
-
         <ImageView
             android:id="@+id/imgStatus"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            android:layout_marginStart="20dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginStart="20dp"
             android:background="@drawable/red_gradient_bkg"
+            android:contentDescription="@string/app_name"
             app:layout_constraintBottom_toBottomOf="@+id/btnRecording"
             app:layout_constraintStart_toStartOf="@+id/btnRecording"
             app:layout_constraintTop_toTopOf="@+id/btnRecording" />
@@ -200,17 +198,18 @@
             style="@style/Widget.Neumorph.Button"
             android:layout_width="200dp"
             android:layout_height="70dp"
-            android:paddingVertical="8dp"
+            android:layout_marginBottom="40dp"
             android:fontFamily="@font/helvetica_bold"
-            android:text="Record ECG"
-            android:textAllCaps="false"
+            android:paddingVertical="8dp"
             android:shadowColor="#00000033"
+            android:text="@string/record_ecg"
+            android:textAllCaps="false"
             android:textColor="@color/normal_text"
             android:textSize="16sp"
-            android:layout_marginBottom="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            tools:ignore="DuplicateSpeakableTextCheck" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

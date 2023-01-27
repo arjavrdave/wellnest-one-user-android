@@ -22,7 +22,6 @@ import com.wellnest.one.databinding.ActivityHomeBinding
 import com.wellnest.one.model.response.GetRecordingResponse
 import com.wellnest.one.ui.BaseActivity
 import com.wellnest.one.ui.profile.UserProfileActivity
-import com.wellnest.one.ui.recording.RecordingViewModel
 import com.wellnest.one.ui.recording.pair.PairDeviceActivity
 import com.wellnest.one.ui.recording.pair.SymptomsActivity
 import com.wellnest.one.utils.KeyboardHelper
@@ -39,6 +38,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
 
+
     private var listOfRecordings = listOf<GetRecordingResponse>()
     private val TAG = "HomeActivity"
 
@@ -49,9 +49,9 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
     @Inject
     lateinit var preferenceManager: PreferenceManager
 
-    private lateinit var recordingAdapter: RecordingAdapter
+    private lateinit var homeAdapter: HomeAdapter
 
-    private val recordingViewModel: RecordingViewModel by viewModels()
+    private val recordingViewModel: HomeViewModel by viewModels()
 
     private var mTotalRecordings = 30
     private var mSkip = 0
@@ -68,7 +68,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
     private var CURRENT_MODE = ""
 
     private lateinit var layoutManager: LinearLayoutManager
-
+    private var charLength: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -82,12 +82,9 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
 
         layoutManager = LinearLayoutManager(this)
 
-        recordingAdapter = RecordingAdapter(this)
+        homeAdapter = HomeAdapter(this)
 
-
-        recordingAdapter.addNewRecordings(mutableListOf())
-
-        binding.rvRecordings.adapter = recordingAdapter
+        binding.rvRecordings.adapter = homeAdapter
         binding.rvRecordings.layoutManager = layoutManager
 
         setInfiniteScrolling()
@@ -110,7 +107,8 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
     private fun setupObservers() {
         recordingViewModel.recordings.observe(this) {
 
-            if (it.isEmpty() && recordingAdapter.itemCount == 0) {
+
+            if (it.isEmpty() && homeAdapter.itemCount == 0) {
                 binding.imgSearch.visibility = View.INVISIBLE
                 binding.groupError.visibility = View.VISIBLE
                 binding.llNoRecording.visibility = View.VISIBLE
@@ -118,7 +116,6 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
                 if (CURRENT_MODE == LIST_MODE)
                     binding.llNewRecordingMsg.visibility = View.VISIBLE
 
-                recordingAdapter.setSearchedRecordings(mutableListOf())
             } else {
                 binding.groupError.visibility = View.GONE
                 binding.llNoRecording.visibility = View.GONE
@@ -127,24 +124,24 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
                 if (binding.swRecordings.isRefreshing && !mSearchMode) {
                     loading = true
                     binding.swRecordings.isRefreshing = false
-                    recordingAdapter.addNewRecordings(it.toMutableList())
+                    homeAdapter.addNewRecordings(it.toMutableList(), false, charLength)
                     mTotalRecordings = 60
                     mSkip = 30
                 } else if (!mSearchMode) {
                     listOfRecordings = it
                     loading = true
-                    recordingAdapter.addECGRecordings(it.toMutableList())
+                    homeAdapter.addNewRecordings(it.toMutableList(), false, charLength)
                     mTotalRecordings += 30
                     mSkip += 30
                 } else {
-                    recordingAdapter.setSearchedRecordings(it.toMutableList())
+                    homeAdapter.addNewRecordings(it.toMutableList(), true, charLength)
                 }
             }
             binding.swRecordings.isRefreshing = false
         }
 
         recordingViewModel.readTokenUser.observe(this) {
-            recordingAdapter.setSasToken(it.sasToken)
+            homeAdapter.setSasToken(it.sasToken)
         }
 
         recordingViewModel.errorMsg.observe(this) {
@@ -200,7 +197,8 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
     private fun goBackToListMode() {
         mSearchMode = false
         KeyboardHelper.hideKeyboard(this)
-        recordingAdapter.clearRecordings()
+        mTotalRecordings = 30
+        mSkip = 0
         recordingViewModel.getRecordings()
         binding.swRecordings.isEnabled = true
         binding.edtSearch.text.clear()
@@ -211,10 +209,6 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
             binding.groupError.visibility = View.VISIBLE
             binding.llNewRecordingMsg.visibility = View.VISIBLE
         }
-
-        if (listOfRecordings.isNotEmpty())
-            recordingAdapter.addNewRecordings(listOfRecordings.toMutableList())
-
 
         toggleNoResultView(LIST_MODE)
 
@@ -247,7 +241,6 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
                     visibleItemCount = layoutManager.childCount
                     totalItemCount = layoutManager.itemCount
                     pastVisiblesItems = layoutManager.findFirstVisibleItemPosition()
-
                     if (loading) {
                         if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                             loading = false
@@ -260,24 +253,7 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
     }
 
     private fun setBluetoothState() {
-//        if (!checkBluetoothPermissions()) return
 
-//        val bluetoothDevice = preferenceManager.getBluetoothDevice()
-//
-//        if (bluetoothLeService?.isConnected() == false) {
-//            val eventProp = JSONObject()
-//            eventProp.put("ecgDeviceId", bluetoothDevice?.deviceId)
-//
-//            //eventProp.put("patientId", patient.id)
-//            Amplitude.getInstance().logEvent("Start Pairing (New Recording)", eventProp)
-//
-//            isBluetoothDeviceConnected = false
-//            return
-//        } else {
-//            isBluetoothDeviceConnected = true
-//            isUsbDeviceConnected = false
-//            return
-//        }
     }
 
     private val mServiceConnection = object : ServiceConnection {
@@ -333,13 +309,18 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
     }
 
     override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        if (p0?.length!! >= 1) {
+        charLength = p0?.length!!
+        if (p0.length >= 3) {
             recordingViewModel.getRecordings(patientName = p0.toString())
-        } else {
+        }
+
+        if (p0.isEmpty()) {
             recordingViewModel.getRecordings()
         }
+
     }
 
     override fun afterTextChanged(p0: Editable?) {
+
     }
 }

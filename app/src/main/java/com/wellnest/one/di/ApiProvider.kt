@@ -8,10 +8,13 @@ import com.wellnest.one.data.remote.implementation.AccountRepositoryImpl
 import com.wellnest.one.data.remote.implementation.DeviceRepositoryImpl
 import com.wellnest.one.data.remote.implementation.ProfileRepositoryImpl
 import com.wellnest.one.data.remote.implementation.RecordingRepositoryImpl
+import com.wellnest.one.network.RestApiRequests
+import com.wellnest.one.network.RestRepositoryImpl
 import com.wellnest.one.network.api.IAccountApi
 import com.wellnest.one.network.api.IDeviceApi
 import com.wellnest.one.network.api.IProfileApi
 import com.wellnest.one.network.api.IRecordApi
+import com.wellnest.one.ui.home.HomeRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -73,4 +76,17 @@ object ApiProvider {
     fun provideRecordingApi(iRecordApi: IRecordApi) : RecordingRepository {
         return RecordingRepositoryImpl(iRecordApi)
     }
+
+    @Provides
+    @Singleton
+    fun provideRestApiRequests(retrofit: Retrofit):RestApiRequests{
+        return retrofit.create((RestApiRequests::class.java))
+    }
+
+    @Provides
+    @Singleton
+    fun homeRepository(iHomeApi: RestApiRequests):HomeRepository{
+        return RestRepositoryImpl(iHomeApi)
+    }
+
 }

@@ -106,12 +106,6 @@ class RecordingEcgActivity : BaseActivity(), ISendMessageToEcgDevice, View.OnCli
                 }
                 ivArrayDotsPager[position].setImageResource(R.drawable.selected_dot)
                 binding.tvDesc.text = mTitles[position]
-
-//                if (position == mTitles.size - 1) {
-//                    binding.skipNextLayout.visibility = View.GONE
-//                } else {
-//                    binding.skipNextLayout.visibility = View.VISIBLE
-//                }
             }
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -196,11 +190,6 @@ class RecordingEcgActivity : BaseActivity(), ISendMessageToEcgDevice, View.OnCli
     private fun setBluetoothState() {
 
         if (bluetoothLeService?.isConnected() == false) {
-//            val eventProp = JSONObject()
-//            eventProp.put("ecgDeviceId", bluetoothDevice?.deviceId)
-
-            //eventProp.put("patientId", patient.id)
-//            Amplitude.getInstance().logEvent("Start Pairing (New Recording)", eventProp)
             binding.btnRecording.tag = false
 
         } else {
@@ -256,7 +245,6 @@ class RecordingEcgActivity : BaseActivity(), ISendMessageToEcgDevice, View.OnCli
             val action = intent.action
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
-//                deviceDisconnected()
                 disconnected()
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 val supportedGattServices = bluetoothLeService!!.supportedGattServices
