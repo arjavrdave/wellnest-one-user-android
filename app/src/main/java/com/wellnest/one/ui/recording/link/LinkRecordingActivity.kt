@@ -12,8 +12,6 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.rc.wellnestmodule.interfaces.IECGRecordingUpload
 import com.rc.wellnestmodule.interfaces.IWellnestGraph
-import com.rc.wellnestmodule.utils.RecordingBytesHandler
-import com.rc.wellnestmodule.utils.RecordingDataHandler
 import com.wellnest.one.BuildConfig
 import com.wellnest.one.R
 import com.wellnest.one.data.local.user_pref.PreferenceManager
@@ -21,19 +19,15 @@ import com.wellnest.one.databinding.ActivityLinkRecordingBinding
 import com.wellnest.one.dto.EcgRecording
 import com.wellnest.one.model.Symptoms
 import com.wellnest.one.model.request.AddRecordingRequest
-import com.wellnest.one.model.response.AddRecordingResponse
 import com.wellnest.one.model.response.toDto
 import com.wellnest.one.ui.BaseActivity
 import com.wellnest.one.ui.feedback.ECGFeedbackActivity
-import com.wellnest.one.ui.profile.AddMemberDialog
 import com.wellnest.one.ui.profile.ChooseMemberActivity
 import com.wellnest.one.ui.recording.RecordingViewModel
 import com.wellnest.one.ui.recording.capture.RecordingEcgActivity
 import com.wellnest.one.utils.*
 import dagger.hilt.android.AndroidEntryPoint
-import org.json.JSONObject
-import java.io.File
-import java.util.UUID
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -54,7 +48,6 @@ class LinkRecordingActivity : BaseActivity(), IWellnestGraph, View.OnClickListen
     lateinit var preferenceManager: PreferenceManager
 
     private var reason: String = ""
-    private var isLinked: Boolean = false
 
     private var ecgFilename = UUID.randomUUID().toString()
 
@@ -91,7 +84,7 @@ class LinkRecordingActivity : BaseActivity(), IWellnestGraph, View.OnClickListen
         setupObservers()
 
         if (isRecording) {
-            ecgRecordingId = intent.getIntExtra("id",-1)
+            ecgRecordingId = intent.getIntExtra("id", -1)
             ecgFilename = intent.getStringExtra("filename") ?: UUID.randomUUID().toString()
             recordingViewModel.getEcgRecordingForId(ecgRecordingId!!)
         } else {
@@ -344,34 +337,18 @@ class LinkRecordingActivity : BaseActivity(), IWellnestGraph, View.OnClickListen
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.imgClose -> {
-                if (isLinked) {
-
-                } else {
-                    showCloseDialogOptions()
-                }
+                showCloseDialogOptions()
             }
-
             R.id.imgRetake -> {
                 retakeRecording()
             }
-
             R.id.imgPrint -> {
                 pdfFile?.let { sharePdf(it) }
             }
-
             R.id.btnLinkPatient -> {
                 val linkIntent = Intent(this, ChooseMemberActivity::class.java)
-                linkIntent.putExtra("id",ecgRecordingId)
+                linkIntent.putExtra("id", ecgRecordingId)
                 startActivity(linkIntent)
-//                val addMemberDialog = AddMemberDialog {
-//                    if (ecgRecordingId != null) {
-//                        ProgressHelper.showDialog(this)
-//                        recordingViewModel.linkRecording(ecgRecordingId!!, it)
-//                    } else {
-//                        DialogHelper.showDialog("Error", "Invalid Recording Id", this)
-//                    }
-//                }
-//                addMemberDialog.show(supportFragmentManager, null)
             }
         }
     }
@@ -385,17 +362,8 @@ class LinkRecordingActivity : BaseActivity(), IWellnestGraph, View.OnClickListen
             this,
             { _, _ ->
                 val linkIntent = Intent(this, ChooseMemberActivity::class.java)
-                linkIntent.putExtra("id",ecgRecordingId)
+                linkIntent.putExtra("id", ecgRecordingId)
                 startActivity(linkIntent)
-//                val addMemberDialog = AddMemberDialog {
-//                    if (ecgRecordingId != null) {
-//                        ProgressHelper.showDialog(this)
-//                        recordingViewModel.linkRecording(ecgRecordingId!!, it)
-//                    } else {
-//                        DialogHelper.showDialog("Error", "Invalid Recording Id", this)
-//                    }
-//                }
-//                addMemberDialog.show(supportFragmentManager, null)
             },
             { _, _ ->
                 wellNestUtil.clearData()
@@ -404,12 +372,6 @@ class LinkRecordingActivity : BaseActivity(), IWellnestGraph, View.OnClickListen
     }
 
     private fun retakeRecording() {
-//        if (mPatientId != -1) {
-//            val eventProp = JSONObject()
-//            eventProp.put("patientId", mPatientId)
-//            Amplitude.getInstance().logEvent("Retake Recording", eventProp)
-//        }
-
         DialogHelper.showDialog(
             getString(R.string.re_record),
             getString(R.string.yes),
@@ -422,9 +384,9 @@ class LinkRecordingActivity : BaseActivity(), IWellnestGraph, View.OnClickListen
                 RecordingEcgActivity::class.java
             ).apply {
                 intent.extras?.let { putExtras(it) }
-                putExtra("rerecord",true)
-                putExtra("id",ecgRecordingId)
-                putExtra("filename",ecgRecording?.fileName)
+                putExtra("rerecord", true)
+                putExtra("id", ecgRecordingId)
+                putExtra("filename", ecgRecording?.fileName)
             }
 
             startActivity(rerecordIntent)

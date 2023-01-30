@@ -21,6 +21,7 @@ import com.wellnest.one.data.local.user_pref.PreferenceManager
 import com.wellnest.one.databinding.ActivityHomeBinding
 import com.wellnest.one.model.response.GetRecordingResponse
 import com.wellnest.one.ui.BaseActivity
+import com.wellnest.one.ui.profile.ProfileViewModel
 import com.wellnest.one.ui.profile.UserProfileActivity
 import com.wellnest.one.ui.recording.pair.PairDeviceActivity
 import com.wellnest.one.ui.recording.pair.SymptomsActivity
@@ -52,6 +53,8 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
     private lateinit var homeAdapter: HomeAdapter
 
     private val recordingViewModel: HomeViewModel by viewModels()
+
+    private val profileviewModel: ProfileViewModel by viewModels()
 
     private var mTotalRecordings = 30
     private var mSkip = 0
@@ -92,6 +95,8 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
         setupObservers()
 
         recordingViewModel.getReadTokenForUser()
+
+        profileviewModel.getProfile()
 
         recordingViewModel.getRecordings()
 
@@ -146,6 +151,10 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
 
         recordingViewModel.errorMsg.observe(this) {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        }
+
+        profileviewModel.profileData.observe(this) {
+            preferenceManager.saveUser(it)
         }
     }
 
