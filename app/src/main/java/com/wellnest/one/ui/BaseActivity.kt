@@ -14,6 +14,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -44,9 +45,10 @@ const val RC_IMAGE_GALLERY = 1806
 const val RC_TAKE_PHOTO = 1808
 
 @AndroidEntryPoint
-open class BaseActivity : PermissionHelperActivity(), IWellnestGraph, IWellNestData, ISendMessageToEcgDevice, IWellnestUsbData {
+open class BaseActivity : PermissionHelperActivity(), IWellnestGraph, IWellNestData,
+    ISendMessageToEcgDevice, IWellnestUsbData {
 
-    private lateinit var photoFile : File
+    private lateinit var photoFile: File
 
     lateinit var wellNestUtil: IWellNestUtil
 
@@ -61,7 +63,7 @@ open class BaseActivity : PermissionHelperActivity(), IWellnestGraph, IWellNestD
         super.onCreate(savedInstanceState)
 
         wellNestUtil = WellNestUtilFactory.getWellNestUtil()
-        wellNestUtil.startBleService(this,this, this, this,this)
+        wellNestUtil.startBleService(this, this, this, this, this)
 
 
         FirebaseMessaging.getInstance().token
@@ -138,7 +140,7 @@ open class BaseActivity : PermissionHelperActivity(), IWellnestGraph, IWellNestD
         if (photoIntent.resolveActivity(packageManager) != null) {
             startActivityForResult(photoIntent, RC_TAKE_PHOTO)
         } else {
-            Toast.makeText(this,"No Apps Found",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "No Apps Found", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -158,19 +160,19 @@ open class BaseActivity : PermissionHelperActivity(), IWellnestGraph, IWellNestD
                 RC_IMAGE_GALLERY -> {
                     val uri = data?.data ?: return
                     val inputStream = contentResolver.openInputStream(uri)
-                    val bitmap =BitmapFactory.decodeStream(inputStream)
-                    pickedImage(Util.orientationImage(bitmap,uri,this))
+                    val bitmap = BitmapFactory.decodeStream(inputStream)
+                    pickedImage(Util.orientationImage(bitmap, uri, this))
                 }
 
                 RC_TAKE_PHOTO -> {
                     val bitmap = BitmapFactory.decodeFile(photoFile.absolutePath)
-                    pickedImage(Util.orientationImage(bitmap,photoFile.toUri(),this))
+                    pickedImage(Util.orientationImage(bitmap, photoFile.toUri(), this))
                 }
             }
         }
     }
 
-    protected open fun pickedImage(bitmap : Bitmap) {
+    protected open fun pickedImage(bitmap: Bitmap) {
     }
 
     override fun cameraPermissionGranted(granted: Boolean) {
@@ -178,6 +180,7 @@ open class BaseActivity : PermissionHelperActivity(), IWellnestGraph, IWellNestD
             takePhoto()
         }
     }
+
     fun isConnectedToInternet(mContext: Context?): Boolean {
         if (mContext == null) return false
 
@@ -228,7 +231,7 @@ open class BaseActivity : PermissionHelperActivity(), IWellnestGraph, IWellNestD
     override fun addRawData(data: ByteArray) {
     }
 
-    fun sharePdf(file : Uri) {
+    fun sharePdf(file: Uri) {
         val sharingIntent = Intent(Intent.ACTION_SEND)
         sharingIntent.type = "application/pdf"
         sharingIntent.putExtra(
@@ -237,10 +240,10 @@ open class BaseActivity : PermissionHelperActivity(), IWellnestGraph, IWellNestD
         )
 
         if (sharingIntent.resolveActivity(packageManager) != null) {
-            val chooser = Intent.createChooser(sharingIntent,"Share Pdf")
+            val chooser = Intent.createChooser(sharingIntent, "Share Pdf")
             startActivity(chooser)
         } else {
-            Toast.makeText(this,"Unable to share pdf",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Unable to share pdf", Toast.LENGTH_SHORT).show()
         }
     }
 
