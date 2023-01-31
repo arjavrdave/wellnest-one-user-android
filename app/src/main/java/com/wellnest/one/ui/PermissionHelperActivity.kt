@@ -11,7 +11,9 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
  * Created by Hussain on 07/11/22.
@@ -76,11 +78,11 @@ open class PermissionHelperActivity : AppCompatActivity() {
 
     private var cameraPermRequest = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
+    ) { isGranted: Boolean ->
         if (isGranted) {
             cameraPermissionGranted(true)
         } else {
-            cameraPermissionGranted(true)
+            cameraPermissionGranted(false)
         }
     }
 
@@ -91,7 +93,6 @@ open class PermissionHelperActivity : AppCompatActivity() {
     open fun startBluetoothService(granted: Boolean) {
 
     }
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -161,10 +162,23 @@ open class PermissionHelperActivity : AppCompatActivity() {
     protected open fun checkCameraPermission() {
         if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             cameraPermissionGranted(true)
+        } else if (ActivityCompat.shouldShowRequestPermissionRationale(
+                this,
+                Manifest.permission.CAMERA
+            )
+        ) {
+            MaterialAlertDialogBuilder(this).setTitle("Camera Permission")
+                .setMessage("This permission is required to take a photo.")
+                .setPositiveButton("Ok") { dialog, which ->
+                    cameraPermRequest.launch(Manifest.permission.CAMERA)
+                    dialog.dismiss()
+                }
+                .show()
         } else {
             cameraPermRequest.launch(Manifest.permission.CAMERA)
         }
     }
+
 
     open fun startLocationServices(granted: Boolean) {
 
@@ -183,7 +197,10 @@ open class PermissionHelperActivity : AppCompatActivity() {
 
     fun askNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) ==
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.POST_NOTIFICATIONS
+                ) ==
                 PackageManager.PERMISSION_GRANTED
             ) {
                 // FCM SDK (and your app) can post notifications.
