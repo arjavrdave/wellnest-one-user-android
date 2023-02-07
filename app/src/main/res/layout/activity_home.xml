@@ -8,44 +8,36 @@
     </data>
 
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".ui.home.HomeActivity">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/toolBar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:context=".activities.home.recordings.RecordingsFragment">
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/toolBar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/white"
+                android:id="@+id/toolMain"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imgSettings"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_settings" />
-
-                <ImageView
                     android:id="@+id/imgSearch"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?attr/actionBarSize"
                     android:layout_marginStart="20dp"
                     android:background="?attr/actionBarItemBackground"
+                    android:contentDescription="@string/app_name"
                     android:src="@drawable/ic_search"
-                    android:tooltipText="@string/search_recording"
                     app:layout_constraintBottom_toBottomOf="@+id/tvHeader"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tvHeader" />
@@ -56,26 +48,42 @@
                     android:layout_height="?attr/actionBarSize"
                     android:fontFamily="@font/helvetica_bold"
                     android:gravity="center_vertical"
-                    android:text="ONE"
+                    android:text="@string/one"
                     android:textColor="@color/black"
                     android:textSize="17sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <ImageView
+                    android:id="@+id/imgSettings"
+                    android:layout_width="28dp"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/app_name"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_settings" />
 
-                <androidx.constraintlayout.widget.Group
-                    android:id="@+id/groupHome"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    app:constraint_referenced_ids="imgSearch,tvHeader,imgSettings" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/toolSearch"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/imgBack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
+                    android:contentDescription="@string/app_name"
                     android:src="@drawable/ic_back"
                     app:layout_constraintBottom_toBottomOf="@+id/edtSearch"
                     app:layout_constraintStart_toStartOf="parent"
@@ -88,10 +96,12 @@
                     android:layout_height="?attr/actionBarSize"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
+                    android:autofillHints="Search Recordings"
                     android:background="@null"
                     android:fontFamily="@font/roboto"
-                    android:hint="Search Recordings"
+                    android:hint="@string/search_recording"
                     android:imeOptions="actionDone"
+                    android:inputType="text"
                     android:singleLine="true"
                     android:textColorHint="#BFBFBF"
                     android:textSize="15sp"
@@ -105,174 +115,107 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="18dp"
                     android:background="?attr/actionBarItemBackground"
+                    android:contentDescription="@string/app_name"
                     app:layout_constraintBottom_toBottomOf="@+id/edtSearch"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/edtSearch"
                     app:srcCompat="@drawable/ic_close" />
 
-                <androidx.constraintlayout.widget.Group
-                    android:id="@+id/groupSearch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    app:constraint_referenced_ids="imgBack, edtSearch,imgClearTv" />
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/swRecordings"
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/gray_very_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolBar" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swRecordings"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvRecordings"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                tools:listitem="@layout/item_recording" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/toolBar"
-                    tools:layout_editor_absoluteX="0dp">
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+        <LinearLayout
+            android:id="@+id/llNewRecordingMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:elevation="10dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.88"
+            tools:ignore="UseCompoundDrawables">
 
-                    <TableRow
-                        android:id="@+id/hr"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/gray_very_light"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/tvNewRecordingMessage"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/helvetica_bold"
+                android:text="@string/click_here_to_record_ecg"
+                android:textColor="#999999"
+                android:textSize="18sp" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvRecordings"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:scrollbars="vertical"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/hr"
-                        app:layout_constraintVertical_bias="1.0"
-                        tools:listitem="@layout/item_recording"
-                        tools:visibility="gone" />
+            <ImageView
+                android:id="@+id/imgArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/arrow_pointer"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/llNewRecordingMsg"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="32dp"
-                        android:elevation="10dp"
-                        android:orientation="vertical"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.2"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.88">
+        <LinearLayout
+            android:id="@+id/llNoRecording"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view"
+            tools:ignore="UseCompoundDrawables">
 
-                        <TextView
-                            android:id="@+id/tvNewRecordingMessage"
-                            android:layout_width="120dp"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/helvetica_bold"
-                            android:text="@string/click_here_to_record_ecg"
-                            android:textColor="#999999"
-                            android:textSize="18sp" />
+            <ImageView
+                android:id="@+id/imgRecord"
+                android:layout_width="48dp"
+                android:layout_height="43dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/app_name" />
 
-                        <ImageView
-                            android:id="@+id/imgArrow"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="10dp"
-                            android:src="@drawable/arrow_pointer"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/llNoRecording"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:visibility="gone"
-                        tools:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/hr">
-
-
-                        <ImageView
-                            android:id="@+id/imageView5"
-                            android:layout_width="48dp"
-                            android:layout_height="43dp"
-                            android:layout_gravity="center"
-                            app:srcCompat="@drawable/ic_recordings_error" />
-
-                        <TextView
-                            android:id="@+id/textView38"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:fontFamily="@font/helvetica_bold"
-                            android:text="No Recordings"
-                            android:textColor="#999999"
-                            android:textSize="24sp"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView5"
-                            app:layout_constraintStart_toStartOf="@+id/imageView5"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView5" />
-                    </LinearLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clNoResults"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-
-                    <ImageView
-                        android:id="@+id/imgNoResult"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvNoResults"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/helvetica_bold"
-                        android:text="No Recordings"
-                        android:textSize="24sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imgNoResult" />
-
-                    <androidx.constraintlayout.widget.Group
-                        android:id="@+id/groupError"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        app:constraint_referenced_ids="clNoResults,imgNoResult,tvNoResults" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-
+            <TextView
+                android:id="@+id/tvLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/helvetica_bold"
+                android:textColor="#999999"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="@+id/imgRecord"
+                app:layout_constraintStart_toStartOf="@+id/imgRecord"
+                app:layout_constraintTop_toBottomOf="@+id/imgRecord" />
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -290,9 +233,11 @@
             android:text="@string/new_recording"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

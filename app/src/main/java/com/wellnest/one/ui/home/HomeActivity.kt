@@ -1,14 +1,9 @@
 package com.wellnest.one.ui.home
 
-import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
-import android.content.ServiceConnection
 import android.os.Bundle
-import android.os.IBinder
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -21,60 +16,36 @@ import com.wellnest.one.data.local.user_pref.PreferenceManager
 import com.wellnest.one.databinding.ActivityHomeBinding
 import com.wellnest.one.model.response.GetRecordingResponse
 import com.wellnest.one.ui.BaseActivity
+import com.wellnest.one.ui.feedback.ECGFeedbackActivity
 import com.wellnest.one.ui.profile.ProfileViewModel
 import com.wellnest.one.ui.profile.UserProfileActivity
 import com.wellnest.one.ui.recording.pair.PairDeviceActivity
 import com.wellnest.one.ui.recording.pair.SymptomsActivity
 import com.wellnest.one.utils.KeyboardHelper
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-/**
- * Created by Hussain on 08/11/22.
- */
+
 @AndroidEntryPoint
-class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
+class HomeActivity : BaseActivity(), View.OnClickListener {
 
-
-    private var listOfRecordings = listOf<GetRecordingResponse>()
-    private val TAG = "HomeActivity"
 
     private lateinit var binding: ActivityHomeBinding
-
+    private var listOfRecordings = mutableListOf<GetRecordingResponse>()
     private var bluetoothLeService: BluetoothLeService? = null
 
     @Inject
     lateinit var preferenceManager: PreferenceManager
-
     private lateinit var homeAdapter: HomeAdapter
-
     private val recordingViewModel: HomeViewModel by viewModels()
+    private val profileViewModel: ProfileViewModel by viewModels()
 
-    private val profileviewModel: ProfileViewModel by viewModels()
-
-    private var mTotalRecordings = 30
-    private var mSkip = 0
-
-    private var mSearchMode = false
-
-    private var loading = true
-    private var pastVisiblesItems = 0
-    private var visibleItemCount: Int = 0
-    private var totalItemCount: Int = 0
-
-    private var LIST_MODE: String = "listMode"
-    private var SEARCH_MODE: String = "searchMode"
-    private var CURRENT_MODE = ""
-
+    private var isLoading: Boolean = false
+    private var isSearch: Boolean = false
     private lateinit var layoutManager: LinearLayoutManager
-    private var charLength: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
 
         binding.imgSettings.setOnClickListener(this)
@@ -83,219 +54,108 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
         binding.imgBack.setOnClickListener(this)
         binding.imgClearTv.setOnClickListener(this)
 
-        layoutManager = LinearLayoutManager(this)
-
-        homeAdapter = HomeAdapter(this)
-
-        binding.rvRecordings.adapter = homeAdapter
-        binding.rvRecordings.layoutManager = layoutManager
-
-        setInfiniteScrolling()
-
-        setupObservers()
-
+        setupRecyclerView()
+        profileViewModel.getProfile()
         recordingViewModel.getReadTokenForUser()
-
-        profileviewModel.getProfile()
-
         recordingViewModel.getRecordings()
-
         binding.swRecordings.setOnRefreshListener {
             recordingViewModel.getRecordings()
         }
-
-        val token = preferenceManager.getFcmToken()
-        Log.i(TAG, "$token")
-
+        setupObservers()
     }
 
-    private fun setupObservers() {
-        recordingViewModel.recordings.observe(this) {
-
-
-            if (it.isEmpty() && homeAdapter.itemCount == 0) {
-                binding.imgSearch.visibility = View.INVISIBLE
-                binding.groupError.visibility = View.VISIBLE
-                binding.llNoRecording.visibility = View.VISIBLE
-
-                if (CURRENT_MODE == LIST_MODE)
-                    binding.llNewRecordingMsg.visibility = View.VISIBLE
-
-            } else {
-                binding.groupError.visibility = View.GONE
-                binding.llNoRecording.visibility = View.GONE
-                binding.llNewRecordingMsg.visibility = View.GONE
-
-                if (binding.swRecordings.isRefreshing && !mSearchMode) {
-                    loading = true
-                    binding.swRecordings.isRefreshing = false
-                    homeAdapter.addNewRecordings(it.toMutableList(), false, charLength)
-                    mTotalRecordings = 60
-                    mSkip = 30
-                } else if (!mSearchMode) {
-                    listOfRecordings = it
-                    loading = true
-                    homeAdapter.addNewRecordings(it.toMutableList(), false, charLength)
-                    mTotalRecordings += 30
-                    mSkip += 30
-                } else {
-                    homeAdapter.addNewRecordings(it.toMutableList(), true, charLength)
-                }
-            }
-            binding.swRecordings.isRefreshing = false
-        }
-
-        recordingViewModel.readTokenUser.observe(this) {
-            homeAdapter.setSasToken(it.sasToken)
-        }
-
-        recordingViewModel.errorMsg.observe(this) {
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-        }
-
-        profileviewModel.profileData.observe(this) {
-            preferenceManager.saveUser(it)
-        }
-    }
-
-
-    private fun searchRecordings() {
-        mSearchMode = true
-        binding.swRecordings.isEnabled = false
-        binding.edtSearch.addTextChangedListener(this)
-        binding.llNewRecordingMsg.visibility = View.GONE
-
-
-        if (listOfRecordings.isEmpty()) {
-            binding.groupError.visibility = View.VISIBLE
-        } else {
-            binding.groupError.visibility = View.GONE
-        }
-
-        toggleNoResultView(SEARCH_MODE)
-
-        visibility(View.GONE, View.VISIBLE, View.GONE)
-
-
-        binding.edtSearch.requestFocus()
-        KeyboardHelper.showKeyboard(this@HomeActivity, binding.edtSearch)
-    }
-
-    private fun toggleNoResultView(type: String) {
-
-        when (type) {
-            LIST_MODE -> {
-                binding.imgNoResult.setBackgroundResource(R.drawable.ic_recordings_error)
-                binding.tvNoResults.text = "No Recordings"
-                CURRENT_MODE = LIST_MODE
-            }
-            SEARCH_MODE -> {
-                binding.imgNoResult.setBackgroundResource(R.drawable.image_search_noresult)
-                binding.tvNoResults.text = "No Results"
-                CURRENT_MODE = SEARCH_MODE
-            }
-        }
-    }
-
-    fun visibility(home: Int, search: Int, recording: Int) {
-        binding.groupHome.visibility = home
-        binding.groupSearch.visibility = search
-        binding.btnRecording.visibility = recording
-    }
-
-    private fun goBackToListMode() {
-        mSearchMode = false
-        KeyboardHelper.hideKeyboard(this)
-        mTotalRecordings = 30
-        mSkip = 0
-        recordingViewModel.getRecordings()
-        binding.swRecordings.isEnabled = true
-        binding.edtSearch.text.clear()
-        binding.edtSearch.removeTextChangedListener(this)
-
-
-        if (listOfRecordings.isEmpty()) {
-            binding.groupError.visibility = View.VISIBLE
-            binding.llNewRecordingMsg.visibility = View.VISIBLE
-        }
-
-        toggleNoResultView(LIST_MODE)
-
-        CoroutineScope(Dispatchers.Main).launch {
-            delay(500)
-            visibility(View.VISIBLE, View.GONE, View.VISIBLE)
-        }
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-        if (bluetoothLeService != null) {
-            setBluetoothState()
-        } else {
-            val gattServiceIntent = Intent(this, BluetoothLeService::class.java)
-            bindService(
-                gattServiceIntent,
-                mServiceConnection,
-                Context.BIND_AUTO_CREATE
-            )
-        }
-    }
-
-    private fun setInfiniteScrolling() {
+    private fun setupRecyclerView() {
+        homeAdapter = HomeAdapter(this@HomeActivity)
+        layoutManager = LinearLayoutManager(this)
+        binding.rvRecordings.layoutManager = layoutManager
+        binding.rvRecordings.adapter = homeAdapter
 
         binding.rvRecordings.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0) {
-                    visibleItemCount = layoutManager.childCount
-                    totalItemCount = layoutManager.itemCount
-                    pastVisiblesItems = layoutManager.findFirstVisibleItemPosition()
-                    if (loading) {
-                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-                            loading = false
-                            recordingViewModel.getRecordings(null, mTotalRecordings, mSkip)
+                super.onScrolled(recyclerView, dx, dy)
+                if (!isLoading) {
+                    if (layoutManager.findLastCompletelyVisibleItemPosition() == listOfRecordings.size - 1) {
+                        if (!isSearch) {
+                            loadData()
                         }
+                        isLoading = true
                     }
                 }
             }
         })
-    }
 
-    private fun setBluetoothState() {
-
-    }
-
-    private val mServiceConnection = object : ServiceConnection {
-
-        override fun onServiceConnected(componentName: ComponentName, service: IBinder) {
-            bluetoothLeService = (service as BluetoothLeService.LocalBinder).service
-            if (!bluetoothLeService!!.initialize()) {
-                //  finish()
+        homeAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+//                layoutManager.scrollToPositionWithOffset(positionStart, 0)
             }
-            setBluetoothState()
-        }
+        })
 
-        override fun onServiceDisconnected(componentName: ComponentName) {
-            bluetoothLeService = null
-//            WellNestLoader.dismissLoader()
-        }
+        homeAdapter.setListener(object : HomeAdapter.ListItemClickListener {
+            override fun onItemClick(id: Int, position: Int) {
+                val feedbackIntent = Intent(this@HomeActivity, ECGFeedbackActivity::class.java)
+                feedbackIntent.putExtra("id", id)
+                feedbackIntent.putExtra("status", position)
+                startActivity(feedbackIntent)
+            }
+        })
     }
 
+    private fun setupObservers() {
+        recordingViewModel.recordings.observe(this) {
+            binding.llNoRecording.visibility = View.GONE
+            if (isLoading) {
+                isLoading = false
+                if (isSearch) {
+                    listOfRecordings.clear()
+                }
+                val newMovies = ArrayList<GetRecordingResponse>()
+                newMovies.addAll(it)
+                updateDataList(newMovies)
+            } else {
+                listOfRecordings.clear()
+                listOfRecordings.addAll(it)
+                homeAdapter.addNewRecordings(listOfRecordings)
+                if (listOfRecordings.isEmpty()) {
+                    if (isSearch) {
+                        binding.llNoRecording.visibility = View.VISIBLE
+                        binding.imgRecord.setBackgroundResource(R.drawable.image_search_noresult)
+                        binding.tvLabel.text = resources.getString(R.string.no_results)
+                    } else {
+                        binding.llNoRecording.visibility = View.VISIBLE
+                        binding.imgRecord.setBackgroundResource(R.drawable.ic_recordings_error)
+                        binding.tvLabel.text = resources.getString(R.string.no_recordings)
+                    }
+                } else {
+                    binding.llNewRecordingMsg.visibility = View.GONE
+                    binding.llNoRecording.visibility = View.GONE
+                }
+            }
+            binding.swRecordings.isRefreshing = false
+        }
+        recordingViewModel.readTokenUser.observe(this) {
+            homeAdapter.setSasToken(it.sasToken)
+        }
+        recordingViewModel.errorMsg.observe(this) {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        }
+
+        profileViewModel.profileData.observe(this) {
+            preferenceManager.saveUser(it)
+        }
+    }
 
     override fun onClick(view: View?) {
+
         when (view?.id) {
             R.id.imgSettings -> {
                 startActivity(Intent(this, UserProfileActivity::class.java))
             }
-
             R.id.imgSearch -> {
                 searchRecordings()
             }
-
             R.id.imgBack -> {
                 goBackToListMode()
             }
-
             R.id.btnRecording -> {
                 if (bluetoothLeService?.isConnected() == true) {
                     val symptoms = Intent(this, SymptomsActivity::class.java)
@@ -309,27 +169,55 @@ class HomeActivity : BaseActivity(), View.OnClickListener, TextWatcher {
             }
 
             R.id.imgClearTv -> binding.edtSearch.text.clear()
-
         }
     }
 
-    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+    private fun searchRecordings() {
+        isSearch = true
+        binding.swRecordings.isEnabled = false
+        binding.toolSearch.visibility = View.VISIBLE
+        binding.toolMain.visibility = View.GONE
+        binding.btnRecording.visibility = View.GONE
+        binding.llNewRecordingMsg.visibility = View.GONE
+        binding.edtSearch.requestFocus()
+        KeyboardHelper.showKeyboard(this@HomeActivity, binding.edtSearch)
+        binding.edtSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s!!.length >= 3) {
+                    recordingViewModel.getRecordings(patientName = s.toString())
+                }
+                if (s.isEmpty()) {
+                    recordingViewModel.getRecordings()
+                }
+            }
 
+            override fun afterTextChanged(s: Editable?) {}
+        })
     }
 
-    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        charLength = p0?.length!!
-        if (p0.length >= 3) {
-            recordingViewModel.getRecordings(patientName = p0.toString())
-        }
-
-        if (p0.isEmpty()) {
-            recordingViewModel.getRecordings()
-        }
-
+    private fun goBackToListMode() {
+        KeyboardHelper.hideKeyboard(this)
+        isSearch = false
+        recordingViewModel.getRecordings()
+        binding.swRecordings.isEnabled = true
+        binding.edtSearch.text.clear()
+        binding.toolMain.visibility = View.VISIBLE
+        binding.toolSearch.visibility = View.GONE
+        binding.btnRecording.visibility = View.VISIBLE
+        binding.llNewRecordingMsg.visibility = View.VISIBLE
     }
 
-    override fun afterTextChanged(p0: Editable?) {
+    fun loadData() {
+        val skip = listOfRecordings.size
+        val take = skip + 10
+        recordingViewModel.getRecordings(null, take, skip)
+    }
 
+    private fun updateDataList(newList: List<GetRecordingResponse>) {
+        val tempList = listOfRecordings.toMutableList()
+        tempList.addAll(newList)
+        homeAdapter.addNewRecordings(tempList)
+        listOfRecordings = tempList
     }
 }

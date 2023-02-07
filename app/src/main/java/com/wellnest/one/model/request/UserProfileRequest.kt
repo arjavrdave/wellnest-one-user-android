@@ -18,7 +18,7 @@ data class UserProfileRequest(
     @SerializedName("gender")
     val gender: String?,
     @SerializedName("height")
-    val height: Int?,
+    val height: Double?,
     @SerializedName("heightUnit")
     val heightUnit: String?,
     @SerializedName("lastName")
