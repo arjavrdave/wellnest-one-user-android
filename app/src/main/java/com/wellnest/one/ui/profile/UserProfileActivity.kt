@@ -1,14 +1,14 @@
 package com.wellnest.one.ui.profile
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
-import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.wellnest.one.BuildConfig
@@ -21,15 +21,9 @@ import com.wellnest.one.ui.BaseActivity
 import com.wellnest.one.ui.onboarding.WelcomeActivity
 import com.wellnest.one.utils.*
 import com.wellnest.one.utils.Constants.GRAM_FACTOR
-import com.wellnest.one.utils.Constants.METER_FACTOR
 import com.wellnest.one.utils.units.HeightUnit
 import com.wellnest.one.utils.units.WeightUnit
 import dagger.hilt.android.AndroidEntryPoint
-import java.math.RoundingMode
-import java.text.DecimalFormat
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.Period
 import java.util.*
 import javax.inject.Inject
 
@@ -109,6 +103,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setupUI(profile: UserProfile) {
         binding.tvName.text = "${profile.firstName} ${profile.lastName}"
 
@@ -117,7 +112,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
                 profile.phoneNumber?.substring(
                     IntRange(
                         5,
-                        profile.phoneNumber?.length!! - 1
+                        profile.phoneNumber.length - 1
                     )
                 )
             }"
@@ -127,15 +122,16 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
                 weightLayout.tvValue.text = "${profile.weight!! / 1000.0} Kg"
             else
                 weightLayout.tvValue.text =
-                    "${CalculatorUtil.formattedPounds(gramsToPounds(profile.weight?.toDouble() ?: 0.0))} Lbs"
+                    "${CalculatorUtil.formattedPounds(gramsToPounds(profile.weight ?: 0.0))} Lbs"
 
 
             if (profile.heightUnit == HeightUnit.CMS.toString() || profile.heightUnit == HeightUnit.Cm.toString()) {
                 heightLayout.tvValue.text = "${profile.height} Cms"
             } else {
-                val inches = profile.height?.convertCmsToInch() ?: 0.0
-                val feet = (inches / 12).toInt()
-                val inch = (inches - (12 * feet)).roundValue().toInt()
+                val feetList =
+                    CalculatorUtil.convertToFeetInches(profile.height.toString()).split(",")
+                val feet = feetList[0] + "'"
+                val inch = feetList[1] + "\""
                 heightLayout.tvValue.text = "$feet ft $inch in"
             }
 
@@ -152,28 +148,11 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
     }
 
 
-    fun gramsToPounds(weight: Double): Double {
+    private fun gramsToPounds(weight: Double): Double {
         return weight / GRAM_FACTOR
     }
 
-    fun cmsToFeet(cms: Double): Double {
-
-        val feet = (cms.toFloat() / 100) * METER_FACTOR
-        val df = DecimalFormat("#.#")
-        df.roundingMode = RoundingMode.CEILING
-
-        return df.format(feet).toDouble()
-    }
-
-    private fun feetToCms(feet: String, inch: String): Double {
-        val heightInCms =
-            feet.toFloat() * Constants.FEET_FACTOR + inch.toFloat() * Constants.INCH_FACTOR
-        val df = DecimalFormat("#.##")
-        df.roundingMode = RoundingMode.CEILING
-
-        return df.format(heightInCms).toDouble()
-    }
-
+    @SuppressLint("SetTextI18n")
     private fun setupLayout() {
         binding.heightLayout.tvHeader.gravity = View.TEXT_ALIGNMENT_TEXT_START
         binding.heightLayout.tvValue.gravity = View.TEXT_ALIGNMENT_TEXT_START
@@ -203,6 +182,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
             "Wellnest One v${packageManager.getPackageInfo(packageName, 0).versionName}"
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.imgBack -> finish()
@@ -253,6 +233,4 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
         binding.imgProfile.setImageBitmap(bitmap)
         selectedProfileImage = bitmap
     }
-
-
 }

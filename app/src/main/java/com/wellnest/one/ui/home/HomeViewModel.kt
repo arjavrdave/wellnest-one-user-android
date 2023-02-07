@@ -9,6 +9,7 @@ import com.wellnest.one.model.ApiResult
 import com.wellnest.one.model.response.GetRecordingResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,6 +23,7 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
     private val _errorMsg = MutableLiveData<String>()
     val errorMsg: LiveData<String> get() = _errorMsg
 
+    private var tempJob: Job? = null
     private val _recordings = MutableLiveData<List<GetRecordingResponse>>()
     val recordings: LiveData<List<GetRecordingResponse>> get() = _recordings
 
@@ -40,7 +42,7 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
     }
 
     fun getRecordings(patientName: String? = null, take: Int? = 30, skip: Int? = 0) {
-        viewModelScope.launch(Dispatchers.IO) {
+        tempJob = viewModelScope.launch(Dispatchers.IO) {
             val result = homeRepository.getRecording(patientName, take, skip)
             when (result) {
                 is ApiResult.Success -> {

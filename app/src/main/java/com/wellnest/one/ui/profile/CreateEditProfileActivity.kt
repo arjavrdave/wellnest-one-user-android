@@ -1,5 +1,6 @@
 package com.wellnest.one.ui.profile
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -8,6 +9,7 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -22,9 +24,7 @@ import com.wellnest.one.model.request.MedicalHstory
 import com.wellnest.one.model.request.UserProfileRequest
 import com.wellnest.one.ui.BaseActivity
 import com.wellnest.one.utils.*
-import com.wellnest.one.utils.Constants.FEET_FACTOR
 import com.wellnest.one.utils.Constants.GRAM_FACTOR
-import com.wellnest.one.utils.Constants.INCH_FACTOR
 import com.wellnest.one.utils.units.HeightUnit
 import com.wellnest.one.utils.units.WeightUnit
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,10 +58,11 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
 
     private val smoking = listOf("Never", "Low", "Med", "High")
     private val tobacco = listOf("Never", "Low", "Med", "High")
-    private val exercise = listOf("Never","Low", "Med", "High")
+    private val exercise = listOf("Never", "Low", "Med", "High")
 
     private var profileImage = ""
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -157,6 +158,7 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setData(profile: UserProfile?) {
         profile?.let { user ->
 
@@ -190,7 +192,8 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
 
             if (profile.heightUnit == "FEET") {
                 profile.height?.let {
-                    val feet = CalculatorUtil.cmsToFeet(profile.height).toString().split(".")
+                    val feet =
+                        CalculatorUtil.convertToFeetInches(profile.height.toString()).split(",")
 
                     binding.tvFeet.text = feet[0] + "'"
                     binding.tvInch.text = feet[1] + "\""
@@ -230,7 +233,8 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
 
                 profile.weight?.let {
                     val pounds =
-                        CalculatorUtil.gramsToPounds(profile.weight.toDouble()).roundToInt().toString()
+                        CalculatorUtil.gramsToPounds(profile.weight.toDouble()).roundToInt()
+                            .toString()
                     binding.tvKilo.text = pounds
                 }
 
@@ -246,7 +250,9 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
             val date = profile.dob?.let { Util.isoToDobString(it).split(" ") }
             binding.tvYear.hint = ""
 
-            if (date?.get(0).isNullOrBlank() || date?.get(1).isNullOrBlank() || date?.get(2).isNullOrBlank()) {
+            if (date?.get(0).isNullOrBlank() || date?.get(1).isNullOrBlank() || date?.get(2)
+                    .isNullOrBlank()
+            ) {
                 binding.tvBdHint.visibility = View.VISIBLE
             } else {
                 binding.tvBdHint.visibility = View.GONE
@@ -284,18 +290,23 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
 
         binding.tgSex.onChangeListener = object : ToggleSwitch.OnChangeListener {
             override fun onToggleSwitchChanged(position: Int) {
-                mGender = if (position == 0) {
-                    "Male"
-                } else if (position == 1) {
-                    "Female"
-                } else {
-                    "Other"
+                mGender = when (position) {
+                    0 -> {
+                        "Male"
+                    }
+                    1 -> {
+                        "Female"
+                    }
+                    else -> {
+                        "Other"
+                    }
                 }
                 checkValidation()
             }
         }
 
         binding.tgHeight.onChangeListener = object : ToggleSwitch.OnChangeListener {
+            @SuppressLint("SetTextI18n")
             override fun onToggleSwitchChanged(position: Int) {
                 if (position == 1) {// convert feet inch to cms
                     mHeightUnit = HeightUnit.CMS
@@ -310,14 +321,14 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
                     val inch = binding.tvInch.text.toString().replace("\"", "").toDouble()
 
                     val cms = (feet.convertFeetToCms() + inch.convertInchToCms())
-                    val cmsString = cms.toString().split(".")
+                    val cmsString = cms.roundToInt()
 
-                    binding.tvFeet.text = cmsString[0]
+                    binding.tvFeet.text = cmsString.toString()
                     binding.tvInch.text = ""
 
-                    mHandler.postDelayed(Runnable {
+                    mHandler.postDelayed({
                         binding.spnrCms.setSelectedItemPosition(
-                            cmsString[0].toInt(),
+                            cmsString,
                             true
                         )
                     }, 500)
@@ -333,8 +344,10 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
                     val cms = binding.tvFeet.text.toString().toDouble()
                     val inches = cms.convertCmsToInch()
                     val feet = (inches / 12).toInt()
-                    val inch = (inches - (12 * feet)).roundValue().toInt()
-
+                    val inch = (inches % 12).toInt()/*.roundValue().toInt()*/
+                    /*val inch = (inches - (12 * feet))
+                    val roundoff = (inch * 100.0).roundToInt() / 100.0
+*/
                     binding.tvFeet.text = "$feet'"
                     binding.tvInch.text = "$inch\""
 
@@ -345,7 +358,7 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
                         )
                     }, 500)
 
-                    mHandler.postDelayed(Runnable {
+                    mHandler.postDelayed({
                         binding.spnrInch.setSelectedItemPosition(
                             inch,
                             true
@@ -356,6 +369,7 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
         }
 
         binding.tgWeight.onChangeListener = object : ToggleSwitch.OnChangeListener {
+            @SuppressLint("SetTextI18n")
             override fun onToggleSwitchChanged(position: Int) {
                 if (position == 1) {  // kgs to PND converter
                     mWeightUnit = WeightUnit.PND
@@ -369,7 +383,7 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
                         (binding.tvKilo.text.toString() + binding.tvGrams.text.toString()).toDouble()
                     val pounds = totalKilos.convertKilosToPounds().roundValue().toInt().toString()
 
-                    binding.tvKilo.text = "$pounds"
+                    binding.tvKilo.text = pounds
                     binding.tvGrams.text = ""
 
                     mHandler.postDelayed({
@@ -389,7 +403,7 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
                     val kilos = binding.tvKilo.text.toString().toDouble()
                         .convertPoundsToKilos().formatValue().toString().split(".")
 
-                    binding.tvKilo.text = "${kilos[0]}"
+                    binding.tvKilo.text = kilos[0]
                     binding.tvGrams.text = ".${kilos[1]}"
 
                     mHandler.postDelayed({
@@ -585,7 +599,7 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
                 if (binding.weightPicker.visibility != View.VISIBLE) {
                     binding.weightPicker.visibility = View.VISIBLE
 
-                    mHandler.postDelayed(Runnable {
+                    mHandler.postDelayed({
                         binding.scrollView.fullScroll(View.FOCUS_DOWN)
                     }, 500)
 
@@ -596,7 +610,7 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
 
                         val value = binding.tvKilo.text.toString().toInt()
 
-                        mHandler.postDelayed(Runnable {
+                        mHandler.postDelayed({
                             binding.spnrKilos.setSelectedItemPosition(
                                 value,
                                 true
@@ -615,7 +629,7 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
 
                         val value = binding.tvKilo.text.toString().toInt()
 
-                        mHandler.postDelayed(Runnable {
+                        mHandler.postDelayed({
                             binding.spnrPounds.setSelectedItemPosition(
                                 value,
                                 true
@@ -635,7 +649,7 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
                 if (binding.heightPicker.visibility != View.VISIBLE) {
                     binding.heightPicker.visibility = View.VISIBLE
 
-                    mHandler.postDelayed(Runnable {
+                    mHandler.postDelayed({
                         binding.scrollView.fullScroll(View.FOCUS_DOWN)
 
                     }, 500)
@@ -645,7 +659,7 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
 
                         val cmValue = binding.tvFeet.text.toString().toInt()
 
-                        mHandler.postDelayed(Runnable {
+                        mHandler.postDelayed({
                             binding.spnrCms.setSelectedItemPosition(
                                 cmValue,
                                 true
@@ -655,18 +669,19 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
                     } else {
 
                         val feetValue = binding.tvFeet.text.toString().split("'")[0].toInt()
-                        val inchValue = binding.tvInch.text.toString().split("\"")[0].toInt()
+                        val getInchValue = binding.tvInch.text.toString()/*.split("\"")[0].toInt()*/
+                        val inchValue = getInchValue.replace("\"", "")
 
-                        mHandler.postDelayed(Runnable {
+                        mHandler.postDelayed({
                             binding.spnrFeet.setSelectedItemPosition(
                                 feetValue,
                                 true
                             )
                         }, 500)
 
-                        mHandler.postDelayed(Runnable {
+                        mHandler.postDelayed({
                             binding.spnrInch.setSelectedItemPosition(
-                                inchValue,
+                                inchValue.toInt(),
                                 true
                             )
                         }, 200)
@@ -701,7 +716,7 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
         val firstName = binding.edtFirstName.text.toString().trim()
 
         if (!firstName.isAlphaNumeric(true)) {
-            Toast.makeText(this,"special characters not allowed.",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "special characters not allowed.", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -713,7 +728,7 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
         val lastName = binding.edtLastName.text.toString().trim()
 
         if (!lastName.isAlphaNumeric(true)) {
-            Toast.makeText(this,"special characters not allowed.",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "special characters not allowed.", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -745,7 +760,7 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
         }
 
         if (height == 0.0) {
-            Toast.makeText(this,"Height Required",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Height Required", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -761,7 +776,7 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
         }
 
         if (weight == 0.0) {
-            Toast.makeText(this,"Weight Required",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Weight Required", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -794,14 +809,14 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
         val userProfile = preferenceManager.getUser()
 
         if (from == UserProfileActivity::class.java.simpleName) {
-            val medicalHistory = preferenceManager.getMedicalHistory() ?: null
+            val medicalHistory = preferenceManager.getMedicalHistory()
             val updated = UserProfileRequest(
                 userProfile?.countryCode,
                 dob,
                 email,
                 firstName,
                 mGender,
-                height.toInt(),
+                height,
                 mHeightUnit.toString(),
                 lastName,
                 MedicalHstory(
@@ -831,7 +846,7 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
                 email,
                 firstName,
                 mGender,
-                height.toInt(),
+                height,
                 mHeightUnit.toString(),
                 lastName,
                 null,
@@ -864,18 +879,18 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
         return weight.toDouble()
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun dobToIsoString(dob: String): String {
         val date = SimpleDateFormat("ddMMMMyyyy").parse(dob)
         val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-        return dateFormat.format(date)
+        return dateFormat.format(date!!)
     }
 
     private fun feetToCms(feet: String, inch: String): Double {
-        val heightInCms = feet.toFloat() * FEET_FACTOR + inch.toFloat() * INCH_FACTOR
-        val df = DecimalFormat("#.##")
-        df.roundingMode = RoundingMode.CEILING
 
-        return df.format(heightInCms).toDouble()
+        val feetConvert = 30.48 * Integer.parseInt(feet)
+        val inchConvert = 2.54 * Integer.parseInt(inch)
+        return feetConvert + inchConvert
     }
 
     private fun setSpinnerListeners() {
@@ -890,6 +905,7 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
         binding.spnrPounds.setOnItemSelectedListener(this)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onItemSelected(picker: WheelPicker?, data: Any?, position: Int) {
         when (picker!!.id) {
             R.id.spnrDay -> {
@@ -953,8 +969,9 @@ class CreateEditProfileActivity : BaseActivity(), View.OnClickListener,
 
     private fun checkValidation() {
         binding.apply {
-            binding.btnNext.isEnabled = (edtFirstName.text.isNotBlank() && edtLastName.text.isNotBlank() && binding.tvDay.text.isNotBlank() && binding.tvMonth.text.isNotBlank() && binding.tvYear.text.isNotBlank()
-                    && binding.tgSex.checkedPosition != null && (binding.tvKilo.text.isNotBlank() || binding.tvGrams.text.isNotBlank()))
+            binding.btnNext.isEnabled =
+                (edtFirstName.text.isNotBlank() && edtLastName.text.isNotBlank() && binding.tvDay.text.isNotBlank() && binding.tvMonth.text.isNotBlank() && binding.tvYear.text.isNotBlank()
+                        && binding.tgSex.checkedPosition != null && (binding.tvKilo.text.isNotBlank() || binding.tvGrams.text.isNotBlank()))
         }
     }
 }

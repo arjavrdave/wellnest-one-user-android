@@ -34,6 +34,8 @@
     <string name="cancel">Cancel</string>
     <string name="Press_hold"><![CDATA[Press & hold power button until\nyou see blinking lights on Wellnest 12L\u00AE]]></string>
     <string name="pair_a_device">Pair a Device</string>
+    <string name="no_results">No Results</string>
+    <string name="no_recordings">No Recordings</string>
     <string name="select_wellnest">Select Wellnest 12L\u00AE\nfrom the list to connect</string>
     <string name="privatekey_error">You need to connect to internet at-least once before taking recording</string>
     <string name="pair">Pair</string>

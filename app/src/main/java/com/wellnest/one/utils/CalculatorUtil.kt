@@ -3,9 +3,11 @@ package com.wellnest.one.utils
 import com.wellnest.one.utils.Constants.FEET_FACTOR
 import com.wellnest.one.utils.Constants.GRAM_FACTOR
 import com.wellnest.one.utils.Constants.INCH_FACTOR
-import com.wellnest.one.utils.Constants.METER_FACTOR
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import kotlin.math.floor
+import kotlin.math.round
+import kotlin.math.roundToInt
 
 /**
  * Created by Hussain on 11/11/22.
@@ -20,13 +22,14 @@ object CalculatorUtil {
         return df.format(heightInCms).toDouble()
     }
 
-    fun cmsToFeet(cms: Double): Double {
-
-        val feet = (cms.toFloat() / 100) * METER_FACTOR
-        val df = DecimalFormat("#.#")
-        df.roundingMode = RoundingMode.CEILING
-
-        return df.format(feet).toDouble()
+    @Throws(NumberFormatException::class)
+    fun convertToFeetInches(str: String): String {
+        val INCH_IN_CM = 2.54F
+        val value: Double = str.toDouble()
+        val numInches = value / INCH_IN_CM
+        val feet = (numInches / 12).toInt()
+        val inches = (numInches % 12).toInt()
+        return "$feet,$inches"
     }
 
     fun kilosToGrams(kilo: String, gram: String): Double {
@@ -69,7 +72,7 @@ object CalculatorUtil {
         return df.format(pounds.toDouble() * GRAM_FACTOR).toDouble()
     }
 
-    fun formattedPounds(pounds : Double) : Double {
+    fun formattedPounds(pounds: Double): Double {
         val df = DecimalFormat("#.#")
         df.roundingMode = RoundingMode.CEILING
         return df.format(pounds).toDouble()
